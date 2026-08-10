@@ -73,7 +73,7 @@
     }
     .sidebar-media:hover video { transform: scale(1.04); }
 
-    /* ── 3 tabs: Inbal Keller | Playground | Projects ── */
+    /* ── 3 tabs ── */
     .nav-tabs { flex: 0 0 auto; display: flex; flex-direction: column; }
 
     .nav-tab {
@@ -85,12 +85,10 @@
       position: relative; overflow: hidden; opacity: 0;
     }
 
-    /* staggered entry */
     .nav-tab:nth-child(1) { animation: slideUp .5s .38s ease forwards; }
     .nav-tab:nth-child(2) { animation: slideUp .5s .48s ease forwards; }
     .nav-tab:nth-child(3) { animation: slideUp .5s .58s ease forwards; }
 
-    /* wipe animation */
     .nav-tab::before {
       content: ''; position: absolute; inset: 0;
       background: var(--blue-hover);
@@ -110,16 +108,14 @@
     .nav-tab:hover span  { color: var(--blue); }
     .nav-tab.active span { color: white; font-weight: 500; }
 
-    /* ── Projects sub-list — expands in-flow below Projects tab ── */
+    /* ── Projects sub-list ── */
     .projects-sublist {
       flex: 0 0 auto;
       overflow: hidden;
       max-height: 0;
       transition: max-height .42s var(--ease);
     }
-    .projects-sublist.open {
-      max-height: 400px;
-    }
+    .projects-sublist.open { max-height: 400px; }
     .projects-sublist a {
       display: flex; align-items: center;
       justify-content: flex-start;
@@ -136,7 +132,7 @@
     .projects-sublist a:hover,
     .projects-sublist a.highlighted { background: var(--blue-hover); }
 
-    /* ── Bio content — fills remaining space below sub-list ── */
+    /* ── Bio ── */
     .sidebar-bio {
       flex: 1; display: flex; flex-direction: column;
       justify-content: flex-end;
@@ -168,7 +164,7 @@
     @keyframes flyInBottom { to { transform: translateY(0); } }
 
     /* ── Tiles ── */
-    .tile { position: relative; overflow: hidden; cursor: none; }
+    .tile { position: relative; overflow: hidden; cursor: none; display: block; }
     .row-top .tile:first-child,
     .row-bottom .tile:first-child { border-right: 1px solid var(--blue); }
 
@@ -183,7 +179,7 @@
     .tile-dia { background: var(--bg2); }
     .tile-dia img { object-fit: contain; padding: 8%; }
 
-    /* ── Tile hover overlay ── */
+    /* ── Tile overlay ── */
     .tile-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(to top, rgba(4,4,28,.88) 0%, rgba(4,4,28,.42) 42%, transparent 72%);
@@ -245,7 +241,6 @@
 
   <div class="portfolio">
 
-    <!-- ── Sidebar ── -->
     <aside class="sidebar" id="sidebar">
 
       <div class="sidebar-media">
@@ -254,38 +249,29 @@
         </video>
       </div>
 
-      <!-- Tabs: Inbal Keller → Playground → Projects -->
       <nav class="nav-tabs">
-        <a class="nav-tab" href="#" data-section="inbal-keller">
-          <span>Inbal Keller</span>
-        </a>
-        <a class="nav-tab" href="#" data-section="playground">
-          <span>Playground</span>
-        </a>
-        <a class="nav-tab active" href="#" data-section="projects">
-          <span>Projects</span>
-        </a>
+        <a class="nav-tab" href="#" data-section="inbal-keller"><span>Inbal Keller</span></a>
+        <a class="nav-tab" href="#" data-section="playground"><span>Playground</span></a>
+        <a class="nav-tab active" href="#" data-section="projects"><span>Projects</span></a>
       </nav>
 
-      <!-- Sub-list: expands in-flow below Projects tab -->
       <div class="projects-sublist" id="projectsSublist">
         <a href="#" data-project="unity">Kabai Hamangalim</a>
         <a href="#" data-project="illustration">Neighboorhology</a>
         <a href="#" data-project="dia">Dia- diabetes controll dashboard</a>
-        <a href="#" data-project="peregrine">Miss p. Home for Peculiar</a>
+        <!-- ↓ שינוי יחיד: הוספת הלינק לדף Miss P -->
+        <a href="miss-p-home.html" data-project="peregrine">Miss p. Home for Peculiar</a>
       </div>
 
-      <!-- Bio text — fills remaining space -->
       <div class="sidebar-bio" id="sidebarBio">
         <p>Welcome to my portfolio</p>
         <p class="bold">Im a Musician</p>
         <p>[plays the oboe] &amp; Nanny</p>
-        <p>\\Visual Communication design student</p>
+        <p>\Visual Communication design student</p>
       </div>
 
     </aside>
 
-    <!-- ── Content grid ── -->
     <main class="content">
 
       <div class="row-top">
@@ -298,7 +284,8 @@
             <h2 class="tile-title">Neighboorhology</h2>
           </div>
         </div>
-        <div class="tile" data-id="peregrine">
+        <!-- ↓ שינוי יחיד: div הפך ל-a עם href -->
+        <a class="tile" data-id="peregrine" href="miss-p-home.html">
           <video autoplay loop muted playsinline>
             <source src="https://cdn.jsdelivr.net/gh/inbalkeller-stack/inbalkeller@main/epic-festive-euler/mnt/portfolio%20final/home%20projects%20page%20videos/Comp%201_25.mp4" type="video/mp4">
           </video>
@@ -306,7 +293,7 @@
             <p class="tile-cat">Motion Titles for a Book</p>
             <h2 class="tile-title">Miss Peregrine's Home for Peculiar Children by Ransom Riggs</h2>
           </div>
-        </div>
+        </a>
       </div>
 
       <div class="row-bottom">
@@ -320,11 +307,8 @@
           </div>
         </div>
         <div class="tile tile-dia" data-id="dia">
-          <img
-            src="https://www.figma.com/api/mcp/asset/a48df422-c2c9-46dd-9015-43aa56a6449d"
-            alt="Dia — Diabetes Control Dashboard"
-            loading="eager"
-          >
+          <img src="https://www.figma.com/api/mcp/asset/a48df422-c2c9-46dd-9015-43aa56a6449d"
+               alt="Dia — Diabetes Control Dashboard" loading="eager">
           <div class="tile-overlay">
             <p class="tile-cat">UX / UI</p>
             <h2 class="tile-title">Dia</h2>
@@ -336,7 +320,6 @@
   </div>
 
   <script>
-    /* ── Cursor ── */
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
       cursor.style.left = e.clientX + 'px';
@@ -349,7 +332,6 @@
     document.addEventListener('mouseleave', () => cursor.classList.add('hide'));
     document.addEventListener('mouseenter', () => cursor.classList.remove('hide'));
 
-    /* ── Tab switching ── */
     const navTabs = document.querySelectorAll('.nav-tab');
     navTabs.forEach(tab => {
       tab.addEventListener('click', e => {
@@ -359,7 +341,6 @@
       });
     });
 
-    /* ── Sub-list logic ── */
     const sublist     = document.getElementById('projectsSublist');
     const tiles       = document.querySelectorAll('.tile');
     const subItems    = document.querySelectorAll('#projectsSublist a[data-project]');
@@ -370,45 +351,34 @@
       clearTimeout(closeTimer);
       sublist.classList.add('open');
     }
-
     function scheduleClose() {
       closeTimer = setTimeout(() => {
         sublist.classList.remove('open');
         clearHighlights();
       }, 200);
     }
-
     function highlightProject(id) {
       subItems.forEach(el => el.classList.toggle('highlighted', el.dataset.project === id));
       tiles.forEach(el => el.classList.toggle('highlighted', el.dataset.id === id));
     }
-
     function clearHighlights() {
       subItems.forEach(el => el.classList.remove('highlighted'));
       tiles.forEach(el => el.classList.remove('highlighted'));
     }
 
-    /* Tile hover → open + highlight */
     tiles.forEach(tile => {
       tile.addEventListener('mouseenter', () => { openSublist(); highlightProject(tile.dataset.id); });
       tile.addEventListener('mouseleave', scheduleClose);
     });
-
-    /* Sub-item hover → highlight tile */
     subItems.forEach(item => {
       item.addEventListener('mouseenter', () => { openSublist(); highlightProject(item.dataset.project); });
       item.addEventListener('mouseleave', scheduleClose);
     });
-
-    /* Projects tab hover → open */
     projectsTab.addEventListener('mouseenter', openSublist);
     projectsTab.addEventListener('mouseleave', scheduleClose);
-
-    /* Stay open while hovering sub-list */
     sublist.addEventListener('mouseenter', () => clearTimeout(closeTimer));
     sublist.addEventListener('mouseleave', scheduleClose);
 
-    /* ── Remove loader ── */
     const loader = document.getElementById('loader');
     loader.addEventListener('animationend', () => loader.remove());
   </script>
