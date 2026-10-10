@@ -1,0 +1,415 @@
+/* =========================================================
+   INBAL KELLER — PORTFOLIO
+   Shared styles for every page (mobile-first).
+   Source: Figma "portfolio-claude" (exported frames, 1512px wide).
+   Desktop (>= 900px) keeps the Figma proportions:
+   sidebar 525 / content 987 (of 1512).
+   ========================================================= */
+
+/* ---------- Fonts (self-hosted, OFL) ---------- */
+@font-face { font-family: "IBM Plex Mono"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/ibm-plex-mono-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-weight: 700; font-style: italic; font-display: swap; src: url("fonts/ibm-plex-mono-latin-700-italic.woff2") format("woff2"); }
+@font-face { font-family: "Roboto Mono"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/roboto-mono-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Roboto Mono"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/roboto-mono-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Roboto Mono"; font-weight: 700; font-style: italic; font-display: swap; src: url("fonts/roboto-mono-latin-700-italic.woff2") format("woff2"); }
+
+/* ---------- Design tokens ---------- */
+:root {
+  --blue: #0004FF;
+  --bg: #FCF8FF;            /* page background (home + project pages) */
+  --bg-soft: #F9F9FF;       /* about + playground background */
+  --bg-dia: #FAF6FF;        /* DIA tile background (home) */
+  --white: #FFFFFF;
+
+  --font-plex: "IBM Plex Mono", monospace;
+  --font-roboto: "Roboto Mono", monospace;
+
+  /* theme (overridden per page) */
+  --c: var(--blue);          /* text, borders, "projects" fill */
+  --c-active: #E6E6FF;       /* current project row */
+  --c-on: var(--bg);         /* text on filled boxes */
+  --font: var(--font-plex);
+
+  --mobile-bar-h: 64px;
+}
+
+/* Per-page themes (colors from Figma) */
+.theme-neighborhology { --c: #E62E36; --c-active: #FFDCE9; --font: var(--font-roboto); }
+.theme-kabai          { --c: #0E5140; --c-active: #3AD5AE; --font: var(--font-roboto); }
+.theme-missp          { --c: #000000; --c-active: #CECFDE; }
+.theme-dia            { --c: #8365AE; --c-active: #E6D5FF; }
+.theme-about          { --font: var(--font-roboto); }
+.theme-about,
+.theme-playground     { --bg: var(--bg-soft); }
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { min-height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--c);
+  font-family: var(--font);
+  font-size: 18px;
+  line-height: 23px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, video { display: block; max-width: 100%; }
+img { height: auto; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+strong, b { font-weight: 700; }
+em { font-style: italic; }
+
+:focus-visible { outline: 2px solid var(--c); outline-offset: -4px; }
+
+body.is-loading { overflow: hidden; }
+
+/* =========================================================
+   LOADER (home only — first visit in a session)
+   ========================================================= */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--bg);
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+.loader__img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+.loader.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-seen .loader { display: none; }
+.loader-seen body.is-loading { overflow: auto; }
+
+/* =========================================================
+   HOME — nav building blocks
+   ========================================================= */
+.nav-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: var(--bg);
+  color: var(--c);
+  border-bottom: 1px solid var(--c);
+  text-align: center;
+}
+.nav-box--active { background: var(--c); color: var(--c-on); }
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0 12px 0 40px;
+  background: var(--bg);
+  color: var(--c);
+  border-bottom: 1px solid var(--c);
+  white-space: nowrap;
+}
+
+/* ---------- Home: mobile bar + hamburger ---------- */
+.mobile-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--mobile-bar-h);
+  padding: 0 20px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--c);
+}
+.menu-toggle { position: relative; width: 32px; height: 24px; }
+.menu-toggle__line {
+  position: absolute; left: 0; width: 100%; height: 2px;
+  background: var(--c);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.menu-toggle__line:nth-child(1) { top: 0; }
+.menu-toggle__line:nth-child(2) { top: 11px; }
+.menu-toggle__line:nth-child(3) { top: 22px; }
+.menu-toggle[aria-expanded="true"] .menu-toggle__line:nth-child(1) { transform: translateY(11px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .menu-toggle__line:nth-child(2) { opacity: 0; }
+.menu-toggle[aria-expanded="true"] .menu-toggle__line:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
+
+.mobile-menu {
+  position: fixed;
+  top: var(--mobile-bar-h); left: 0; right: 0; bottom: 0;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  overflow-y: auto;
+  transform: translateY(-100%);
+  visibility: hidden;
+  transition: transform 0.35s ease, visibility 0.35s ease;
+}
+.mobile-menu.is-open { transform: translateY(0); visibility: visible; }
+.mobile-menu .nav-box { min-height: 68px; flex: none; }
+.mobile-menu .nav-item { min-height: 67px; flex: none; }
+body.menu-open { overflow: hidden; }
+
+/* ---------- Home: mobile stack ---------- */
+.side__video { width: 100%; aspect-ratio: 404 / 421; object-fit: cover; }
+.side__nav { display: none; }
+.project-list { display: none; }
+.welcome { padding: 40px; border-bottom: 1px solid var(--c); }
+
+.tiles__row { display: flex; flex-direction: column; }
+.tile { display: block; overflow: hidden; }
+.tile img, .tile video { width: 100%; height: 100%; max-width: none; object-fit: cover; }
+.tile--neighborhology { aspect-ratio: 437 / 519; }
+.tile--missp          { aspect-ratio: 671 / 519; }
+.tile--kabai          { aspect-ratio: 641 / 461; }
+.tile--dia            { aspect-ratio: 467 / 461; background: var(--bg-dia); }
+
+/* =========================================================
+   INNER PAGES — sidebar (mobile first)
+   ========================================================= */
+.layout { display: flex; flex-direction: column; }
+
+.sidebar { container-type: inline-size; border-bottom: 1px solid var(--c); }
+
+.snav { display: flex; flex-direction: column; }
+.snav a, .snav span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-bottom: 1px solid var(--c);
+  background: var(--bg);
+  color: var(--c);
+  transition: background-color 0.2s ease;
+}
+.snav__name    { min-height: 64px; }
+.snav__group   { min-height: 56px; background: var(--c) !important; color: var(--c-on) !important; }
+.snav__item    { min-height: 40px; font-size: 16px; }
+.snav__play    { min-height: 48px; }
+.snav__row     { min-height: 56px; }
+.snav__item[aria-current="page"] { background: var(--c-active) !important; }
+.snav a:hover { background: var(--c-active); }
+
+.desc { padding: 32px 20px 40px; }
+.desc h2 {
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 400;
+}
+.desc p {
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+.desc p + h2 { margin-top: 32px; }
+.desc .lh-32 { line-height: 32px; }
+
+.content { container-type: inline-size; min-width: 0; }
+
+/* Content building blocks */
+.block-img { width: 100%; height: auto; }
+.block-video { position: relative; width: 100%; overflow: hidden; background: #000; }
+.block-video video { width: 100%; height: 100%; object-fit: cover; }
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+  background: var(--cta-bg, var(--c));
+  color: var(--bg);
+  font-family: var(--font-plex);
+  font-size: 18px;
+  transition: opacity 0.2s ease;
+}
+.cta:hover { opacity: 0.9; }
+
+/* Free-form section (absolutely placed on desktop, stacked on mobile) */
+.canvas { position: relative; padding: 32px 20px; }
+.canvas > * + * { margin-top: 24px; }
+.canvas img { width: 100%; height: auto; }
+.canvas .t-h { font-size: 20px; line-height: 26px; font-weight: 700; }
+.canvas .t-b { font-size: 15px; line-height: 24px; font-weight: 700; }
+.canvas .t-r { font-size: 15px; line-height: 24px; font-weight: 400; }
+.canvas .t-h + .t-b, .canvas .t-h + .t-r { margin-top: 10px; }
+.canvas .label { font-size: 18px; line-height: 23px; font-family: var(--font-roboto); }
+
+/* Miss P black section */
+.missp-black { background: #000; color: #fff; font-family: var(--font-plex); }
+
+/* Kabai white section */
+.kabai-white { background: var(--white); min-height: 240px; }
+
+/* Playground media stack */
+.pg-stack { position: relative; }
+.pg-stack img { width: 100%; height: auto; }
+.pg-video { position: absolute; overflow: hidden; }
+.pg-video video { width: 100%; height: 100%; object-fit: cover; }
+.pg-video--interceptor { left: calc(78 / 986 * 100%); top: calc(812 / 3485 * 100%); width: calc(848 / 986 * 100%); height: calc(478 / 3485 * 100%); }
+.pg-video--stutter     { left: calc(114 / 986 * 100%); top: calc(1421 / 3485 * 100%); width: calc(776 / 986 * 100%); height: calc(435 / 3485 * 100%); }
+.pg-tail { aspect-ratio: 986 / 449; }
+
+/* Playground sidebar */
+.pg-side__video { width: 100%; aspect-ratio: 524 / 384; object-fit: cover; border-bottom: 1px solid var(--c); }
+.theme-playground .snav a, .theme-playground .snav span { background: var(--white); }
+.theme-playground .snav__row { min-height: 72px; }
+.theme-playground .snav__current { min-height: 96px; background: var(--c) !important; color: var(--c-on) !important; }
+
+/* About */
+.about-text { padding: 32px 20px; font-size: 15px; line-height: 22px; }
+.about-text p + p { margin-top: 22px; }
+.about-girl { width: 90px; margin: 0 0 24px 40px; }
+.about-photos { display: flex; flex-direction: column; gap: 24px; padding: 0 20px 40px; }
+.about-photos img { width: 100%; height: auto; }
+.theme-about .snav__name { background: var(--c) !important; color: var(--c-on) !important; }
+
+/* Mobile: let text re-flow instead of the Figma line breaks */
+@media (max-width: 899px) {
+  .desc br, .canvas br, .about-text br { display: none; }
+  .canvas { aspect-ratio: auto !important; }
+  .canvas > * { width: auto !important; }
+  .canvas img { width: 100% !important; }
+  .cta { aspect-ratio: auto !important; }
+}
+
+/* =========================================================
+   DESKTOP (>= 900px) — Figma 1512 wide, scaled proportionally
+   ========================================================= */
+@media (min-width: 900px) {
+
+  /* ---------- Home ---------- */
+  .mobile-bar, .mobile-menu { display: none; }
+
+  .home {
+    display: flex; height: 100vh; overflow: hidden;
+    font-size: calc(100vw / 1512 * 18);
+    line-height: calc(100vw / 1512 * 23);
+  }
+  .home .nav-item { padding-left: calc(100vw / 1512 * 40); }
+
+  .side {
+    flex: 0 0 calc(404 / 1512 * 100%);
+    display: grid;
+    grid-template-rows: 421fr 110fr 94fr 98fr 257fr;
+    height: 100%;
+    border-right: 1px solid var(--c);
+  }
+  .side__video { width: 100%; height: 100%; aspect-ratio: auto; }
+  .side__nav { display: contents; }
+  .side__nav .nav-box--first { border-top: 1px solid var(--c); }
+  .side__slot { position: relative; min-height: 0; }
+  .welcome {
+    position: absolute;
+    left: calc(100vw / 1512 * 37); right: 0;
+    top: calc(57 / 257 * 100%);
+    padding: 0; border: 0;
+  }
+  .project-list { display: grid; grid-template-rows: repeat(4, 1fr); height: 100%; }
+  .project-list[hidden] { display: none; }
+  .project-list li { display: flex; }
+  .project-list li:last-child .nav-item { border-bottom: 0; }
+
+  .tiles { flex: 1 1 auto; display: flex; flex-direction: column; height: 100%; }
+  .tiles__row { flex-direction: row; min-height: 0; }
+  .tiles__row--top    { flex: 519 1 0; }
+  .tiles__row--bottom { flex: 461 1 0; }
+  .tile { aspect-ratio: auto; height: 100%; }
+  .tile--neighborhology { flex: 437 1 0; }
+  .tile--missp          { flex: 671 1 0; }
+  .tile--kabai          { flex: 641 1 0; }
+  .tile--dia            { flex: 467 1 0; }
+
+  /* ---------- Inner pages ---------- */
+  /* 1u = 1px of the 1512px Figma frame */
+  .layout {
+    --u: calc(100vw / 1512);
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 0;
+    flex: 0 0 calc(525 / 1512 * 100%);
+    height: 100vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    border-bottom: 0;
+    border-right: 1px solid var(--c);
+  }
+  .sidebar::-webkit-scrollbar { display: none; }
+
+  .content { flex: 1 1 0; }
+
+  /* Figma nav: name 143 · projects 87 · items 36 · playground 48 */
+  .snav { border-top: 1px solid var(--c); }
+  .snav a, .snav span { font-size: calc(var(--u) * 18); line-height: 1.25; }
+  .snav__name  { height: calc(var(--u) * 142); min-height: 0; }
+  .snav__group { height: calc(var(--u) * 87); min-height: 0; }
+  .snav__item  { height: calc(var(--u) * 36); min-height: 0; }
+  .snav__play  { height: calc(var(--u) * 49); min-height: 0; }
+  .theme-neighborhology .snav__group { height: calc(var(--u) * 101); }
+
+  .desc { padding: calc(var(--u) * var(--pt, 42)) calc(var(--u) * 20) calc(var(--u) * 40) calc(var(--u) * 42); }
+  .desc p.tight { margin-top: 0; }
+  .theme-dia .desc h2 { font-size: calc(var(--u) * 21); line-height: calc(var(--u) * 27); }
+  .theme-dia .desc p  { font-size: calc(var(--u) * 17); line-height: calc(var(--u) * 25); }
+  .desc h2 { font-size: calc(var(--u) * 20); line-height: calc(var(--u) * 26); }
+  .desc p  { font-size: calc(var(--u) * 16); line-height: calc(var(--u) * 24); margin-top: calc(var(--u) * 9); }
+  .desc p + h2 { margin-top: calc(var(--u) * 36); }
+  .desc .lh-32 { line-height: calc(var(--u) * 32); margin-top: calc(var(--u) * 5); }
+
+  .cta { font-size: calc(var(--u) * 18); min-height: 0; }
+
+  /* Free-form canvas: children placed with design coordinates */
+  .canvas { padding: 0; }
+  .canvas > * + * { margin-top: 0; }
+  .canvas > * { position: absolute; }
+  .canvas .t-h { font-size: calc(var(--u) * 21); line-height: calc(var(--u) * 28); }
+  .canvas .t-b { font-size: calc(var(--u) * 17); line-height: calc(var(--u) * 25); }
+  .canvas .t-r { font-size: calc(var(--u) * 16); line-height: calc(var(--u) * 25); }
+  .canvas .label { font-size: calc(var(--u) * 18); line-height: calc(var(--u) * 23); }
+
+  .kabai-white { min-height: 0; }
+
+  /* Playground sidebar: video 384 · rows 178 / 232 / 178 */
+  .theme-playground .snav { border-top: 0; }
+  .theme-playground .snav__row     { height: calc(var(--u) * 178); min-height: 0; }
+  .theme-playground .snav__current { height: calc(var(--u) * 232); min-height: 0; }
+
+  /* About: whole page is one 1512 × 1256 canvas */
+  .about {
+    position: relative;
+    aspect-ratio: 1512 / 1256;
+    --u: calc(100vw / 1512);
+  }
+  .about > * { position: absolute; }
+  .about .snav { left: 0; top: 0; width: calc(525 / 1512 * 100%); border: 0; }
+  .about .snav a, .about .snav span { border-right: 1px solid var(--c); font-size: calc(var(--u) * 18); }
+  .about .snav__name { height: calc(var(--u) * 144); }
+  .about .snav__row  { height: calc(var(--u) * 76); }
+  .about-text {
+    left: calc(42 / 1512 * 100%);
+    top: calc(361 / 1256 * 100%);
+    width: calc(440 / 1512 * 100%);
+    padding: 0;
+    font-size: calc(var(--u) * 16);
+    line-height: calc(var(--u) * 22);
+  }
+  .about-text p + p { margin-top: calc(var(--u) * 22); }
+  .about-girl   { left: calc(76 / 1512 * 100%);  top: calc(912 / 1256 * 100%); width: calc(130 / 1512 * 100%); margin: 0; }
+  .about-photos { display: contents; }
+  .about-photos img { position: absolute; }
+  .about-portrait { left: calc(769 / 1512 * 100%); top: calc(174 / 1256 * 100%); width: calc(459 / 1512 * 100%) !important; }
+  .about-oboe     { left: calc(591 / 1512 * 100%); top: calc(887 / 1256 * 100%); width: calc(459 / 1512 * 100%) !important; }
+}

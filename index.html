@@ -3,384 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inbal Keller</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --blue:       #0004ff;
-      --blue-hover: #AAACFD;
-      --bg:         #fcf8ff;
-      --bg2:        #faf6ff;
-      --f:          'Roboto Mono', monospace;
-      --sw:         26.3vw;
-      --ease:       cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    html, body {
-      height: 100%; overflow: hidden;
-      background: var(--bg); font-family: var(--f);
-      cursor: none; -webkit-font-smoothing: antialiased;
-    }
-
-    /* ── Cursor ── */
-    #cursor {
-      position: fixed; width: 8px; height: 8px;
-      background: var(--blue); border-radius: 50%;
-      pointer-events: none; z-index: 9999;
-      top: 0; left: 0; transform: translate(-50%, -50%);
-      transition: width .25s var(--ease), height .25s var(--ease),
-                  background .25s ease, border .25s ease;
-      mix-blend-mode: multiply;
-    }
-    #cursor.expand {
-      width: 44px; height: 44px;
-      background: transparent; border: 1.5px solid var(--blue);
-      mix-blend-mode: normal;
-    }
-    #cursor.hide { opacity: 0; }
-
-    /* ── Layout ── */
-    .portfolio {
-      display: grid; grid-template-columns: var(--sw) 1fr; height: 100vh;
-    }
-
-    /* ── Sidebar ── */
-    .sidebar {
-      display: flex; flex-direction: column;
-      height: 100vh; border-right: 1px solid var(--blue);
-      overflow: hidden;
-      transform: translateX(-30vw);
-      animation: flyInLeft .9s .05s var(--ease) forwards;
-    }
-    @keyframes flyInLeft { to { transform: translateX(0); } }
-
-    /* pottery video */
-    .sidebar-media {
-      flex: 0 0 32%; overflow: hidden; position: relative;
-      border-bottom: 1px solid var(--blue);
-      opacity: 0; animation: fadeIn .9s .2s ease forwards;
-    }
-    .sidebar-media video {
-      width: 100%; height: 100%; object-fit: cover;
-      object-position: center bottom;
-      display: block; pointer-events: none;
-      transition: transform .7s var(--ease);
-    }
-    .sidebar-media:hover video { transform: scale(1.04); }
-
-    /* ── 3 tabs ── */
-    .nav-tabs { flex: 0 0 auto; display: flex; flex-direction: column; }
-
-    .nav-tab {
-      flex: 0 0 clamp(64px, 7.4vh, 88px);
-      display: flex; align-items: center; justify-content: center;
-      padding: 0 clamp(16px, 2.2vw, 28px);
-      border-bottom: 1px solid var(--blue);
-      text-decoration: none; cursor: none;
-      position: relative; overflow: hidden; opacity: 0;
-    }
-
-    .nav-tab:nth-child(1) { animation: slideUp .5s .38s ease forwards; }
-    .nav-tab:nth-child(2) { animation: slideUp .5s .48s ease forwards; }
-    .nav-tab:nth-child(3) { animation: slideUp .5s .58s ease forwards; }
-
-    .nav-tab::before {
-      content: ''; position: absolute; inset: 0;
-      background: var(--blue-hover);
-      transform: translateX(-102%);
-      transition: transform .38s var(--ease);
-    }
-    .nav-tab:hover::before  { transform: translateX(0); }
-    .nav-tab.active::before { transform: translateX(0); background: var(--blue); }
-
-    .nav-tab span {
-      font-family: var(--f);
-      font-size: clamp(12px, 1.05vw, 15px); font-weight: 400;
-      letter-spacing: .02em; color: var(--blue);
-      position: relative; z-index: 1;
-      transition: color .38s ease;
-    }
-    .nav-tab:hover span  { color: var(--blue); }
-    .nav-tab.active span { color: white; font-weight: 500; }
-
-    /* ── Projects sub-list ── */
-    .projects-sublist {
-      flex: 0 0 auto;
-      overflow: hidden;
-      max-height: 0;
-      transition: max-height .42s var(--ease);
-    }
-    .projects-sublist.open { max-height: 400px; }
-    .projects-sublist a {
-      display: flex; align-items: center;
-      justify-content: flex-start;
-      padding-left: clamp(22px, 2.6vw, 38px);
-      height: clamp(52px, 6vh, 70px);
-      font-family: var(--f);
-      font-size: clamp(10px, 0.88vw, 13px);
-      font-weight: 400; color: var(--blue);
-      text-decoration: none; letter-spacing: .02em;
-      border-bottom: 1px solid var(--blue);
-      transition: background .2s ease; cursor: none;
-    }
-    .projects-sublist a:last-child { border-bottom: none; }
-    .projects-sublist a:hover,
-    .projects-sublist a.highlighted { background: var(--blue-hover); }
-
-    /* ── Bio ── */
-    .sidebar-bio {
-      flex: 1; display: flex; flex-direction: column;
-      justify-content: flex-end;
-      padding: clamp(18px, 2.2vw, 28px);
-      border-top: 1px solid var(--blue);
-    }
-    .sidebar-bio p {
-      font-family: var(--f);
-      font-size: clamp(10px, 0.88vw, 13px); font-weight: 400;
-      color: var(--blue); line-height: 2; letter-spacing: .02em;
-    }
-    .sidebar-bio p.bold { font-weight: 600; }
-
-    /* ── Content grid ── */
-    .content { display: grid; grid-template-rows: 52.8% 47.2%; height: 100vh; }
-
-    .row-top {
-      display: grid; grid-template-columns: 43.4% 56.6%;
-      border-bottom: 1px solid var(--blue);
-      transform: translateY(-56vh);
-      animation: flyInTop .9s .08s var(--ease) forwards;
-    }
-    .row-bottom {
-      display: grid; grid-template-columns: 56.2% 43.8%;
-      transform: translateY(55vh);
-      animation: flyInBottom .9s .12s var(--ease) forwards;
-    }
-    @keyframes flyInTop    { to { transform: translateY(0); } }
-    @keyframes flyInBottom { to { transform: translateY(0); } }
-
-    /* ── Tiles ── */
-    .tile { position: relative; overflow: hidden; cursor: none; display: block; }
-    .row-top .tile:first-child,
-    .row-bottom .tile:first-child { border-right: 1px solid var(--blue); }
-
-    .tile video, .tile img {
-      width: 100%; height: 100%; object-fit: cover;
-      display: block; pointer-events: none;
-      transition: transform .75s var(--ease);
-    }
-    .tile:hover video, .tile:hover img,
-    .tile.highlighted video, .tile.highlighted img { transform: scale(1.04); }
-
-    .tile-dia { background: var(--bg2); }
-    .tile-dia img { object-fit: contain; padding: 8%; }
-
-    /* ── Tile overlay ── */
-    .tile-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(4,4,28,.88) 0%, rgba(4,4,28,.42) 42%, transparent 72%);
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: clamp(14px, 2vw, 26px);
-      opacity: 0; transition: opacity .38s ease;
-    }
-    .tile:hover .tile-overlay,
-    .tile.highlighted .tile-overlay { opacity: 1; }
-
-    .tile-overlay::before {
-      content: ''; position: absolute; left: 0; bottom: 0; width: 2px; height: 0;
-      background: var(--blue); transition: height .45s var(--ease);
-    }
-    .tile:hover .tile-overlay::before,
-    .tile.highlighted .tile-overlay::before { height: 100%; }
-
-    .tile-cat {
-      font-size: clamp(18px, 1.7vw, 26px); font-weight: 500;
-      letter-spacing: .01em; color: #fff;
-      margin-bottom: clamp(5px, .55vw, 8px);
-      transform: translateY(8px); transition: transform .38s .04s var(--ease);
-    }
-    .tile:hover .tile-cat, .tile.highlighted .tile-cat { transform: translateY(0); }
-
-    .tile-title {
-      font-size: clamp(10px, 0.85vw, 12px); font-weight: 400;
-      line-height: 1.45; letter-spacing: .03em;
-      color: rgba(255,255,255,.7);
-      transform: translateY(6px); transition: transform .38s .07s var(--ease);
-    }
-    .tile:hover .tile-title, .tile.highlighted .tile-title { transform: translateY(0); }
-
-    /* ── Keyframes ── */
-    @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── Loader ── */
-    #loader {
-      position: fixed; inset: 0; background: var(--bg); z-index: 1000;
-      display: flex; align-items: center; justify-content: center;
-      animation: loaderOut .45s .65s ease forwards;
-    }
-    .loader-line {
-      width: 0; height: 1px; background: var(--blue);
-      animation: loaderLine .6s .05s ease forwards;
-    }
-    @keyframes loaderLine { to { width: 120px; } }
-    @keyframes loaderOut  { to { opacity: 0; pointer-events: none; } }
-  </style>
+  <title>Inbal Keller | Portfolio</title>
+  <link rel="preload" href="fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <!-- Loader shows only on the first visit in this browser session -->
+  <script>
+    try { if (sessionStorage.getItem('loaderSeen')) document.documentElement.classList.add('loader-seen'); } catch (e) {}
+  </script>
 </head>
-<body>
+<body class="is-loading">
 
-  <div id="loader"><div class="loader-line"></div></div>
-  <div id="cursor"></div>
-
-  <div class="portfolio">
-
-    <aside class="sidebar" id="sidebar">
-
-      <div class="sidebar-media">
-        <video autoplay loop muted playsinline>
-          <source src="https://cdn.jsdelivr.net/gh/inbalkeller-stack/inbalkeller@main/epic-festive-euler/mnt/portfolio%20final/home%20projects%20page%20videos/inbal%20pottery_4.mp4" type="video/mp4">
-        </video>
-      </div>
-
-      <nav class="nav-tabs">
-        <a class="nav-tab" href="#" data-section="inbal-keller"><span>Inbal Keller</span></a>
-        <a class="nav-tab" href="#" data-section="playground"><span>Playground</span></a>
-        <a class="nav-tab active" href="#" data-section="projects"><span>Projects</span></a>
-      </nav>
-
-      <div class="projects-sublist" id="projectsSublist">
-        <a href="#" data-project="unity">Kabai Hamangalim</a>
-        <a href="#" data-project="illustration">Neighboorhology</a>
-        <a href="#" data-project="dia">Dia- diabetes controll dashboard</a>
-        <!-- ↓ שינוי יחיד: הוספת הלינק לדף Miss P -->
-        <a href="miss-p-home.html" data-project="peregrine">Miss p. Home for Peculiar</a>
-      </div>
-
-      <div class="sidebar-bio" id="sidebarBio">
-        <p>Welcome to my portfolio</p>
-        <p class="bold">Im a Musician</p>
-        <p>[plays the oboe] &amp; Nanny</p>
-        <p>\Visual Communication design student</p>
-      </div>
-
-    </aside>
-
-    <main class="content">
-
-      <div class="row-top">
-        <div class="tile" data-id="illustration">
-          <video autoplay loop muted playsinline>
-            <source src="https://cdn.jsdelivr.net/gh/inbalkeller-stack/inbalkeller@main/epic-festive-euler/mnt/portfolio%20final/home%20projects%20page%20videos/Comp%201_23.mp4" type="video/mp4">
-          </video>
-          <div class="tile-overlay">
-            <p class="tile-cat">Illustrated Data</p>
-            <h2 class="tile-title">Neighboorhology</h2>
-          </div>
-        </div>
-        <!-- ↓ שינוי יחיד: div הפך ל-a עם href -->
-        <a class="tile" data-id="peregrine" href="miss-p-home.html">
-          <video autoplay loop muted playsinline>
-            <source src="https://cdn.jsdelivr.net/gh/inbalkeller-stack/inbalkeller@main/epic-festive-euler/mnt/portfolio%20final/home%20projects%20page%20videos/Comp%201_25.mp4" type="video/mp4">
-          </video>
-          <div class="tile-overlay">
-            <p class="tile-cat">Motion Titles for a Book</p>
-            <h2 class="tile-title">Miss Peregrine's Home for Peculiar Children by Ransom Riggs</h2>
-          </div>
-        </a>
-      </div>
-
-      <div class="row-bottom">
-        <div class="tile" data-id="unity">
-          <video autoplay loop muted playsinline>
-            <source src="https://cdn.jsdelivr.net/gh/inbalkeller-stack/inbalkeller@main/epic-festive-euler/mnt/portfolio%20final/home%20projects%20page%20videos/Comp%201_24.mp4" type="video/mp4">
-          </video>
-          <div class="tile-overlay">
-            <p class="tile-cat">Unity Game</p>
-            <h2 class="tile-title">Kabai Hamangalim</h2>
-          </div>
-        </div>
-        <div class="tile tile-dia" data-id="dia">
-          <img src="https://www.figma.com/api/mcp/asset/a48df422-c2c9-46dd-9015-43aa56a6449d"
-               alt="Dia — Diabetes Control Dashboard" loading="eager">
-          <div class="tile-overlay">
-            <p class="tile-cat">UX / UI</p>
-            <h2 class="tile-title">Dia</h2>
-          </div>
-        </div>
-      </div>
-
-    </main>
+  <!-- ============ LOADER (Figma: "main loader") ============ -->
+  <!-- Drop your animated images/loader.gif in; until then the still frame from Figma is shown -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <img class="loader__img" src="images/loader.gif" alt=""
+         onerror="this.onerror=null; this.src='images/loader-poster.jpg';">
   </div>
 
-  <script>
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top  = e.clientY + 'px';
-    });
-    document.querySelectorAll('.tile, .nav-tab, .sidebar-media').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
-    });
-    document.addEventListener('mouseleave', () => cursor.classList.add('hide'));
-    document.addEventListener('mouseenter', () => cursor.classList.remove('hide'));
+  <!-- ============ MOBILE BAR + HAMBURGER (mobile only) ============ -->
+  <header class="mobile-bar">
+    <a class="mobile-bar__name" href="about.html">Inbal keller</a>
+    <button class="menu-toggle" id="menuToggle" type="button"
+            aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="menu-toggle__line"></span>
+      <span class="menu-toggle__line"></span>
+      <span class="menu-toggle__line"></span>
+    </button>
+  </header>
 
-    const navTabs = document.querySelectorAll('.nav-tab');
-    navTabs.forEach(tab => {
-      tab.addEventListener('click', e => {
-        e.preventDefault();
-        navTabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-      });
-    });
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Main menu">
+    <a class="nav-box" href="about.html">Inbal keller</a>
+    <a class="nav-box" href="playground.html">Playground</a>
+    <span class="nav-box nav-box--active">projects</span>
+    <a class="nav-item" href="kabai.html">Kabai Hamangalim</a>
+    <a class="nav-item" href="neighborhology.html">Neighboorhology</a>
+    <a class="nav-item" href="dia.html">Dia- diabetes controll dashboard</a>
+    <a class="nav-item" href="missp.html">Miss p. Home for Peculiar</a>
+  </nav>
 
-    const sublist     = document.getElementById('projectsSublist');
-    const tiles       = document.querySelectorAll('.tile');
-    const subItems    = document.querySelectorAll('#projectsSublist a[data-project]');
-    const projectsTab = document.querySelector('[data-section="projects"]');
-    let closeTimer;
+  <!-- ============ HOME (Figma: "home" / "home open bar") ============ -->
+  <main class="home">
 
-    function openSublist() {
-      clearTimeout(closeTimer);
-      sublist.classList.add('open');
-    }
-    function scheduleClose() {
-      closeTimer = setTimeout(() => {
-        sublist.classList.remove('open');
-        clearHighlights();
-      }, 200);
-    }
-    function highlightProject(id) {
-      subItems.forEach(el => el.classList.toggle('highlighted', el.dataset.project === id));
-      tiles.forEach(el => el.classList.toggle('highlighted', el.dataset.id === id));
-    }
-    function clearHighlights() {
-      subItems.forEach(el => el.classList.remove('highlighted'));
-      tiles.forEach(el => el.classList.remove('highlighted'));
-    }
+    <!-- Left column -->
+    <aside class="side">
+      <video class="side__video" src="web-videos/pottery.mp4" poster="images/pottery-poster.jpg"
+             autoplay muted loop playsinline></video>
 
-    tiles.forEach(tile => {
-      tile.addEventListener('mouseenter', () => { openSublist(); highlightProject(tile.dataset.id); });
-      tile.addEventListener('mouseleave', scheduleClose);
-    });
-    subItems.forEach(item => {
-      item.addEventListener('mouseenter', () => { openSublist(); highlightProject(item.dataset.project); });
-      item.addEventListener('mouseleave', scheduleClose);
-    });
-    projectsTab.addEventListener('mouseenter', openSublist);
-    projectsTab.addEventListener('mouseleave', scheduleClose);
-    sublist.addEventListener('mouseenter', () => clearTimeout(closeTimer));
-    sublist.addEventListener('mouseleave', scheduleClose);
+      <nav class="side__nav" aria-label="Main menu">
+        <a class="nav-box nav-box--first" href="about.html">Inbal keller</a>
+        <a class="nav-box" href="playground.html">Playground</a>
+        <button class="nav-box nav-box--active" id="projectsToggle" type="button"
+                aria-expanded="false" aria-controls="projectList">projects</button>
+      </nav>
 
-    const loader = document.getElementById('loader');
-    loader.addEventListener('animationend', () => loader.remove());
-  </script>
+      <div class="side__slot">
+        <p class="welcome" id="welcome">
+          Welcome! <br>
+          <strong>Im a Musician</strong> <br>
+          (plays the oboe) &amp; <br>
+          Visual Communication design <br>
+          student
+        </p>
+
+        <ul class="project-list" id="projectList" hidden>
+          <li><a class="nav-item" href="kabai.html">Kabai Hamangalim</a></li>
+          <li><a class="nav-item" href="neighborhology.html">Neighboorhology</a></li>
+          <li><a class="nav-item" href="dia.html">Dia- diabetes controll dashboard</a></li>
+          <li><a class="nav-item" href="missp.html">Miss p. Home for Peculiar</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Project tiles -->
+    <section class="tiles" aria-label="Projects">
+      <div class="tiles__row tiles__row--top">
+        <a class="tile tile--neighborhology" href="neighborhology.html" aria-label="Neighboorhology">
+          <video src="web-videos/home-23.mp4" poster="images/neighborhology-thumb.jpg" autoplay muted loop playsinline></video>
+        </a>
+        <a class="tile tile--missp" href="missp.html" aria-label="Miss p. Home for Peculiar">
+          <video src="web-videos/home-25.mp4" poster="images/missp-thumb.jpg" autoplay muted loop playsinline></video>
+        </a>
+      </div>
+      <div class="tiles__row tiles__row--bottom">
+        <a class="tile tile--kabai" href="kabai.html" aria-label="Kabai Hamangalim">
+          <video src="web-videos/home-24.mp4" poster="images/kabai-thumb.jpg" autoplay muted loop playsinline></video>
+        </a>
+        <a class="tile tile--dia" href="dia.html">
+          <img src="images/dia-thumb.jpg" alt="Dia- diabetes controll dashboard">
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
