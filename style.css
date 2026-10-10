@@ -182,6 +182,41 @@ body.menu-open { overflow: hidden; }
 .tile { min-width: 0; min-height: 0; }
 .tile img, .tile video { width: 100%; height: 100%; max-width: none; object-fit: cover; }
 .tile--missp video { object-position: left center; }
+
+/* Tile hover (Figma prototype): tile fades out, blue label appears */
+.tile { position: relative; }
+.tile::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: rgba(252, 248, 255, 0.8);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.tile__label {
+  position: absolute;
+  z-index: 2;
+  left: calc(100vw / 1512 * var(--lx));
+  color: var(--blue);
+  font-weight: 700;
+  font-size: calc(100vw / 1512 * 20);
+  line-height: calc(100vw / 1512 * 24);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.tile__label--top    { top: calc(100vw / 1512 * var(--ly)); }
+.tile__label--bottom { bottom: calc(100vw / 1512 * var(--ly)); }
+.tile__label--2l     { line-height: calc(100vw / 1512 * 32); }
+.tile:hover::after, .tile:focus-visible::after,
+.tile:hover .tile__label, .tile:focus-visible .tile__label { opacity: 1; }
+@media (max-width: 899px) {
+  /* phones have no hover: keep the label visible on a light band */
+  .tile__label { opacity: 1; left: 16px; font-size: 15px; line-height: 20px; background: rgba(252,248,255,0.85); padding: 4px 8px; }
+  .tile__label--top { top: 12px; }
+  .tile__label--bottom { bottom: 12px; }
+}
 .tile--neighborhology { aspect-ratio: 437 / 519; }
 .tile--missp          { aspect-ratio: 671 / 519; }
 .tile--kabai          { aspect-ratio: 641 / 461; }
