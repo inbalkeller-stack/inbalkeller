@@ -121,8 +121,10 @@
      reaches the bottom of the screen, so the next one slides over ---------- */
   var panels = document.querySelectorAll('.pg-panel');
   function setStick() {
+    var bar = document.querySelector('.mobile-bar');
+    var off = bar && bar.offsetParent !== null ? bar.offsetHeight : 0;   /* mobile top bar */
     panels.forEach(function (p) {
-      p.style.setProperty('--stick', Math.min(0, window.innerHeight - p.offsetHeight) + 'px');
+      p.style.setProperty('--stick', Math.min(off, window.innerHeight - p.offsetHeight) + 'px');
     });
   }
   if (panels.length) { setStick(); window.addEventListener('resize', setStick); window.addEventListener('load', setStick); }
