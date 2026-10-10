@@ -33,6 +33,12 @@
   --lh-m: 1.35;
   --lh-l: 1.2;
 
+  /* ---- Navigation: one system for every page ----
+     primary rows (Inbal keller / projects / playground) = M text
+     project rows (the four projects)                   = S text */
+  --nav-h: clamp(44px, 6.4vh, 60px);
+  --nav-sub-h: clamp(30px, 4.2vh, 40px);
+
   /* theme (overridden per page) */
   --c: var(--blue);          /* text, borders, "projects" fill */
   --c-active: #E6E6FF;       /* current project row */
@@ -120,12 +126,16 @@ body.is-loading { overflow: hidden; }
   line-height: var(--lh-m);
 }
 .nav-box--active { background: var(--c); color: var(--c-on); }
+.nav-box { height: var(--nav-h); flex: none; }
 
 .nav-item {
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 0 16px 0 40px;
+  justify-content: center;
+  text-align: center;
+  height: var(--nav-sub-h);
+  padding: 0 12px;
   background: var(--bg);
   color: var(--c);
   border-bottom: 1px solid var(--c);
@@ -175,8 +185,7 @@ body.is-loading { overflow: hidden; }
   transition: transform 0.35s ease, visibility 0.35s ease;
 }
 .mobile-menu.is-open { transform: translateY(0); visibility: visible; }
-.mobile-menu .nav-box { min-height: 68px; flex: none; }
-.mobile-menu .nav-item { min-height: 67px; flex: none; }
+.mobile-menu .nav-box, .mobile-menu .nav-item { flex: none; }
 body.menu-open { overflow: hidden; }
 
 /* ---------- Home: mobile stack ---------- */
@@ -262,11 +271,9 @@ body.menu-open { overflow: hidden; }
   line-height: var(--lh-m);
   transition: background-color 0.2s ease;
 }
-.snav__name    { min-height: 64px; }
-.snav__group   { min-height: 56px; background: var(--c) !important; color: var(--c-on) !important; }
-.snav a.snav__item, .snav span.snav__item { min-height: 40px; font-size: var(--fs-s); }
-.snav__play    { min-height: 48px; }
-.snav__row     { min-height: 56px; }
+.snav a, .snav span { height: var(--nav-h); flex: none; }
+.snav__group   { background: var(--c) !important; color: var(--c-on) !important; }
+.snav a.snav__item, .snav span.snav__item { height: var(--nav-sub-h); font-size: var(--fs-s); }
 .snav__item[aria-current="page"] { background: var(--c-active) !important; }
 .snav a:hover { background: var(--c-active); }
 
@@ -335,8 +342,7 @@ body.menu-open { overflow: hidden; }
 /* Playground sidebar */
 .pg-side__video { width: 100%; aspect-ratio: 524 / 384; border-bottom: 1px solid var(--c); }
 .theme-playground .snav a, .theme-playground .snav span { background: var(--white); }
-.theme-playground .snav__row { min-height: 72px; }
-.theme-playground .snav__current { min-height: 96px; background: var(--c) !important; color: var(--c-on) !important; }
+.theme-playground .snav__current { background: var(--c) !important; color: var(--c-on) !important; }
 
 /* About */
 .about-text { padding: 32px 20px; font-size: var(--fs-s); line-height: var(--lh-s); }
@@ -348,7 +354,7 @@ body.menu-open { overflow: hidden; }
 
 /* Mobile: comfortable reading sizes */
 @media (max-width: 899px) {
-  :root { --fs-s: 15px; --fs-m: 17px; --fs-l: 22px; }
+  :root { --fs-s: 15px; --fs-m: 17px; --fs-l: 22px; --nav-h: 56px; --nav-sub-h: 44px; }
   .canvas { aspect-ratio: auto !important; }
   .canvas > * { width: auto !important; }
   .canvas img { width: 100% !important; }
@@ -366,12 +372,12 @@ body.menu-open { overflow: hidden; }
   .home {
     display: flex; height: 100vh; overflow: hidden;
   }
-  .home .nav-item { padding-left: calc(100vw / 1512 * 40); }
+
 
   .side {
-    flex: 0 0 calc(404 / 1512 * 100%);
+    flex: 0 0 calc(525 / 1512 * 100%);   /* same width as the nav on every page */
     display: grid;
-    grid-template-rows: minmax(0, 421fr) minmax(0, 110fr) minmax(0, 94fr) minmax(0, 98fr) minmax(0, 257fr);
+    grid-template-rows: minmax(0, 1fr) var(--nav-h) var(--nav-h) var(--nav-h) calc(var(--nav-sub-h) * 4 + 8px);
     height: 100%;
     border-right: 1px solid var(--c);
   }
@@ -381,14 +387,14 @@ body.menu-open { overflow: hidden; }
   .side__slot { position: relative; min-height: 0; }
   .welcome {
     position: absolute;
-    left: calc(100vw / 1512 * 37); right: 0;
-    top: calc(57 / 257 * 100%);
+    left: 32px; right: 16px;
+    top: 50%; transform: translateY(-50%);
     padding: 0; border: 0;
   }
-  .project-list { display: grid; grid-template-rows: repeat(4, 1fr); height: 100%; }
+  .project-list { display: grid; grid-template-rows: repeat(4, var(--nav-sub-h)); }
   .project-list[hidden] { display: none; }
   .project-list li { display: flex; }
-  .project-list li:last-child .nav-item { border-bottom: 0; }
+
 
   .tiles { flex: 1 1 auto; display: flex; flex-direction: column; height: 100%; }
   .tiles__row { flex-direction: row; min-height: 0; }
@@ -424,11 +430,7 @@ body.menu-open { overflow: hidden; }
   .snav { border-top: 1px solid var(--c); }
   /* rows follow the Figma proportions, but shrink on short screens
      so the whole sidebar always fits without scrolling */
-  .snav__name  { height: min(calc(var(--u) * 142), 9vh); min-height: 0; }
-  .snav__group { height: min(calc(var(--u) * 87), 7vh); min-height: 0; }
-  .snav a.snav__item { height: max(min(calc(var(--u) * 36), 4.4vh), 24px); min-height: 0; }
-  .snav__play  { height: max(min(calc(var(--u) * 49), 5.5vh), 30px); min-height: 0; }
-  .theme-neighborhology .snav__group { height: min(calc(var(--u) * 101), 7vh); }
+
 
   .desc { padding: min(calc(var(--u) * var(--pt, 42)), 3vh) calc(var(--u) * 20) 8px calc(var(--u) * 42); }
   .desc p + h2 { margin-top: min(1.6em, 2vh); }
@@ -445,9 +447,11 @@ body.menu-open { overflow: hidden; }
 
   /* Playground sidebar: video 384 · rows 178 / 232 / 178 */
   .theme-playground .snav { border-top: 0; }
-  .theme-playground .pg-side__video { aspect-ratio: auto; height: min(calc(var(--u) * 384), 36vh); }
-  .theme-playground .snav__row     { height: min(calc(var(--u) * 178), 16vh); min-height: 0; }
-  .theme-playground .snav__current { height: min(calc(var(--u) * 232), 21vh); min-height: 0; }
+  /* video fills the column above the nav, like Home */
+  .theme-playground .sidebar { display: flex; flex-direction: column; }
+  .theme-playground .pg-side__video { aspect-ratio: auto; flex: 1 1 auto; min-height: 0; }
+  .theme-playground .snav { flex: none; border-bottom: 1px solid var(--c); }
+  .theme-playground .snav a:last-child, .theme-playground .snav span:last-child { border-bottom: 0; }
 
   /* About: left column fixed; photos scroll and stick (Figma prototype).
      Page = 2682 design px tall. */
@@ -458,12 +462,11 @@ body.menu-open { overflow: hidden; }
   }
   .about .snav { position: fixed; z-index: 5; left: 0; top: 0; width: calc(525 / 1512 * 100%); border: 0; }
   .about .snav a, .about .snav span { border-right: 1px solid var(--c); }
-  .about .snav__name { height: min(calc(var(--u) * 144), 12vh); }
-  .about .snav__row  { height: min(calc(var(--u) * 76), 8vh); }
+
   .about-text {
     position: fixed;
     left: calc(var(--u) * 42);
-    top: min(calc(var(--u) * 361), 34vh);
+    top: calc(var(--nav-h) * 3 + 40px);
     width: calc(var(--u) * 440);
     padding: 0;
   }
@@ -483,5 +486,6 @@ body.menu-open { overflow: hidden; }
     left: calc(var(--u) * var(--left));
     width: calc(var(--u) * var(--w));
   }
+  @media (max-height: 760px) { .about-girl { display: none; } }
   .about .ph img { position: sticky; top: calc(var(--u) * 10); width: 100%; }
 }
