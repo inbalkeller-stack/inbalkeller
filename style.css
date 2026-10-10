@@ -581,14 +581,15 @@ body.menu-open { overflow: hidden; }
 }
 
 /* ---------- Playground layers (Figma: each image is its own layer) ----------
-   Positions are Figma px inside the 987px-wide content column; --pu scales them. */
-.pg-layers { position: relative; container-type: inline-size; overflow: clip; --pg-top: var(--mobile-bar-h); }
+   Positions are Figma px inside the 987px-wide content column; --pu scales them.
+   Three sections (flowers, dog, frame of photos): each one stops when its bottom
+   reaches the bottom of the screen, and the next section slides up over it. */
+.pg-layers { position: relative; container-type: inline-size; --pg-top: var(--mobile-bar-h); }
 .pg-layers > * { --pu: calc(100cqw / 987); }
-.pg-layers__space { height: calc(var(--pu) * 3499); }
-.pgl { position: absolute; left: calc(var(--x) * var(--pu)); top: calc(var(--y) * var(--pu)); width: calc(var(--w) * var(--pu)); height: calc(var(--b) * var(--pu)); pointer-events: none; }
-.pgl__in { position: sticky; top: var(--pg-top); display: block; width: 100%; height: calc(var(--h) * var(--pu)); max-width: none; pointer-events: auto; }
-/* big backgrounds stick once their bottom reaches the bottom of the screen */
-.pgl--bg .pgl__in { position: static; }
+.pg-group { position: sticky; top: min(var(--pg-top), calc(100vh - var(--gh) * var(--pu))); height: calc(var(--gh) * var(--pu)); overflow-x: clip; }
+.pg-group:first-child { overflow: clip; }
+.pgl { position: absolute; left: calc(var(--x) * var(--pu)); top: calc(var(--y) * var(--pu)); width: calc(var(--w) * var(--pu)); height: calc(var(--h) * var(--pu)); }
+.pgl__in { display: block; width: 100%; height: 100%; max-width: none; }
 img.pgl__in { object-fit: cover; }
 .pgl__video { overflow: hidden; }
 .pgl__video video { width: 100%; height: 100%; object-fit: cover; }
