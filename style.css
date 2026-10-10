@@ -230,7 +230,8 @@ body.menu-open { overflow: hidden; }
   font-weight: 500;
   font-size: var(--fs-m);
   line-height: var(--lh-m);
-  white-space: nowrap;
+  white-space: normal;
+  right: 16px;
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -337,7 +338,7 @@ body.menu-open { overflow: hidden; }
 .pg-video video { width: 100%; height: 100%; object-fit: cover; }
 .pg-video--interceptor { left: calc(78 / 986 * 100%); top: calc(812 / 3485 * 100%); width: calc(848 / 986 * 100%); height: calc(478 / 3485 * 100%); }
 .pg-video--stutter     { left: calc(114 / 986 * 100%); top: calc(1421 / 3485 * 100%); width: calc(776 / 986 * 100%); height: calc(435 / 3485 * 100%); }
-.pg-tail { aspect-ratio: 986 / 449; }
+
 
 /* Playground sidebar */
 .pg-side__video { width: 100%; aspect-ratio: 524 / 384; border-bottom: 1px solid var(--c); }
@@ -377,7 +378,8 @@ body.menu-open { overflow: hidden; }
   .side {
     flex: 0 0 calc(525 / 1512 * 100%);   /* same width as the nav on every page */
     display: grid;
-    grid-template-rows: minmax(0, 1fr) var(--nav-h) var(--nav-h) var(--nav-h) calc(var(--nav-sub-h) * 4 + 8px);
+    /* golden ratio: video 38.2% · nav + text 61.8% */
+    grid-template-rows: 38.2vh var(--nav-h) var(--nav-h) var(--nav-h) minmax(0, 1fr);
     height: 100%;
     border-right: 1px solid var(--c);
   }
@@ -387,11 +389,16 @@ body.menu-open { overflow: hidden; }
   .side__slot { position: relative; min-height: 0; }
   .welcome {
     position: absolute;
-    left: 32px; right: 16px;
+    left: 0; right: 0;
     top: 50%; transform: translateY(-50%);
-    padding: 0; border: 0;
+    padding: 0 12px; border: 0;
+    text-align: center;
+    font-size: var(--fs-l);
+    line-height: 1.45;
   }
-  .project-list { display: grid; grid-template-rows: repeat(4, var(--nav-sub-h)); }
+  .project-list { display: grid; grid-template-rows: repeat(4, 1fr); height: 100%; }
+  .project-list .nav-item { height: auto; white-space: nowrap; }
+  .project-list li:last-child .nav-item { border-bottom: 0; }   /* no extra line at the bottom */
   .project-list[hidden] { display: none; }
   .project-list li { display: flex; }
 
