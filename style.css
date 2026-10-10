@@ -449,26 +449,39 @@ body.menu-open { overflow: hidden; }
   .theme-playground .snav__row     { height: min(calc(var(--u) * 178), 16vh); min-height: 0; }
   .theme-playground .snav__current { height: min(calc(var(--u) * 232), 21vh); min-height: 0; }
 
-  /* About: whole page is one 1512 × 1256 canvas */
+  /* About: left column fixed; photos scroll and stick (Figma prototype).
+     Page = 2682 design px tall. */
   .about {
     position: relative;
-    aspect-ratio: 1512 / 1256;
+    height: calc(var(--u) * 2682);
     --u: calc(100vw / 1512);
   }
-  .about > * { position: absolute; }
   .about .snav { position: fixed; z-index: 5; left: 0; top: 0; width: calc(525 / 1512 * 100%); border: 0; }
   .about .snav a, .about .snav span { border-right: 1px solid var(--c); }
-  .about .snav__name { height: calc(var(--u) * 144); }
-  .about .snav__row  { height: calc(var(--u) * 76); }
+  .about .snav__name { height: min(calc(var(--u) * 144), 12vh); }
+  .about .snav__row  { height: min(calc(var(--u) * 76), 8vh); }
   .about-text {
-    left: calc(42 / 1512 * 100%);
-    top: calc(361 / 1256 * 100%);
-    width: calc(440 / 1512 * 100%);
+    position: fixed;
+    left: calc(var(--u) * 42);
+    top: min(calc(var(--u) * 361), 34vh);
+    width: calc(var(--u) * 440);
     padding: 0;
   }
-  .about-girl   { left: calc(76 / 1512 * 100%);  top: calc(912 / 1256 * 100%); width: calc(130 / 1512 * 100%); margin: 0; }
-  .about-photos { display: contents; }
-  .about-photos img { position: absolute; }
-  .about-portrait { left: calc(769 / 1512 * 100%); top: calc(174 / 1256 * 100%); width: calc(459 / 1512 * 100%) !important; }
-  .about-oboe     { left: calc(591 / 1512 * 100%); top: calc(887 / 1256 * 100%); width: calc(459 / 1512 * 100%) !important; }
+  .about-girl {
+    position: fixed;
+    left: calc(var(--u) * 76);
+    bottom: 0;
+    width: auto;
+    height: min(calc(var(--u) * 280), 28vh);
+    margin: 0;
+  }
+  .about-photos { display: block; padding: 0; }
+  .about .ph {
+    position: absolute;
+    top: calc(var(--u) * var(--top));
+    bottom: 0;
+    left: calc(var(--u) * var(--left));
+    width: calc(var(--u) * var(--w));
+  }
+  .about .ph img { position: sticky; top: calc(var(--u) * 10); width: 100%; }
 }
