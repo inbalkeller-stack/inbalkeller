@@ -80,8 +80,9 @@
 
     function setOpen(open) {
       projectsToggle.setAttribute('aria-expanded', String(open));
-      projectList.hidden = !open;
-      welcome.hidden = open;
+      // the list slides open under "projects" and pushes the welcome text down
+      projectList.classList.toggle('is-open', open);
+      projectList.setAttribute('aria-hidden', String(!open));
       document.body.classList.toggle('projects-open', open);
     }
     function open() {
