@@ -57,6 +57,27 @@
 .theme-about,
 .theme-playground     { --bg: var(--bg-soft); }
 
+/* ---------- Page transitions (cross-document View Transitions) ----------
+   Every page opts in, so moving between pages on the same site cross-fades
+   instead of flashing white. Browsers without support simply navigate. */
+@view-transition { navigation: auto; }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+  animation-timing-function: ease;
+}
+
+/* the left column keeps its place while the content changes */
+@media (min-width: 900px) {
+  .sidebar, .side { view-transition-name: side-column; }
+}
+::view-transition-group(side-column) { animation-duration: 0.35s; }
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
+
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
