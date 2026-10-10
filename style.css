@@ -160,14 +160,28 @@ body.is-loading { overflow: hidden; }
 body.menu-open { overflow: hidden; }
 
 /* ---------- Home: mobile stack ---------- */
-.side__video { width: 100%; aspect-ratio: 404 / 421; object-fit: cover; }
+.side__video { width: 100%; aspect-ratio: 404 / 421; }
+
+/* Zoomed / cropped video, positioned like the Figma frame.
+   --w = video width relative to the box, --fx/--fy = focal point */
+.crop { position: relative; overflow: hidden; background: #000 center / cover no-repeat; }
+.crop > video {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: var(--w, 100%) !important;
+  height: auto !important;
+  max-width: none;
+  transform: translate(var(--fx, -50%), var(--fy, -50%));
+}
 .side__nav { display: none; }
 .project-list { display: none; }
 .welcome { padding: 40px; border-bottom: 1px solid var(--c); }
 
 .tiles__row { display: flex; flex-direction: column; }
 .tile { display: block; overflow: hidden; }
+.tile { min-width: 0; min-height: 0; }
 .tile img, .tile video { width: 100%; height: 100%; max-width: none; object-fit: cover; }
+.tile--missp video { object-position: left center; }
 .tile--neighborhology { aspect-ratio: 437 / 519; }
 .tile--missp          { aspect-ratio: 671 / 519; }
 .tile--kabai          { aspect-ratio: 641 / 461; }
@@ -260,7 +274,7 @@ body.menu-open { overflow: hidden; }
 .pg-tail { aspect-ratio: 986 / 449; }
 
 /* Playground sidebar */
-.pg-side__video { width: 100%; aspect-ratio: 524 / 384; object-fit: cover; border-bottom: 1px solid var(--c); }
+.pg-side__video { width: 100%; aspect-ratio: 524 / 384; border-bottom: 1px solid var(--c); }
 .theme-playground .snav a, .theme-playground .snav span { background: var(--white); }
 .theme-playground .snav__row { min-height: 72px; }
 .theme-playground .snav__current { min-height: 96px; background: var(--c) !important; color: var(--c-on) !important; }
@@ -300,11 +314,11 @@ body.menu-open { overflow: hidden; }
   .side {
     flex: 0 0 calc(404 / 1512 * 100%);
     display: grid;
-    grid-template-rows: 421fr 110fr 94fr 98fr 257fr;
+    grid-template-rows: minmax(0, 421fr) minmax(0, 110fr) minmax(0, 94fr) minmax(0, 98fr) minmax(0, 257fr);
     height: 100%;
     border-right: 1px solid var(--c);
   }
-  .side__video { width: 100%; height: 100%; aspect-ratio: auto; }
+  .side__video { width: 100%; height: 100%; aspect-ratio: auto; min-height: 0; }
   .side__nav { display: contents; }
   .side__nav .nav-box--first { border-top: 1px solid var(--c); }
   .side__slot { position: relative; min-height: 0; }

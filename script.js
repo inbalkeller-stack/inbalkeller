@@ -58,17 +58,46 @@
     });
   }
 
-  /* ---------- Desktop "projects" dropdown ---------- */
+  /* ---------- Desktop "projects" list ----------
+     Hovering the "projects" tab, the list itself or any project tile
+     shows the project names in place of the welcome text.
+     Clicking "projects" pins it open (for touch screens). */
   var projectsToggle = document.getElementById('projectsToggle');
   var projectList = document.getElementById('projectList');
   var welcome = document.getElementById('welcome');
+  var tiles = document.querySelector('.tiles');
 
   if (projectsToggle && projectList && welcome) {
-    projectsToggle.addEventListener('click', function () {
-      var open = projectsToggle.getAttribute('aria-expanded') !== 'true';
+    var pinned = false;
+    var closeTimer = null;
+
+    function setOpen(open) {
       projectsToggle.setAttribute('aria-expanded', String(open));
       projectList.hidden = !open;
       welcome.hidden = open;
+      document.body.classList.toggle('projects-open', open);
+    }
+    function open() {
+      clearTimeout(closeTimer);
+      setOpen(true);
+    }
+    function closeSoon() {
+      if (pinned) return;
+      clearTimeout(closeTimer);
+      closeTimer = setTimeout(function () { setOpen(false); }, 200);
+    }
+
+    [projectsToggle, projectList, tiles].forEach(function (el) {
+      if (!el) return;
+      el.addEventListener('mouseenter', open);
+      el.addEventListener('mouseleave', closeSoon);
+      el.addEventListener('focusin', open);
+      el.addEventListener('focusout', closeSoon);
+    });
+
+    projectsToggle.addEventListener('click', function () {
+      pinned = !pinned;
+      setOpen(pinned);
     });
   }
 })();

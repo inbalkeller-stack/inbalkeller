@@ -46,8 +46,10 @@
 
     <!-- Left column -->
     <aside class="side">
-      <video class="side__video" src="web-videos/pottery.mp4" poster="images/pottery-poster.jpg"
-             autoplay muted loop playsinline></video>
+      <!-- video is zoomed/cropped to match the Figma frame -->
+      <div class="side__video crop" style="--w:142.8%; --fx:-44%; --fy:-79.4%; background-image:url(images/pottery-poster.jpg)">
+        <video src="web-videos/pottery.mp4" autoplay muted loop playsinline></video>
+      </div>
 
       <nav class="side__nav" aria-label="Main menu">
         <a class="nav-box nav-box--first" href="about.html">Inbal keller</a>
@@ -85,8 +87,8 @@
         </a>
       </div>
       <div class="tiles__row tiles__row--bottom">
-        <a class="tile tile--kabai" href="kabai.html" aria-label="Kabai Hamangalim">
-          <video src="web-videos/home-24.mp4" poster="images/kabai-thumb.jpg" autoplay muted loop playsinline></video>
+        <a class="tile tile--kabai crop" href="kabai.html" aria-label="Kabai Hamangalim" style="--w:136.7%; --fx:-42.1%; --fy:-43.8%; background-image:url(images/kabai-thumb.jpg)">
+          <video src="web-videos/home-24.mp4" autoplay muted loop playsinline></video>
         </a>
         <a class="tile tile--dia" href="dia.html">
           <img src="images/dia-thumb.jpg" alt="Dia- diabetes controll dashboard">
