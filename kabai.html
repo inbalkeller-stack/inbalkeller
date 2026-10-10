@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kabai hamangalim | Inbal Keller</title>
   <link rel="preload" href="fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=20">
+  <link rel="stylesheet" href="style.css?v=21">
 </head>
 <body class="theme-kabai">
   <!-- Mobile: bar + hamburger (replaces the side nav under 900px) -->
@@ -52,15 +52,19 @@
     <div class="block-video" style="aspect-ratio: 986 / 596">
       <video src="web-videos/kabai.mp4" poster="images/kabai-poster.jpg" autoplay muted loop playsinline controls></video>
     </div>
-    <img class="block-img" src="images/kabai-characters.jpg" alt="Low-poly characters and props from the game" width="1972" height="1108" loading="lazy">
-    <img class="block-img" src="images/kabai-font.jpg" alt="Atlas font specimen" width="1972" height="646" loading="lazy">
     <section class="fbx-section">
       <h3 class="label">FBX</h3>
       <div class="fbx-row">
-        <figure class="fbx"><model-viewer src="models/main-character.glb" alt="3D model: the main character in T-pose" camera-controls touch-action="pan-y" auto-rotate rotation-per-second="18deg" shadow-intensity="0.8" exposure="1.05" camera-orbit="0deg 80deg 105%" interaction-prompt="none" loading="lazy"></model-viewer><figcaption>Main character</figcaption></figure>
-        <figure class="fbx"><model-viewer src="models/keter-chair.glb" alt="3D model: Keter plastic chair" camera-controls touch-action="pan-y" auto-rotate rotation-per-second="18deg" shadow-intensity="0.8" exposure="1.05" camera-orbit="30deg 72deg 115%" interaction-prompt="none" loading="lazy"></model-viewer><figcaption>Keter chair</figcaption></figure>
+        <figure class="fbx"><model-viewer src="models/main-character.glb" alt="3D model: the main character in T-pose" camera-controls disable-zoom disable-pan touch-action="pan-y" auto-rotate rotation-per-second="14deg" shadow-intensity="0.6" shadow-softness="1" exposure="0.95" tone-mapping="neutral" camera-orbit="0deg 80deg 105%" interaction-prompt="none" loading="lazy"></model-viewer><figcaption>Main character</figcaption></figure>
+        <figure class="fbx"><model-viewer src="models/gothic-girl.glb" alt="3D model: gothic girl" camera-controls disable-zoom disable-pan touch-action="pan-y" auto-rotate rotation-per-second="14deg" shadow-intensity="0.6" shadow-softness="1" exposure="0.95" tone-mapping="neutral" camera-orbit="0deg 80deg 105%" interaction-prompt="none" loading="lazy"></model-viewer><figcaption>Gothic girl</figcaption></figure>
+        <figure class="fbx"><model-viewer src="models/man-with-beef.glb" alt="3D model: man with beef" camera-controls disable-zoom disable-pan touch-action="pan-y" auto-rotate rotation-per-second="14deg" shadow-intensity="0.6" shadow-softness="1" exposure="0.95" tone-mapping="neutral" camera-orbit="0deg 80deg 105%" interaction-prompt="none" loading="lazy"></model-viewer><figcaption>Man with beef</figcaption></figure>
+        <figure class="fbx"><model-viewer src="models/wave-man.glb" alt="3D model: waving man" camera-controls disable-zoom disable-pan touch-action="pan-y" auto-rotate rotation-per-second="14deg" shadow-intensity="0.6" shadow-softness="1" exposure="0.95" tone-mapping="neutral" camera-orbit="0deg 80deg 105%" interaction-prompt="none" loading="lazy"></model-viewer><figcaption>Wave man</figcaption></figure>
+        <figure class="fbx"><model-viewer src="models/woman.glb" alt="3D model: woman" camera-controls disable-zoom disable-pan touch-action="pan-y" auto-rotate rotation-per-second="14deg" shadow-intensity="0.6" shadow-softness="1" exposure="0.95" tone-mapping="neutral" camera-orbit="0deg 80deg 105%" interaction-prompt="none" loading="lazy"></model-viewer><figcaption>Woman</figcaption></figure>
+        <figure class="fbx"><model-viewer src="models/keter-chair.glb" alt="3D model: Keter plastic chair" camera-controls disable-zoom disable-pan touch-action="pan-y" auto-rotate rotation-per-second="14deg" shadow-intensity="0.6" shadow-softness="1" exposure="0.95" tone-mapping="neutral" camera-orbit="30deg 72deg 115%" interaction-prompt="none" loading="lazy"></model-viewer><figcaption>Keter chair</figcaption></figure>
       </div>
     </section>
+    <img class="block-img" src="images/kabai-characters.jpg" alt="Low-poly characters and props from the game" width="1972" height="1108" loading="lazy">
+    <img class="block-img" src="images/kabai-font.jpg" alt="Atlas font specimen" width="1972" height="646" loading="lazy">
     <img class="block-img" src="images/kabai-inspirations.jpg" alt="Inspirations: the ugly Israeli phenomenon, Hadera national reserve" width="1972" height="820" loading="lazy">
     <script type="module" src="vendor/model-viewer.min.js"></script>
   </main>
