@@ -388,13 +388,14 @@ body.menu-open { overflow: hidden; }
 /* Kabai white section */
 .fbx-section { background: var(--white); padding: 32px var(--indent) 40px; }
 .fbx-section .label { font-size: var(--fs-m); line-height: var(--lh-m); font-weight: 500; margin-bottom: 16px; }
-.fbx-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+.fbx-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; background: #F4F4F4; }
 @media (max-width: 899px) { .fbx-row { grid-template-columns: 1fr 1fr; } }
 .fbx { margin: 0; display: flex; flex-direction: column; min-height: 0; }
 .fbx model-viewer {
   flex: 1 1 auto; width: 100%; aspect-ratio: 1 / 1; height: auto; min-height: 0; display: block;
   background: #F4F4F4; border: 0;
   --poster-color: transparent; --progress-bar-color: transparent; cursor: grab;
+  clip-path: inset(0 0 2px 0);   /* hide a 1px loading line at the bottom edge */
 }
 .fbx model-viewer:active { cursor: grabbing; }
 .fbx figcaption { margin-top: 8px; font-size: var(--fs-s); }
