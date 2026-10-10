@@ -143,6 +143,10 @@ body.is-loading { overflow: hidden; }
 .loader.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 .loader.crop { position: fixed; }
 .loader-seen .loader { display: none; }
+/* Phone: zoom the loader onto the pot's dark opening (no face) */
+@media (max-width: 899px) {
+  .loader.crop { --w: 270% !important; --fx: -47% !important; --fy: -77.5% !important; background-size: 270% auto; background-position: 47% 95%; }
+}
 .loader-seen body.is-loading { overflow: auto; }
 
 /* =========================================================
@@ -384,11 +388,11 @@ body.menu-open { overflow: hidden; }
 /* Kabai white section */
 .fbx-section { background: var(--white); padding: 32px var(--indent) 40px; }
 .fbx-section .label { font-size: var(--fs-m); line-height: var(--lh-m); font-weight: 500; margin-bottom: 16px; }
-.fbx-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px 12px; }
+.fbx-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
 @media (max-width: 899px) { .fbx-row { grid-template-columns: 1fr 1fr; } }
 .fbx { margin: 0; display: flex; flex-direction: column; min-height: 0; }
 .fbx model-viewer {
-  flex: 1 1 auto; width: 100%; aspect-ratio: 3 / 4; height: auto; min-height: 0;
+  flex: 1 1 auto; width: 100%; aspect-ratio: 1 / 1; height: auto; min-height: 0; display: block;
   background: #F4F4F4; border: 0;
   --poster-color: transparent; --progress-bar-color: transparent; cursor: grab;
 }
@@ -588,3 +592,8 @@ img.pgl__in { object-fit: cover; }
 .pgl__video { overflow: hidden; }
 .pgl__video video { width: 100%; height: 100%; object-fit: cover; }
 @media (min-width: 900px) { .pg-layers { --pg-top: 0px; } }
+
+/* DIA: micro animations play on top of the page image, in their Figma spots */
+.dia-anim { position: relative; }
+.dia-anim > img { display: block; width: 100%; height: auto; }
+.dia-anim__v { position: absolute; object-fit: cover; display: block; }
