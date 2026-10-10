@@ -246,6 +246,13 @@ body.menu-open { overflow: hidden; }
   max-width: none;
   transform: translate(var(--fx, -50%), var(--fy, -50%));
 }
+/* Pottery video: anchored to the bottom so the hands and writing are never cut */
+.crop--bottom > video {
+  top: auto !important;
+  bottom: 0;
+  transform: translateX(-50%) !important;
+  aspect-ratio: 720 / 1280;   /* the pottery video is portrait */
+}
 .side__nav { display: none; }
 .project-list { display: none; }
 .welcome { padding: 40px; border-bottom: 1px solid var(--c); }
