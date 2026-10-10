@@ -449,7 +449,7 @@ body.menu-open { overflow: hidden; }
   .theme-playground .snav { border-top: 0; }
   /* video fills the column above the nav, like Home */
   .theme-playground .sidebar { display: flex; flex-direction: column; }
-  .theme-playground .pg-side__video { aspect-ratio: auto; flex: 1 1 auto; min-height: 0; }
+  .theme-playground .pg-side__video { aspect-ratio: auto; flex: 0 1 calc(var(--u) * 384); min-height: 72px; }
   .theme-playground .snav { flex: none; border-bottom: 1px solid var(--c); }
   .theme-playground .snav a:last-child, .theme-playground .snav span:last-child { border-bottom: 0; }
 
@@ -457,9 +457,10 @@ body.menu-open { overflow: hidden; }
      photos scroll and stick near the top, stacking (Figma prototype).
      Content = 2580 design px tall. */
   .theme-about .sidebar { display: flex; flex-direction: column; }
-  .theme-about .pg-side__video { aspect-ratio: auto; flex: 1 1 auto; min-height: 80px; }
+  /* Figma: video 420px tall (of 1512); shrinks on short screens so the text always fits */
+  .theme-about .pg-side__video { aspect-ratio: auto; flex: 0 1 calc(var(--u) * 420); min-height: 72px; }
   .theme-about .snav, .theme-about .about-text { flex: none; }
-  .theme-about .about-text { padding: 24px 20px 20px calc(var(--u) * 42); }
+  .theme-about .about-text { padding: min(calc(var(--u) * 40), 3vh) 20px 16px calc(var(--u) * 42); }
   .about { display: block; position: relative; padding: 0; height: calc(var(--u) * 2580); }
   .about-girl { position: absolute; left: calc(var(--u) * 32); top: calc(var(--u) * 77); width: calc(var(--u) * 121); }
   .about .ph {
