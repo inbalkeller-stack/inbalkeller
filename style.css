@@ -160,11 +160,6 @@ body.is-loading { overflow: hidden; }
 }
 .nav-box--active { background: var(--c); color: var(--c-on); }
 
-/* All navigation labels in capitals, slightly tracked */
-.nav-box, .nav-item, .snav a, .snav span, .mobile-bar__name {
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
 .nav-box { height: var(--nav-h); flex: none; }
 
 .nav-item {
