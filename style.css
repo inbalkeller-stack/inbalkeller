@@ -574,3 +574,17 @@ body.menu-open { overflow: hidden; }
   }
   .about .ph img { position: sticky; top: calc(var(--u) * 10); width: 100%; }
 }
+
+/* ---------- Playground layers (Figma: each image is its own layer) ----------
+   Positions are Figma px inside the 987px-wide content column; --pu scales them. */
+.pg-layers { position: relative; container-type: inline-size; overflow: clip; --pg-top: var(--mobile-bar-h); }
+.pg-layers > * { --pu: calc(100cqw / 987); }
+.pg-layers__space { height: calc(var(--pu) * 3499); }
+.pgl { position: absolute; left: calc(var(--x) * var(--pu)); top: calc(var(--y) * var(--pu)); width: calc(var(--w) * var(--pu)); bottom: 0; pointer-events: none; }
+.pgl__in { position: sticky; top: var(--pg-top); display: block; width: 100%; height: calc(var(--h) * var(--pu)); max-width: none; pointer-events: auto; }
+/* big backgrounds stick once their bottom reaches the bottom of the screen */
+.pgl--bg .pgl__in { top: min(var(--pg-top), calc(100vh - var(--h) * var(--pu))); }
+img.pgl__in { object-fit: cover; }
+.pgl__video { overflow: hidden; }
+.pgl__video video { width: 100%; height: 100%; object-fit: cover; }
+@media (min-width: 900px) { .pg-layers { --pg-top: 0px; } }
