@@ -562,7 +562,9 @@ body.menu-open { overflow: hidden; }
   .theme-about .pg-side__video { aspect-ratio: auto; flex: 0 1 calc(var(--u) * 420); min-height: 72px; }
   .theme-about .snav, .theme-about .about-text { flex: none; }
   .theme-about .about-text { padding: min(calc(var(--u) * 40), 3vh) 20px 16px var(--indent); }
-  .about { display: block; position: relative; padding: 0; height: calc(var(--u) * 2580); }
+  .about { display: block; position: relative; padding: 0;
+    /* tall enough for the last (baby) photo to scroll all the way up and stick at the top too */
+    height: max(calc(var(--u) * 2580), calc(var(--u) * 2273 + 100vh)); }
   .about-girl { position: absolute; left: calc(var(--u) * 32); top: calc(var(--u) * 77); width: calc(var(--u) * 121); }
   .about .ph {
     position: absolute;
