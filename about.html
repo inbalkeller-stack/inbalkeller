@@ -5,33 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inbal Keller | About</title>
   <link rel="preload" href="fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=6">
 </head>
 <body class="theme-about">
 
-<main class="about">
-  <nav class="snav" aria-label="Main menu">
-    <span class="snav__name" aria-current="page">Inbal keller</span>
-    <a class="snav__row" href="index.html">projects</a>
-    <a class="snav__row" href="playground.html">playground</a>
-  </nav>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="pg-side__video crop" style="--w:100%; --fx:-50%; --fy:-79.3%; background-image:url(images/playground-pottery-poster.jpg)">
+      <video src="web-videos/pottery.mp4" autoplay muted loop playsinline></video>
+    </div>
+    <nav class="snav" aria-label="Main menu">
+      <span class="snav__current" aria-current="page">Inbal keller</span>
+      <a class="snav__row" href="index.html">projects</a>
+      <a class="snav__row" href="playground.html">playground</a>
+    </nav>
+    <div class="about-text">
+      <p><b>I am Inbal</b>, a 4rd year Visual Communication <br>Design student.</p>
+      <p>I play the oboe since I was 9,and ive been a <br>part of the Israel Young Phillharmonic <br>Orchestra for 4 yeas while in high school.My <br>extra skills are: Illustrating, sewing &amp; <br>ceramics. <b>Im a crafty person!</b></p>
+      <p><b>I believe team playing is a must have skill.</b> <br>I am always up to researching &amp; learning new <br>things. I like yoga though im bad at it.</p>
+    </div>
+  </aside>
 
-  <div class="about-text">
-    <p><b>I am Inbal</b>, a 4rd year Visual Communication <br>Design student.</p>
-    <p>I play the oboe since I was 9,and ive been a <br>part of the Israel Young Phillharmonic <br>Orchestra for 4 yeas while in high school.My <br>extra skills are: Illustrating, sewing &amp; <br>ceramics. <b>Im a crafty person!</b></p>
-    <p><b>I believe team playing is a must have skill.</b> <br>I am always up to researching &amp; learning new <br>things. I like yoga though im bad at it.</p>
-  </div>
-
-  <img class="about-girl" src="images/about-oboe-girl.jpg" alt="Illustration of Inbal playing the oboe" width="260" height="560">
-
-  <!-- Photos scroll up and stick near the top, stacking (Figma prototype) -->
-  <div class="about-photos">
-    <div class="ph" style="--top:174; --left:769; --w:459"><img src="images/about-portrait.jpg" alt="Portrait of Inbal Keller" width="918" height="1297"></div>
-    <div class="ph" style="--top:887; --left:591; --w:459"><img src="images/about-oboe-photo.jpg" alt="Inbal with her oboe" width="918" height="1380" loading="lazy"></div>
-    <div class="ph" style="--top:1601; --left:969; --w:459"><img src="images/about-studio.jpg" alt="Inbal photographing in the studio" width="918" height="1210" loading="lazy"></div>
-    <div class="ph" style="--top:2262; --left:769; --w:459"><img src="images/about-child.jpg" alt="Inbal as a child" width="918" height="840" loading="lazy"></div>
-  </div>
-</main>
+  <main class="content about">
+    <img class="about-girl" src="images/about-oboe-girl.jpg" alt="Illustration of Inbal playing the oboe" width="260" height="560">
+    <!-- Photos scroll up and stick near the top, stacking (Figma prototype) -->
+    <div class="ph" style="--top:197; --left:244; --w:459"><img src="images/about-portrait.jpg" alt="Portrait of Inbal Keller" width="918" height="1297"></div>
+    <div class="ph" style="--top:910; --left:0; --w:459"><img src="images/about-oboe-photo.jpg" alt="Inbal with her oboe" width="918" height="1380" loading="lazy"></div>
+    <div class="ph" style="--top:1622; --left:444; --w:459"><img src="images/about-studio.jpg" alt="Inbal photographing in the studio" width="918" height="1210" loading="lazy"></div>
+    <div class="ph" style="--top:2283; --left:244; --w:459"><img src="images/about-child.jpg" alt="Inbal as a child" width="918" height="594" loading="lazy"></div>
+  </main>
+</div>
 
 </body>
 </html>

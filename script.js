@@ -95,6 +95,14 @@
       el.addEventListener('focusout', closeSoon);
     });
 
+    // Hovering a project tile also highlights its name in the list
+    document.querySelectorAll('.tile').forEach(function (tile) {
+      var item = projectList.querySelector('a[href="' + tile.getAttribute('href') + '"]');
+      if (!item) return;
+      tile.addEventListener('mouseenter', function () { item.classList.add('is-hover'); });
+      tile.addEventListener('mouseleave', function () { item.classList.remove('is-hover'); });
+    });
+
     projectsToggle.addEventListener('click', function () {
       pinned = !pinned;
       setOpen(pinned);

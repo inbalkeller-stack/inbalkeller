@@ -143,7 +143,7 @@ body.is-loading { overflow: hidden; }
   line-height: 1.35;
   transition: background-color 0.2s ease;
 }
-.nav-item:hover { background: #E6E6FF; }
+.nav-item:hover, .nav-item.is-hover { background: #E6E6FF; }
 
 /* ---------- Home: mobile bar + hamburger ---------- */
 .mobile-bar {
@@ -345,12 +345,12 @@ body.menu-open { overflow: hidden; }
 .theme-playground .snav__current { background: var(--c) !important; color: var(--c-on) !important; }
 
 /* About */
-.about-text { padding: 32px 20px; font-size: var(--fs-s); line-height: var(--lh-s); }
+.about-text { padding: 28px 20px; font-size: var(--fs-s); line-height: var(--lh-s); }
 .about-text p + p { margin-top: 1em; }
-.about-girl { width: 90px; margin: 0 0 24px 40px; }
-.about-photos { display: flex; flex-direction: column; gap: 24px; padding: 0 20px 40px; }
-.about-photos img { width: 100%; height: auto; }
-.theme-about .snav__name { background: var(--c) !important; color: var(--c-on) !important; }
+.about { display: flex; flex-direction: column; gap: 24px; padding: 24px 20px 40px; }
+.about-girl { width: 90px; }
+.about .ph img { width: 100%; height: auto; }
+.snav__current { background: var(--c) !important; color: var(--c-on) !important; }
 
 /* Mobile: comfortable reading sizes */
 @media (max-width: 899px) {
@@ -453,32 +453,15 @@ body.menu-open { overflow: hidden; }
   .theme-playground .snav { flex: none; border-bottom: 1px solid var(--c); }
   .theme-playground .snav a:last-child, .theme-playground .snav span:last-child { border-bottom: 0; }
 
-  /* About: left column fixed; photos scroll and stick (Figma prototype).
-     Page = 2682 design px tall. */
-  .about {
-    position: relative;
-    height: calc(var(--u) * 2682);
-    --u: calc(100vw / 1512);
-  }
-  .about .snav { position: fixed; z-index: 5; left: 0; top: 0; width: calc(525 / 1512 * 100%); border: 0; }
-  .about .snav a, .about .snav span { border-right: 1px solid var(--c); }
-
-  .about-text {
-    position: fixed;
-    left: calc(var(--u) * 42);
-    top: calc(var(--nav-h) * 3 + 40px);
-    width: calc(var(--u) * 440);
-    padding: 0;
-  }
-  .about-girl {
-    position: fixed;
-    left: calc(var(--u) * 76);
-    bottom: 0;
-    width: auto;
-    height: min(calc(var(--u) * 280), 28vh);
-    margin: 0;
-  }
-  .about-photos { display: block; padding: 0; }
+  /* About: same sidebar as Playground (video, nav, text);
+     photos scroll and stick near the top, stacking (Figma prototype).
+     Content = 2580 design px tall. */
+  .theme-about .sidebar { display: flex; flex-direction: column; }
+  .theme-about .pg-side__video { aspect-ratio: auto; flex: 1 1 auto; min-height: 80px; }
+  .theme-about .snav, .theme-about .about-text { flex: none; }
+  .theme-about .about-text { padding: 24px 20px 20px calc(var(--u) * 42); }
+  .about { display: block; position: relative; padding: 0; height: calc(var(--u) * 2580); }
+  .about-girl { position: absolute; left: calc(var(--u) * 32); top: calc(var(--u) * 77); width: calc(var(--u) * 121); }
   .about .ph {
     position: absolute;
     top: calc(var(--u) * var(--top));
@@ -486,6 +469,5 @@ body.menu-open { overflow: hidden; }
     left: calc(var(--u) * var(--left));
     width: calc(var(--u) * var(--w));
   }
-  @media (max-height: 760px) { .about-girl { display: none; } }
   .about .ph img { position: sticky; top: calc(var(--u) * 10); width: 100%; }
 }
