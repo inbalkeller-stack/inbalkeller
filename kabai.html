@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kabai hamangalim | Inbal Keller</title>
   <link rel="preload" href="fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=18">
+  <link rel="stylesheet" href="style.css?v=19">
 </head>
 <body class="theme-kabai">
   <!-- Mobile: bar + hamburger (replaces the side nav under 900px) -->
@@ -56,8 +56,13 @@
     <img class="block-img" src="images/kabai-font-photos.jpg" alt="Atlas font specimen, the ugly Israeli phenomenon, Hadera national reserve" width="1972" height="1466" loading="lazy">
     <section class="canvas kabai-white" style="aspect-ratio: 986 / 887">
       <p class="label" style="left:1.775%;top:4.679%">FBX</p>
+      <div class="fbx-row" style="left:1.775%;top:9.019%;width:96.450%;height:43.968%">
+        <figure class="fbx"><model-viewer src="models/main-character.glb" alt="3D model: the main character (running animation)" camera-controls touch-action="pan-y" autoplay animation-name="Run" auto-rotate rotation-per-second="18deg" shadow-intensity="0.8" exposure="1.05" camera-orbit="30deg 78deg 110%" interaction-prompt="none" loading="lazy"></model-viewer><figcaption>Main character</figcaption></figure>
+        <figure class="fbx"><model-viewer src="models/keter-chair.glb" alt="3D model: Keter plastic chair" camera-controls touch-action="pan-y" auto-rotate rotation-per-second="18deg" shadow-intensity="0.8" exposure="1.05" camera-orbit="30deg 72deg 115%" interaction-prompt="none" loading="lazy"></model-viewer><figcaption>Keter chair</figcaption></figure>
+      </div>
       <p class="label" style="left:1.724%;top:55.524%">CODES</p>
     </section>
+    <script type="module" src="vendor/model-viewer.min.js"></script>
   </main>
 </div>
 
