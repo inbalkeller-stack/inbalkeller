@@ -47,6 +47,8 @@
   --font: var(--font-plex);
 
   --mobile-bar-h: 64px;
+  /* one left edge for every nav label, the welcome text and the descriptions */
+  --indent: clamp(20px, 2.5vw, 40px);
 }
 
 /* Per-page themes (colors from Figma) */
@@ -149,12 +151,14 @@ body.is-loading { overflow: hidden; }
 .nav-box {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
+  padding: 0 var(--indent);
   background: var(--bg);
   color: var(--c);
   border-bottom: 1px solid var(--c);
-  text-align: center;
+  text-align: left;
+  transition: background-color 0.2s ease;
   font-size: var(--fs-m);
   line-height: var(--lh-m);
 }
@@ -166,10 +170,10 @@ body.is-loading { overflow: hidden; }
   display: flex;
   align-items: center;
   width: 100%;
-  justify-content: center;
-  text-align: center;
+  justify-content: flex-start;
+  text-align: left;
   height: var(--nav-sub-h);
-  padding: 0 12px;
+  padding: 0 var(--indent);
   background: var(--bg);
   color: var(--c);
   border-bottom: 1px solid var(--c);
@@ -189,7 +193,7 @@ body.is-loading { overflow: hidden; }
   align-items: center;
   justify-content: space-between;
   height: var(--mobile-bar-h);
-  padding: 0 20px;
+  padding: 0 var(--indent);
   background: var(--bg);
   border-bottom: 1px solid var(--c);
 }
@@ -304,8 +308,9 @@ body.menu-open { overflow: hidden; }
 .snav a, .snav span {
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 0 var(--indent);
   border-bottom: 1px solid var(--c);
   background: var(--bg);
   color: var(--c);
@@ -315,11 +320,11 @@ body.menu-open { overflow: hidden; }
 }
 .snav a, .snav span { height: var(--nav-h); flex: none; }
 .snav__group   { background: var(--c) !important; color: var(--c-on) !important; }
-.snav a.snav__item, .snav span.snav__item { height: var(--nav-sub-h); font-size: var(--fs-s); }
+.snav a.snav__item, .snav span.snav__item { height: auto; min-height: var(--nav-sub-h); padding-top: 4px; padding-bottom: 4px; font-size: var(--fs-s); line-height: 1.3; }
 .snav__item[aria-current="page"] { background: var(--c-active) !important; }
 .snav a:hover { background: var(--c-active); }
 
-.desc { padding: 32px 20px 40px; max-width: 44em; }
+.desc { padding: 32px var(--indent) 40px; max-width: 44em; }
 .desc h2 {
   font-size: var(--fs-m);
   line-height: var(--lh-m);
@@ -387,7 +392,7 @@ body.menu-open { overflow: hidden; }
 .theme-playground .snav__current { background: var(--c) !important; color: var(--c-on) !important; }
 
 /* About */
-.about-text { padding: 28px 20px; font-size: var(--fs-s); line-height: var(--lh-s); }
+.about-text { padding: 28px var(--indent); font-size: var(--fs-s); line-height: var(--lh-s); }
 .about-text p + p { margin-top: 1em; }
 .about { display: flex; flex-direction: column; gap: 24px; padding: 24px 20px 40px; }
 .about-girl { width: 90px; }
@@ -432,16 +437,16 @@ body.menu-open { overflow: hidden; }
   .welcome {
     /* Figma reference: left-aligned, same size as the nav, ~63/950 below the nav */
     position: absolute;
-    left: calc(38 / 390 * 100%); right: 16px;
+    left: var(--indent); right: 16px;
     top: calc(63 / 373 * 100%);
     padding: 0; border: 0;
     text-align: left;
     font-size: var(--fs-m);
     line-height: 1.3;
   }
-  .project-list { display: grid; grid-template-rows: repeat(4, 1fr); height: 100%; }
+  .project-list { display: grid; grid-template-rows: repeat(4, var(--nav-sub-h)); }
   .project-list .nav-item { height: auto; white-space: nowrap; }
-  .project-list li:last-child .nav-item { border-bottom: 0; }   /* no extra line at the bottom */
+
   .project-list[hidden] { display: none; }
   .project-list li { display: flex; }
 
@@ -482,7 +487,7 @@ body.menu-open { overflow: hidden; }
      so the whole sidebar always fits without scrolling */
 
 
-  .desc { padding: min(calc(var(--u) * var(--pt, 42)), 3vh) calc(var(--u) * 20) 8px calc(var(--u) * 42); }
+  .desc { padding: min(calc(var(--u) * var(--pt, 42)), 3vh) calc(var(--u) * 20) 8px var(--indent); }
   .desc p + h2 { margin-top: min(1.6em, 2vh); }
   .desc { max-width: none; }
 
@@ -510,7 +515,7 @@ body.menu-open { overflow: hidden; }
   /* Figma: video 420px tall (of 1512); shrinks on short screens so the text always fits */
   .theme-about .pg-side__video { aspect-ratio: auto; flex: 0 1 calc(var(--u) * 420); min-height: 72px; }
   .theme-about .snav, .theme-about .about-text { flex: none; }
-  .theme-about .about-text { padding: min(calc(var(--u) * 40), 3vh) 20px 16px calc(var(--u) * 42); }
+  .theme-about .about-text { padding: min(calc(var(--u) * 40), 3vh) 20px 16px var(--indent); }
   .about { display: block; position: relative; padding: 0; height: calc(var(--u) * 2580); }
   .about-girl { position: absolute; left: calc(var(--u) * 32); top: calc(var(--u) * 77); width: calc(var(--u) * 121); }
   .about .ph {
