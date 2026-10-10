@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inbal Keller | Portfolio</title>
   <link rel="preload" href="fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="stylesheet" href="style.css?v=11">
   <!-- Loader shows only on the first visit in this browser session -->
   <script>
     try { if (sessionStorage.getItem('loaderSeen')) document.documentElement.classList.add('loader-seen'); } catch (e) {}
@@ -13,11 +13,12 @@
 </head>
 <body class="is-loading">
 
-  <!-- ============ LOADER (Figma: "main loader") ============ -->
-  <!-- Drop your animated images/loader.gif in; until then the still frame from Figma is shown -->
-  <div class="loader" id="loader" aria-hidden="true">
-    <img class="loader__img" src="images/loader.gif" alt=""
-         onerror="this.onerror=null; this.src='images/loader-poster.jpg';">
+  <!-- ============ LOADER (Figma: "main loader") ============
+       The pottery video, zoomed like the Figma frame, plays once from
+       start to end, then the site appears. -->
+  <div class="loader crop" id="loader" aria-hidden="true"
+       style="--w:141.9%; --fx:-44.2%; --fy:-85.3%; background-image:url(images/loader-poster.jpg)">
+    <video id="loaderVideo" src="web-videos/pottery.mp4" muted playsinline preload="auto"></video>
   </div>
 
   <!-- ============ MOBILE BAR + HAMBURGER (mobile only) ============ -->
@@ -102,6 +103,6 @@
 
   </main>
 
-  <script src="script.js?v=10"></script>
+  <script src="script.js?v=11"></script>
 </body>
 </html>

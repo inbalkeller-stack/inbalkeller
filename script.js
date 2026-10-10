@@ -4,32 +4,37 @@
    ========================================================= */
 
 (function () {
-  /* ---------- Loader ---------- */
+  /* ---------- Loader ----------
+     Plays the loader video once, start to end, then reveals the site.
+     Only on the first visit in a browser session. */
   var loader = document.getElementById('loader');
-  var MIN_TIME = 1200;   // ms the loader stays visible at minimum
-  var MAX_TIME = 6000;   // safety: never block the page longer than this
-  var start = Date.now();
+  var loaderVideo = document.getElementById('loaderVideo');
+  var SAFETY = 20000;    // never block the page longer than this
   var done = false;
 
   function hideLoader() {
     if (done || !loader) return;
     done = true;
-    var wait = Math.max(0, MIN_TIME - (Date.now() - start));
-    setTimeout(function () {
-      loader.classList.add('is-hidden');
-      document.body.classList.remove('is-loading');
-    }, wait);
+    loader.classList.add('is-hidden');
+    document.body.classList.remove('is-loading');
   }
 
   var seen = document.documentElement.classList.contains('loader-seen');
   if (seen || !loader) {
-    // Loader only plays when the portfolio is first opened
     done = true;
     document.body.classList.remove('is-loading');
+    if (loaderVideo) loaderVideo.removeAttribute('src');
   } else {
     try { sessionStorage.setItem('loaderSeen', '1'); } catch (e) {}
-    window.addEventListener('load', hideLoader);
-    setTimeout(hideLoader, MAX_TIME);
+    if (loaderVideo) {
+      loaderVideo.addEventListener('ended', hideLoader);
+      loaderVideo.addEventListener('error', function () { setTimeout(hideLoader, 1500); });
+      var p = loaderVideo.play();
+      if (p && p.catch) p.catch(function () { setTimeout(hideLoader, 2500); });
+    } else {
+      window.addEventListener('load', hideLoader);
+    }
+    setTimeout(hideLoader, SAFETY);
   }
 
   /* ---------- Mobile hamburger ---------- */
