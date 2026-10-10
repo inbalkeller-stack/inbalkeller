@@ -187,6 +187,12 @@ body.is-loading { overflow: hidden; }
 }
 .mobile-menu.is-open { transform: translateY(0); visibility: visible; }
 .mobile-menu .nav-box, .mobile-menu .nav-item { flex: none; }
+.mobile-menu [aria-current="page"] { background: var(--c-active); }
+.mobile-bar__name { font-size: var(--fs-m); }
+/* inner pages on mobile: the side nav moves into the hamburger */
+@media (max-width: 899px) {
+  .sidebar .snav { display: none; }
+}
 body.menu-open { overflow: hidden; }
 
 /* ---------- Home: mobile stack ---------- */

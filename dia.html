@@ -8,6 +8,22 @@
   <link rel="stylesheet" href="style.css?v=9">
 </head>
 <body class="theme-dia">
+  <!-- Mobile: bar + hamburger (replaces the side nav under 900px) -->
+  <header class="mobile-bar">
+    <a class="mobile-bar__name" href="index.html">Inbal keller</a>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="menu-toggle__line"></span><span class="menu-toggle__line"></span><span class="menu-toggle__line"></span>
+    </button>
+  </header>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Main menu">
+    <a class="nav-box" href="about.html">Inbal keller</a>
+    <a class="nav-box" href="playground.html">playground</a>
+    <a class="nav-box nav-box--active" href="index.html">projects</a>
+    <a class="nav-item" href="kabai.html">Kabai hamangalim</a>
+    <a class="nav-item" href="neighborhology.html">Neighboorhology</a>
+    <a class="nav-item" href="dia.html" aria-current="page">dia- ux|ui diabetes control dashboard</a>
+    <a class="nav-item" href="missp.html">Miss p. Home for Peculiar</a>
+  </nav>
 
 <div class="layout">
   <aside class="sidebar">
@@ -43,5 +59,6 @@
   </main>
 </div>
 
+<script src="script.js?v=9"></script>
 </body>
 </html>
