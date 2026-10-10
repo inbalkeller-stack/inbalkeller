@@ -27,6 +27,8 @@
   } else {
     try { sessionStorage.setItem('loaderSeen', '1'); } catch (e) {}
     if (loaderVideo) {
+      loaderVideo.playbackRate = 2;          // play the loader at double speed
+      loaderVideo.addEventListener('loadedmetadata', function () { loaderVideo.playbackRate = 2; });
       loaderVideo.addEventListener('ended', hideLoader);
       loaderVideo.addEventListener('error', function () { setTimeout(hideLoader, 1500); });
       var p = loaderVideo.play();
