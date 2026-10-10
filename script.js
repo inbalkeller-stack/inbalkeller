@@ -116,4 +116,24 @@
       setOpen(pinned);
     });
   }
+
+  /* ---------- Playground panels: tall panels stick when their bottom
+     reaches the bottom of the screen, so the next one slides over ---------- */
+  var panels = document.querySelectorAll('.pg-panel');
+  function setStick() {
+    panels.forEach(function (p) {
+      p.style.setProperty('--stick', Math.min(0, window.innerHeight - p.offsetHeight) + 'px');
+    });
+  }
+  if (panels.length) { setStick(); window.addEventListener('resize', setStick); window.addEventListener('load', setStick); }
+
+  /* ---------- Only one video plays sound at a time ---------- */
+  var vids = Array.prototype.slice.call(document.querySelectorAll('video'));
+  vids.forEach(function (v) {
+    v.addEventListener('volumechange', function () {
+      if (!v.muted && v.volume > 0) {
+        vids.forEach(function (o) { if (o !== v && !o.muted) o.muted = true; });
+      }
+    });
+  });
 })();

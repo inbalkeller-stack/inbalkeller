@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Playground | Inbal Keller</title>
   <link rel="preload" href="fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=21">
+  <link rel="stylesheet" href="style.css?v=22">
 </head>
 <body class="theme-playground">
   <!-- Mobile: bar + hamburger (replaces the side nav under 900px) -->
@@ -38,21 +38,23 @@
   </aside>
 
   <main class="content">
-    <div class="pg-stack">
-      <img class="block-img" src="images/playground-1.jpg" alt="Floral drawing with the oboe player illustration" width="1972" height="1800" loading="lazy">
-      <img class="block-img" src="images/playground-2.jpg" alt="Floral drawing and painting" width="1972" height="1800" loading="lazy">
-      <img class="block-img" src="images/playground-3.jpg" alt="Watercolor postcards" width="1972" height="1700" loading="lazy">
-      <img class="block-img" src="images/playground-4.jpg" alt="Photographed catalogue: Al HaRosh" width="1972" height="1670" loading="lazy">
-      <div class="pg-video pg-video--interceptor">
-        <video src="web-videos/interceptor.mp4" poster="images/playground-interceptor-poster.jpg" autoplay muted loop playsinline controls></video>
-      </div>
-      <div class="pg-video pg-video--stutter">
-        <video src="web-videos/stutter.mp4" poster="images/playground-stutter-poster.jpg" autoplay muted loop playsinline controls></video>
-      </div>
+    <!-- Each panel sticks, and the next one scrolls up over it -->
+    <div class="pg-panels">
+      <section class="pg-panel" style="aspect-ratio: 986 / 1389">
+        <img src="images/playground-p1.jpg" alt="Floral drawing with the oboe player illustration" width="1972" height="2778">
+        <div class="pg-video" style="left:7.911%; top:58.459%; width:86.004%; height:34.413%"><video src="web-videos/interceptor.mp4" poster="images/playground-interceptor-poster.jpg" autoplay muted loop playsinline controls></video></div>
+      </section>
+      <section class="pg-panel" style="aspect-ratio: 986 / 1352">
+        <img src="images/playground-p2.jpg" alt="Stuttering video over the dog background, watercolor postcards" width="1972" height="2704" loading="lazy">
+        <div class="pg-video" style="left:11.562%; top:2.367%; width:78.702%; height:32.175%"><video src="web-videos/stutter.mp4" poster="images/playground-stutter-poster.jpg" autoplay muted loop playsinline controls></video></div>
+      </section>
+      <section class="pg-panel" style="aspect-ratio: 986 / 744">
+        <img src="images/playground-p3.jpg" alt="Photographed catalogue: Al HaRosh" width="1972" height="1488" loading="lazy">
+      </section>
     </div>
   </main>
 </div>
 
-<script src="script.js?v=13"></script>
+<script src="script.js?v=14"></script>
 </body>
 </html>
