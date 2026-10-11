@@ -37,8 +37,9 @@
   /* ---- Navigation: one system for every page ----
      primary rows (Inbal keller / projects / playground) = M text
      project rows (the four projects)                   = S text */
-  --nav-h: clamp(44px, 6.4vh, 60px);
+  /* golden ratio: a main tab is φ (1.618) × a project row */
   --nav-sub-h: clamp(30px, 4.2vh, 40px);
+  --nav-h: calc(var(--nav-sub-h) * 1.618);
 
   /* theme (overridden per page) */
   --c: var(--blue);          /* text, borders, "projects" fill */
@@ -80,11 +81,43 @@
 }
 ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.3s; }
 
-/* the left column keeps its place while the content changes */
+/* Nav tabs: every tab has its own name, so between pages they "smart animate"
+   to their new place, and flip in one after the other from top to bottom,
+   like turning a page downwards. */
 @media (min-width: 900px) {
-  .sidebar, .side { view-transition-name: side-column; }
+  .side__nav > :nth-child(1), .snav > :nth-child(1) { view-transition-name: tab-1; }
+  .side__nav > :nth-child(2), .snav > :nth-child(2) { view-transition-name: tab-2; }
+  .side__nav > :nth-child(3), .snav > :nth-child(3) { view-transition-name: tab-3; }
+  .snav > :nth-child(4) { view-transition-name: tab-4; }
+  .snav > :nth-child(5) { view-transition-name: tab-5; }
+  .snav > :nth-child(6) { view-transition-name: tab-6; }
+  .snav > :nth-child(7) { view-transition-name: tab-7; }
 }
-::view-transition-group(side-column) { animation-duration: 0.35s; }
+::view-transition-group(*) { animation-duration: 0.5s; animation-timing-function: cubic-bezier(0.34, 1.25, 0.64, 1); }
+::view-transition-old(tab-1), ::view-transition-old(tab-2), ::view-transition-old(tab-3), ::view-transition-old(tab-4),
+::view-transition-old(tab-5), ::view-transition-old(tab-6), ::view-transition-old(tab-7) { animation: vt-fade-out 0.2s ease both; }
+::view-transition-new(tab-1), ::view-transition-new(tab-2), ::view-transition-new(tab-3), ::view-transition-new(tab-4),
+::view-transition-new(tab-5), ::view-transition-new(tab-6), ::view-transition-new(tab-7) {
+  transform-origin: 50% 0;
+  animation: vt-tab-flip 0.55s cubic-bezier(0.34, 1.3, 0.64, 1) both;
+}
+::view-transition-new(tab-2) { animation-delay: 0.06s; }
+::view-transition-new(tab-3) { animation-delay: 0.12s; }
+::view-transition-new(tab-4) { animation-delay: 0.18s; }
+::view-transition-new(tab-5) { animation-delay: 0.22s; }
+::view-transition-new(tab-6) { animation-delay: 0.26s; }
+::view-transition-new(tab-7) { animation-delay: 0.30s; }
+@keyframes vt-tab-flip {
+  from { opacity: 0; transform: perspective(700px) rotateX(-90deg); }
+  60%  { opacity: 1; }
+  to   { opacity: 1; transform: perspective(700px) rotateX(0deg); }
+}
+/* the page itself flips down from the top too */
+::view-transition-new(page-content) { transform-origin: 50% 0; animation: vt-page-flip 0.7s cubic-bezier(0.34, 1.2, 0.64, 1) both; }
+@keyframes vt-page-flip {
+  from { opacity: 0; transform: perspective(1600px) rotateX(-12deg) translateY(-40px); }
+  to   { opacity: 1; transform: none; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }
@@ -430,7 +463,7 @@ body.menu-open { overflow: hidden; }
 
 /* Mobile: comfortable reading sizes */
 @media (max-width: 899px) {
-  :root { --fs-s: 15px; --fs-m: 17px; --fs-l: 22px; --nav-h: 56px; --nav-sub-h: 44px; }
+  :root { --fs-s: 15px; --fs-m: 17px; --fs-l: 22px; --nav-sub-h: 40px; --nav-h: calc(40px * 1.618); }
   .canvas { aspect-ratio: auto !important; }
   .canvas > * { width: auto !important; }
   .canvas img { width: 100% !important; }
@@ -599,3 +632,21 @@ img.pgl__in { object-fit: cover; }
 .dia-anim { position: relative; }
 .dia-anim > img { display: block; width: 100%; height: auto; }
 .dia-anim__v { position: absolute; object-fit: cover; display: block; }
+
+/* ---------- One nav for every page (desktop) ----------
+   Golden ratio: the left column is 1 : 1.618 to the content (38.2% of the width),
+   and the pottery video above the nav is 38.2% of the screen height.
+   Every tab has the same height on every page. */
+@media (min-width: 900px) {
+  :root { --side-w: calc(100% / 2.618); --vid-h: calc(100vh / 2.618); }
+  .side, .sidebar { flex: 0 0 var(--side-w) !important; }
+  .side { display: flex !important; flex-direction: column; }
+  .side__video { flex: 0 0 var(--vid-h) !important; height: var(--vid-h) !important; }
+  .side__nav .nav-box { height: var(--nav-h) !important; flex: none; }
+  .side__slot { flex: 1 1 0; }
+  .theme-playground .pg-side__video, .theme-about .pg-side__video { flex: 0 0 var(--vid-h) !important; height: var(--vid-h); min-height: 0; }
+  .snav a, .snav span { height: var(--nav-h); }
+  .snav a.snav__item, .snav span.snav__item { height: var(--nav-sub-h); min-height: 0; padding-top: 0; padding-bottom: 0; }
+  .project-list { --row: var(--nav-sub-h); }
+  .project-list .nav-item { height: var(--nav-sub-h); min-height: 0; padding-top: 0; padding-bottom: 0; }
+}
