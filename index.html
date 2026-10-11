@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inbal Keller | Portfolio</title>
   <link rel="preload" href="fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=44">
+  <link rel="stylesheet" href="style.css?v=45">
+  <script>
+    /* a page that animated its own nav before leaving asks the next page to appear without a second transition */
+    window.addEventListener('pagereveal', function (e) {
+      try { if (sessionStorage.getItem('vtSkip')) { sessionStorage.removeItem('vtSkip'); if (e.viewTransition) e.viewTransition.skipTransition(); } } catch (x) {}
+    });
+  </script>
   <!-- Loader shows only on the first visit in this browser session -->
   <script>
     try { if (sessionStorage.getItem('loaderSeen')) document.documentElement.classList.add('loader-seen'); } catch (e) {}
@@ -103,6 +109,6 @@
 
   </main>
 
-  <script src="script.js?v=16"></script>
+  <script src="script.js?v=17"></script>
 </body>
 </html>

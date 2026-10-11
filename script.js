@@ -129,6 +129,43 @@
   }
   if (panels.length) { setStick(); window.addEventListener('resize', setStick); window.addEventListener('load', setStick); }
 
+
+  /* ---------- Going to the Playground: "smart animate" ----------
+     From a page with the pottery video (Home, Inbal Keller), the nav tabs grow
+     downwards, pushing everything below them away, until the three tabs fill the
+     nav area exactly as on the Playground page. The video never moves.
+     Then the Playground opens with no second transition. */
+  var wide = window.matchMedia('(min-width: 900px)');
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href$="playground.html"]');
+    if (!a || !wide.matches || e.metaKey || e.ctrlKey || e.shiftKey || document.body.classList.contains('theme-playground')) return;
+    var video = document.querySelector('.side__video, .sidebar .pg-side__video');
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.side__nav > *, .sidebar .snav > *'));
+    if (!video || tabs.length !== 3) return;          /* only pages whose nav sits under the video */
+    e.preventDefault();
+    var col = video.parentElement;
+    var free = col.getBoundingClientRect().bottom - video.getBoundingClientRect().bottom;
+    var target = free / 3;
+    var blue = getComputedStyle(document.documentElement).getPropertyValue('--blue') || '#0004FF';
+    var ease = 'cubic-bezier(0.65, 0, 0.35, 1)';
+    tabs.forEach(function (t) {
+      var h = t.getBoundingClientRect().height;
+      t.style.setProperty('height', h + 'px', 'important'); t.style.setProperty('flex', 'none', 'important'); t.style.setProperty('min-height', '0', 'important');
+    });
+    if (projectList) projectList.classList.remove('is-open');
+    col.getBoundingClientRect();                       /* lock the start sizes */
+    tabs.forEach(function (t, i) {
+      var isPlay = /playground\.html$/.test(t.getAttribute('href') || '');
+      t.style.transition = 'height 0.6s ' + ease + ', background-color 0.6s ' + ease + ', color 0.6s ' + ease;
+      t.style.setProperty('height', target + 'px', 'important');
+      t.style.setProperty('background-color', isPlay ? blue : 'var(--bg)', 'important');
+      t.style.setProperty('color', isPlay ? '#FCF8FF' : blue, 'important');
+      t.style.borderColor = blue;
+    });
+    try { sessionStorage.setItem('vtSkip', '1'); } catch (x) {}
+    setTimeout(function () { window.location.href = a.href; }, 620);
+  });
+
   /* ---------- Only one video plays sound at a time ---------- */
   var vids = Array.prototype.slice.call(document.querySelectorAll('video'));
   vids.forEach(function (v) {
