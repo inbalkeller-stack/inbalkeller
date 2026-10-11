@@ -632,3 +632,10 @@ img.pgl__in { object-fit: cover; }
   .project-list { --row: var(--nav-sub-h); }
   .project-list .nav-item { height: var(--nav-sub-h); min-height: 0; padding-top: 0; padding-bottom: 0; }
 }
+
+/* Playground (Figma): the three tabs share all the space under the video */
+@media (min-width: 900px) {
+  .theme-playground .snav { flex: 1 1 auto; display: flex; flex-direction: column; border-bottom: 0; }
+  .theme-playground .snav > a, .theme-playground .snav > span { flex: 1 1 0; height: auto; min-height: var(--nav-h); }
+  .theme-playground .snav > :last-child { border-bottom: 0; }
+}
