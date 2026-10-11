@@ -82,15 +82,9 @@
 }
 /* tabs never stretch or slide sideways between pages */
 ::view-transition-group(tab-1), ::view-transition-group(tab-2), ::view-transition-group(tab-3), ::view-transition-group(tab-4), ::view-transition-group(tab-5), ::view-transition-group(tab-6), ::view-transition-group(tab-7) { animation: none; }
-/* closing: tabs lift up and fade, bottom tab first */
-::view-transition-old(tab-1), ::view-transition-old(tab-2), ::view-transition-old(tab-3), ::view-transition-old(tab-4), ::view-transition-old(tab-5), ::view-transition-old(tab-6), ::view-transition-old(tab-7) { animation: vt-close 0.32s cubic-bezier(0.5, 0, 0.75, 0) both; }
-::view-transition-old(tab-7) { animation-delay: 0s; }
-::view-transition-old(tab-6) { animation-delay: 0.02s; }
-::view-transition-old(tab-5) { animation-delay: 0.04s; }
-::view-transition-old(tab-4) { animation-delay: 0.06s; }
-::view-transition-old(tab-3) { animation-delay: 0.08s; }
-::view-transition-old(tab-2) { animation-delay: 0.10s; }
-::view-transition-old(tab-1) { animation-delay: 0.12s; }
+/* closing: the old tabs stay in place, strokes and all, until the new tab
+   has landed on top of them, so the lines between tabs never disappear */
+::view-transition-old(tab-1), ::view-transition-old(tab-2), ::view-transition-old(tab-3), ::view-transition-old(tab-4), ::view-transition-old(tab-5), ::view-transition-old(tab-6), ::view-transition-old(tab-7) { animation: vt-hold 1.3s linear both; }
 /* opening: tabs drop in from the top, top tab first */
 ::view-transition-new(tab-1), ::view-transition-new(tab-2), ::view-transition-new(tab-3), ::view-transition-new(tab-4), ::view-transition-new(tab-5), ::view-transition-new(tab-6), ::view-transition-new(tab-7) { animation: vt-open 0.7s var(--vt-ease) both; }
 ::view-transition-new(tab-1) { animation-delay: 0.26s; }
@@ -103,6 +97,7 @@
 @keyframes vt-close { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-36px); } }
 @keyframes vt-open  { from { opacity: 0; transform: translateY(-48px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes vt-fade-out { to { opacity: 0; } }
+@keyframes vt-hold { 0%, 99% { opacity: 1; } 100% { opacity: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }
