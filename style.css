@@ -17,9 +17,9 @@
 :root {
   --blue: #0004FF;
   --bg: #FCF8FF;            /* page background (home + project pages) */
-  --bg-soft: #F9F9FF;       /* about + playground background */
-  --bg-dia: #FAF6FF;        /* DIA tile background (home) */
-  --white: #FFFFFF;
+  --bg-soft: #FCF8FF;       /* one white for the whole site (same as --bg) */
+  --bg-dia: #FCF8FF;
+  --white: #FCF8FF;          /* one white everywhere */
 
   --font-plex: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 
@@ -421,12 +421,17 @@ body.menu-open { overflow: hidden; }
 /* Kabai white section */
 .fbx-section { background: var(--white); padding: 32px var(--indent) 40px; }
 .fbx-section .label { font-size: var(--fs-m); line-height: var(--lh-m); font-weight: 500; margin-bottom: 16px; }
-.fbx-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; background: #F4F4F4; }
-@media (max-width: 899px) { .fbx-row { grid-template-columns: 1fr 1fr; } }
+/* loose, staggered layout: 4 on top, 3 below shifted half a step, alternating heights */
+.fbx-row { display: grid; grid-template-columns: repeat(8, 1fr); gap: 0; }
+.fbx { grid-column: span 2; }
+.fbx:nth-child(5) { grid-column: 2 / span 2; }
+.fbx:nth-child(even) { transform: translateY(9%); }
+.fbx:nth-child(n+5) { margin-top: -4%; }
+@media (max-width: 899px) { .fbx-row { grid-template-columns: repeat(4, 1fr); } .fbx:nth-child(5) { grid-column: span 2; } .fbx:nth-child(7) { grid-column: 2 / span 2; } .fbx:nth-child(n+5) { margin-top: 0; } }
 .fbx { margin: 0; display: flex; flex-direction: column; min-height: 0; }
 .fbx model-viewer {
   flex: 1 1 auto; width: 100%; aspect-ratio: 1 / 1; height: auto; min-height: 0; display: block;
-  background: #F4F4F4; border: 0;
+  background: transparent; border: 0;
   --poster-color: transparent; --progress-bar-color: transparent; cursor: grab;
   clip-path: inset(0 0 2px 0);   /* hide a 1px loading line at the bottom edge */
 }
