@@ -65,11 +65,12 @@
    instead of flashing white. Browsers without support simply navigate. */
 @view-transition { navigation: auto; }
 
-/* Page change: the whole page drops straight down from the top, and the nav tabs
-   drop the same way, one after another (top tab first). Straight only: tabs never
-   stretch or slide sideways between pages. */
-::view-transition-old(root) { animation: vt-fade-out 0.25s ease both; }
-::view-transition-new(root) { animation: vt-drop 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+/* Page change ("smart animate"): the old page closes — its tabs lift up and fade,
+   bottom tab first — and then the new page opens — everything drops straight down
+   from the top, tabs one after another, top tab first. Straight moves only. */
+:root { --vt-ease: cubic-bezier(0.25, 1, 0.5, 1); }
+::view-transition-old(root) { animation: vt-close 0.38s cubic-bezier(0.5, 0, 0.75, 0) both; }
+::view-transition-new(root) { animation: vt-open 0.7s var(--vt-ease) 0.22s both; }
 @media (min-width: 900px) {
   .side__nav > :nth-child(1), .snav > :nth-child(1) { view-transition-name: tab-1; }
   .side__nav > :nth-child(2), .snav > :nth-child(2) { view-transition-name: tab-2; }
@@ -79,22 +80,29 @@
   .snav > :nth-child(6) { view-transition-name: tab-6; }
   .snav > :nth-child(7) { view-transition-name: tab-7; }
 }
-::view-transition-group(tab-1), ::view-transition-group(tab-2), ::view-transition-group(tab-3), ::view-transition-group(tab-4),
-::view-transition-group(tab-5), ::view-transition-group(tab-6), ::view-transition-group(tab-7) { animation: none; }
-::view-transition-old(tab-1), ::view-transition-old(tab-2), ::view-transition-old(tab-3), ::view-transition-old(tab-4),
-::view-transition-old(tab-5), ::view-transition-old(tab-6), ::view-transition-old(tab-7) { animation: none; opacity: 0; }
-::view-transition-new(tab-1), ::view-transition-new(tab-2), ::view-transition-new(tab-3), ::view-transition-new(tab-4),
-::view-transition-new(tab-5), ::view-transition-new(tab-6), ::view-transition-new(tab-7) {
-  animation: vt-drop 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-::view-transition-new(tab-2) { animation-delay: 0.07s; }
-::view-transition-new(tab-3) { animation-delay: 0.14s; }
-::view-transition-new(tab-4) { animation-delay: 0.21s; }
-::view-transition-new(tab-5) { animation-delay: 0.26s; }
-::view-transition-new(tab-6) { animation-delay: 0.31s; }
-::view-transition-new(tab-7) { animation-delay: 0.36s; }
+/* tabs never stretch or slide sideways between pages */
+::view-transition-group(tab-1), ::view-transition-group(tab-2), ::view-transition-group(tab-3), ::view-transition-group(tab-4), ::view-transition-group(tab-5), ::view-transition-group(tab-6), ::view-transition-group(tab-7) { animation: none; }
+/* closing: tabs lift up and fade, bottom tab first */
+::view-transition-old(tab-1), ::view-transition-old(tab-2), ::view-transition-old(tab-3), ::view-transition-old(tab-4), ::view-transition-old(tab-5), ::view-transition-old(tab-6), ::view-transition-old(tab-7) { animation: vt-close 0.32s cubic-bezier(0.5, 0, 0.75, 0) both; }
+::view-transition-old(tab-7) { animation-delay: 0s; }
+::view-transition-old(tab-6) { animation-delay: 0.02s; }
+::view-transition-old(tab-5) { animation-delay: 0.04s; }
+::view-transition-old(tab-4) { animation-delay: 0.06s; }
+::view-transition-old(tab-3) { animation-delay: 0.08s; }
+::view-transition-old(tab-2) { animation-delay: 0.10s; }
+::view-transition-old(tab-1) { animation-delay: 0.12s; }
+/* opening: tabs drop in from the top, top tab first */
+::view-transition-new(tab-1), ::view-transition-new(tab-2), ::view-transition-new(tab-3), ::view-transition-new(tab-4), ::view-transition-new(tab-5), ::view-transition-new(tab-6), ::view-transition-new(tab-7) { animation: vt-open 0.7s var(--vt-ease) both; }
+::view-transition-new(tab-1) { animation-delay: 0.26s; }
+::view-transition-new(tab-2) { animation-delay: 0.32s; }
+::view-transition-new(tab-3) { animation-delay: 0.38s; }
+::view-transition-new(tab-4) { animation-delay: 0.43s; }
+::view-transition-new(tab-5) { animation-delay: 0.47s; }
+::view-transition-new(tab-6) { animation-delay: 0.51s; }
+::view-transition-new(tab-7) { animation-delay: 0.55s; }
+@keyframes vt-close { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-36px); } }
+@keyframes vt-open  { from { opacity: 0; transform: translateY(-48px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes vt-fade-out { to { opacity: 0; } }
-@keyframes vt-drop { from { opacity: 0; transform: translateY(-60px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }
