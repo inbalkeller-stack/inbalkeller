@@ -166,6 +166,41 @@
     setTimeout(function () { window.location.href = a.href; }, 620);
   });
 
+
+  /* ---------- Leaving the Playground: the fan closes ----------
+     The three tall tabs shrink back up to the normal tab height (like a fan
+     folding), the video never moves, then the next page opens in place. */
+  document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('theme-playground') || !wide.matches) return;
+    var a = e.target.closest && e.target.closest('.sidebar .snav a');
+    if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.sidebar .snav > *'));
+    if (tabs.length !== 3) return;
+    e.preventDefault();
+    var navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-sub-h')) * 1.618;
+    var probe = document.createElement('div'); probe.style.height = 'var(--nav-h)'; probe.style.position = 'absolute';
+    document.body.appendChild(probe); navH = probe.getBoundingClientRect().height || navH; probe.remove();
+    var blue = getComputedStyle(document.documentElement).getPropertyValue('--blue') || '#0004FF';
+    var ease = 'cubic-bezier(0.65, 0, 0.35, 1)';
+    var dest = a.getAttribute('href');
+    tabs.forEach(function (t) {
+      t.style.setProperty('height', t.getBoundingClientRect().height + 'px', 'important');
+      t.style.setProperty('flex', 'none', 'important'); t.style.setProperty('min-height', '0', 'important');
+    });
+    document.querySelector('.sidebar').getBoundingClientRect();
+    tabs.forEach(function (t) {
+      var href = t.getAttribute('href') || '';
+      /* the tab of the page we are going to becomes the coloured one (Projects stays blue on Home) */
+      var active = (dest === 'about.html' && href === 'about.html') || (dest === 'index.html' && href === 'index.html');
+      t.style.transition = 'height 0.6s ' + ease + ', background-color 0.6s ' + ease + ', color 0.6s ' + ease;
+      t.style.setProperty('height', navH + 'px', 'important');
+      t.style.setProperty('background-color', active ? blue : 'var(--bg)', 'important');
+      t.style.setProperty('color', active ? '#FCF8FF' : blue, 'important');
+    });
+    try { sessionStorage.setItem('vtSkip', '1'); } catch (x) {}
+    setTimeout(function () { window.location.href = a.href; }, 620);
+  });
+
   /* ---------- Only one video plays sound at a time ---------- */
   var vids = Array.prototype.slice.call(document.querySelectorAll('video'));
   vids.forEach(function (v) {
