@@ -65,12 +65,36 @@
    instead of flashing white. Browsers without support simply navigate. */
 @view-transition { navigation: auto; }
 
-/* Page change: the whole new page simply drops straight down from the top
-   while the old one fades out. No tilt, no per-tab movement, no bounce. */
+/* Page change: the whole page drops straight down from the top, and the nav tabs
+   drop the same way, one after another (top tab first). Straight only: tabs never
+   stretch or slide sideways between pages. */
 ::view-transition-old(root) { animation: vt-fade-out 0.25s ease both; }
-::view-transition-new(root) { animation: vt-drop-page 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+::view-transition-new(root) { animation: vt-drop 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@media (min-width: 900px) {
+  .side__nav > :nth-child(1), .snav > :nth-child(1) { view-transition-name: tab-1; }
+  .side__nav > :nth-child(2), .snav > :nth-child(2) { view-transition-name: tab-2; }
+  .side__nav > :nth-child(3), .snav > :nth-child(3) { view-transition-name: tab-3; }
+  .snav > :nth-child(4) { view-transition-name: tab-4; }
+  .snav > :nth-child(5) { view-transition-name: tab-5; }
+  .snav > :nth-child(6) { view-transition-name: tab-6; }
+  .snav > :nth-child(7) { view-transition-name: tab-7; }
+}
+::view-transition-group(tab-1), ::view-transition-group(tab-2), ::view-transition-group(tab-3), ::view-transition-group(tab-4),
+::view-transition-group(tab-5), ::view-transition-group(tab-6), ::view-transition-group(tab-7) { animation: none; }
+::view-transition-old(tab-1), ::view-transition-old(tab-2), ::view-transition-old(tab-3), ::view-transition-old(tab-4),
+::view-transition-old(tab-5), ::view-transition-old(tab-6), ::view-transition-old(tab-7) { animation: none; opacity: 0; }
+::view-transition-new(tab-1), ::view-transition-new(tab-2), ::view-transition-new(tab-3), ::view-transition-new(tab-4),
+::view-transition-new(tab-5), ::view-transition-new(tab-6), ::view-transition-new(tab-7) {
+  animation: vt-drop 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+::view-transition-new(tab-2) { animation-delay: 0.07s; }
+::view-transition-new(tab-3) { animation-delay: 0.14s; }
+::view-transition-new(tab-4) { animation-delay: 0.21s; }
+::view-transition-new(tab-5) { animation-delay: 0.26s; }
+::view-transition-new(tab-6) { animation-delay: 0.31s; }
+::view-transition-new(tab-7) { animation-delay: 0.36s; }
 @keyframes vt-fade-out { to { opacity: 0; } }
-@keyframes vt-drop-page { from { opacity: 0; transform: translateY(-60px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes vt-drop { from { opacity: 0; transform: translateY(-60px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }
@@ -578,7 +602,7 @@ body.menu-open { overflow: hidden; }
 .pg-layers { position: relative; container-type: inline-size; --pg-top: var(--mobile-bar-h); }
 .pg-layers > * { --pu: calc(100cqw / 987); }
 .pg-group { background: var(--bg); position: relative; height: calc(var(--gh) * var(--pu)); overflow-x: clip; }  /* scrolls normally, like the Figma prototype */
-.pg-group:first-child, .pg-group:last-child { overflow: clip; }  /* Figma frame ends here */
+.pg-group:first-child { overflow: clip; }
 .pgl { position: absolute; left: calc(var(--x) * var(--pu)); top: calc(var(--y) * var(--pu)); width: calc(var(--w) * var(--pu)); height: calc(var(--h) * var(--pu)); }
 .pgl__in { display: block; width: 100%; height: 100%; max-width: none; }
 img.pgl__in { object-fit: cover; }
