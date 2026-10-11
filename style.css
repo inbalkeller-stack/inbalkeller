@@ -178,7 +178,7 @@ body.is-loading { overflow: hidden; }
 .loader-seen .loader { display: none; }
 /* Phone: zoom the loader onto the pot's dark opening (no face) */
 @media (max-width: 899px) {
-  .loader.crop { --w: 270% !important; --fx: -47% !important; --fy: -77.5% !important; background-size: 270% auto; background-position: 47% 95%; }
+  .loader.crop { --w: 106vh !important; --fx: -45% !important; --fy: -73.5% !important; background-size: auto 189vh; background-position: 45% 94%; }  /* shows the hands and the blue writing, never the face */
 }
 .loader-seen body.is-loading { overflow: auto; }
 
@@ -625,7 +625,7 @@ body.menu-open { overflow: hidden; }
 .pg-layers { position: relative; container-type: inline-size; --pg-top: var(--mobile-bar-h); }
 .pg-layers > * { --pu: calc(100cqw / 987); }
 .pg-group { background: var(--bg); position: sticky; top: min(var(--pg-top), calc(100vh - var(--gh) * var(--pu))); height: calc(var(--gh) * var(--pu)); overflow-x: clip; }
-.pg-group:first-child { overflow: clip; }
+.pg-group:first-child, .pg-group:last-child { overflow: clip; }  /* Figma frame ends here */
 .pgl { position: absolute; left: calc(var(--x) * var(--pu)); top: calc(var(--y) * var(--pu)); width: calc(var(--w) * var(--pu)); height: calc(var(--h) * var(--pu)); }
 .pgl__in { display: block; width: 100%; height: 100%; max-width: none; }
 img.pgl__in { object-fit: cover; }
