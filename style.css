@@ -642,3 +642,12 @@ img.pgl__in { object-fit: cover; }
   .theme-playground .snav > a, .theme-playground .snav > span { flex: 1 1 0; height: auto; min-height: var(--nav-h); }
   .theme-playground .snav > :last-child { border-bottom: 0; }
 }
+
+/* Home: a thin blue stroke around every project tile (one line between tiles, never doubled) */
+.tile { position: relative; }
+.tile::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 3;
+  border-right: 1px solid var(--blue); border-bottom: 1px solid var(--blue);
+}
+.tiles__row--top .tile::before { border-top: 1px solid var(--blue); }
+@media (max-width: 899px) { .tile::before { border-left: 1px solid var(--blue); } .tiles__row--top .tile:first-child::before { border-top: 0; } }
