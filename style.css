@@ -778,3 +778,7 @@ html.lb-open, html.lb-open body { overflow: hidden; }
 .ncard__img { object-fit: fill; }
 /* Miss P.: when the nav is closed, the sides are the same black as the project */
 @media (min-width: 900px) { .theme-missp .layout.nav-closed .content { background: #000; } }
+
+/* Playground: page background from Figma (the nav keeps its own colors) */
+.theme-playground { --pg-bg: #FEFDEF; }
+.theme-playground .content, .theme-playground .pg-group { background: var(--pg-bg); }
