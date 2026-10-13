@@ -21,7 +21,7 @@
   <meta name="twitter:image" content="https://inbalkeller.com/images/share.jpg">
   <meta name="twitter:image:alt" content="Inbal Keller portfolio home page">
   <link rel="preload" href="fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=60">
+  <link rel="stylesheet" href="style.css?v=61">
   <script>
     /* a page that animated its own nav before leaving asks the next page to appear without a second transition */
     window.addEventListener('pagereveal', function (e) {
@@ -63,13 +63,15 @@
     <!-- Playground: every picture & video is its own layer, placed as in Figma.
          Each section (flowers, dog, frame of photos) stops and the next one slides over it. -->
     <div class="pg-layers">
-      <section class="pg-group" style="--gh:1389.2" aria-label="flowers">
+      <section class="pg-group pg-group--stick" style="--gh:1389.2; --gx:980" aria-label="flowers">
+        <div class="pg-bg" style="--bh:1389.2">
         <div class="pgl" style="--x:0; --y:-24.5; --w:987; --h:1416.7"><img class="pgl__in" src="images/pg-floral.jpg" alt="Floral drawing" width="1988" height="2852"></div>
         <div class="pgl" style="--x:376.5; --y:222.5; --w:303; --h:512"><img class="pgl__in" src="images/pg-oboe-girl.png" alt="Illustration of Inbal playing the oboe" width="606" height="1024"></div>
+        </div>
         <div class="pgl" style="--x:81; --y:858; --w:848; --h:478"><div class="pgl__in pgl__video"><video src="web-videos/interceptor.mp4" poster="images/playground-interceptor-poster.jpg" autoplay muted loop playsinline controls></video></div></div>
       </section>
-      <section class="pg-group" style="--gh:1002.2" aria-label="dog">
-        <div class="pgl" style="--x:0; --y:0.0; --w:987; --h:1002.2"><img class="pgl__in" src="images/pg-dog.jpg" alt="Dog painting" width="779" height="791" loading="lazy"></div>
+      <section class="pg-group pg-group--stick" style="--gh:1002.2; --gx:820" aria-label="dog">
+        <div class="pg-bg" style="--bh:1002.2"><div class="pgl" style="--x:0; --y:0.0; --w:987; --h:1002.2"><img class="pgl__in" src="images/pg-dog.jpg" alt="Dog painting" width="779" height="791" loading="lazy"></div></div>
         <div class="pgl" style="--x:115; --y:377.8; --w:776; --h:435"><div class="pgl__in pgl__video"><video src="web-videos/stutter.mp4" poster="images/playground-stutter-poster.jpg" autoplay muted loop playsinline controls></video></div></div>
       </section>
       <section class="pg-group" style="--gh:1226.6" aria-label="postcards">

@@ -754,3 +754,22 @@ html.intro .mobile-bar                  { --from: translateY(-100%); }
 .lightbox__x:hover { background: var(--c-active); }
 .lightbox__x svg { width: 46%; height: 46%; }
 html.lb-open, html.lb-open body { overflow: hidden; }
+
+/* Playground: the flowers and the dog stay put as a background,
+   and the first two videos scroll over them, until the postcards slide in. */
+.pg-group--stick { height: calc((var(--gh) + var(--gx)) * var(--pu)); }
+.pg-bg {
+  position: sticky; display: block;
+  top: min(var(--pg-top), calc(100vh - var(--bh) * var(--pu)));
+  height: calc(var(--bh) * var(--pu)); overflow: hidden;
+}
+.pg-group--stick > .pgl { z-index: 1; }
+
+/* Prototype buttons: always as wide as the screen, also when the nav is closed */
+@media (min-width: 900px) {
+  .layout.nav-closed .cta { margin-inline: calc(-1 * max(0px, calc((100vw - 130vh) / 2))); transition: margin 0.6s cubic-bezier(0.65, 0, 0.35, 1); }
+}
+/* DIA: "Skip To Prototype" follows the user while scrolling */
+.cta--sticky { position: sticky; bottom: 0; z-index: 40; }
+/* button height follows the project column (Figma ratio), never the screen width */
+.cta { height: calc(100cqw * var(--cta-h, 152) / 986); aspect-ratio: auto; }
