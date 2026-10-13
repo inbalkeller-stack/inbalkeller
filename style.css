@@ -377,7 +377,7 @@ body.menu-open { overflow: hidden; }
   justify-content: center;
   min-height: 100px;
   background: var(--cta-bg, var(--c));
-  color: var(--bg);
+  color: var(--cta-fg, var(--bg));
   font-family: var(--font-plex);
   font-size: var(--fs-m);
   line-height: var(--lh-m);

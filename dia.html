@@ -21,7 +21,7 @@
   <meta name="twitter:image" content="https://inbalkeller.com/images/share.jpg">
   <meta name="twitter:image:alt" content="Inbal Keller portfolio home page">
   <link rel="preload" href="fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=57">
+  <link rel="stylesheet" href="style.css?v=58">
   <script>
     /* a page that animated its own nav before leaving asks the next page to appear without a second transition */
     window.addEventListener('pagereveal', function (e) {
@@ -70,7 +70,12 @@
   <button class="nav-close" type="button" aria-expanded="true" aria-label="Close the menu"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M15 6l14 14-14 14" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
 
   <main class="content">
-    <img class="block-img" src="images/dia-1.jpg" alt="Hi! Meet Dia, a personal diabetes control dashboard" width="1972" height="2400" loading="lazy">
+    <div class="dia-anim">
+    <img class="block-img" src="images/dia-1.jpg" alt="Hi! Meet Dia, a personal diabetes control dashboard. Dia is an app, created for keeping track of diabetes. Please explain: what is diabetes?" width="1972" height="3909" loading="lazy">
+      <video class="dia-anim__v" style="left:23.090%; top:47.529%; width:17.033%; height:15.276%" src="web-videos/dia-app-workout.mp4" autoplay muted loop playsinline aria-label="Dia app screen recording"></video>
+      <video class="dia-anim__v" style="left:41.588%; top:42.578%; width:17.129%; height:15.362%" src="web-videos/dia-app-signup.mp4" autoplay muted loop playsinline aria-label="Dia app screen recording"></video>
+      <video class="dia-anim__v" style="left:60.529%; top:46.912%; width:17.684%; height:15.860%" src="web-videos/dia-app-nudge.mp4" autoplay muted loop playsinline aria-label="Dia app screen recording"></video>
+    </div>
     <img class="block-img" src="images/dia-2.jpg" alt="Please explain: what is diabetes? What are the main problems people with diabetes face?" width="1972" height="2400" loading="lazy">
     <img class="block-img" src="images/dia-3.jpg" alt="So, what did we do? An app that makes controlling diabetes easier. Why choose Dia?" width="1972" height="2400" loading="lazy">
     <img class="block-img" src="images/dia-4.jpg" alt="Personas: Rami and Adam" width="1972" height="2400" loading="lazy">
@@ -81,17 +86,11 @@
       <video class="dia-anim__v" style="left:33.012%; top:40.667%; width:9.990%; height:14.667%" src="web-videos/dia-insulin-1.mp4" autoplay muted loop playsinline aria-label="Insulin loading animation"></video>
       <video class="dia-anim__v" style="left:44.270%; top:40.667%; width:9.990%; height:14.667%" src="web-videos/dia-insulin-2.mp4" autoplay muted loop playsinline aria-label="Insulin loading animation"></video>
     </div>
-    <div class="dia-anim">
-    <img class="block-img" src="images/dia-8.jpg" alt="Learning from users: we let Rami try Dia, and these were his struggles. We fixed it for Rami." width="1972" height="2400" loading="lazy">
-    <img class="block-img" src="images/dia-9.jpg" alt="Final App!!!" width="1972" height="420" loading="lazy">
-      <video class="dia-anim__v" style="left:22.385%; top:74.383%; width:17.172%; height:21.348%" src="web-videos/dia-app-workout.mp4" autoplay muted loop playsinline aria-label="Dia app screen recording"></video>
-      <video class="dia-anim__v" style="left:40.945%; top:67.488%; width:17.080%; height:21.234%" src="web-videos/dia-app-signup.mp4" autoplay muted loop playsinline aria-label="Dia app screen recording"></video>
-      <video class="dia-anim__v" style="left:59.307%; top:73.491%; width:17.847%; height:22.187%" src="web-videos/dia-app-nudge.mp4" autoplay muted loop playsinline aria-label="Dia app screen recording"></video>
-    </div>
-    <a class="cta" href="#" style="aspect-ratio: 986 / 152">Try It Now</a>
+    <img class="block-img" src="images/dia-8.jpg" alt="Learning from users: we let Rami try Dia, and these were his struggles. We fixed it for Rami." width="1972" height="1590" loading="lazy">
+    <a class="cta" href="#" style="--cta-fg: #F0DDFF; aspect-ratio: 986 / 134">Skip To Prototype</a>
   </main>
 </div>
 
-<script src="script.js?v=23"></script>
+<script src="script.js?v=24"></script>
 </body>
 </html>

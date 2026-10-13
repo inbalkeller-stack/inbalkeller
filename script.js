@@ -247,6 +247,18 @@
     card.querySelector('.ncard__fwd').addEventListener('click', function () { show(cur() + 1); });
   });
 
+  /* ---------- Make sure inline muted videos actually play when on screen ---------- */
+  var autoVids = document.querySelectorAll('video[autoplay]');
+  if ('IntersectionObserver' in window) {
+    var vio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { v.muted = v.muted || v.hasAttribute('muted'); var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+      });
+    }, { threshold: 0.1 });
+    autoVids.forEach(function (v) { vio.observe(v); });
+  }
+
   /* ---------- Only one video plays sound at a time ---------- */
   var vids = Array.prototype.slice.call(document.querySelectorAll('video'));
   vids.forEach(function (v) {
