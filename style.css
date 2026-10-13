@@ -773,3 +773,8 @@ html.lb-open, html.lb-open body { overflow: hidden; }
 .cta--sticky { position: sticky; bottom: 0; z-index: 40; }
 /* button height follows the project column (Figma ratio), never the screen width */
 .cta { height: calc(100cqw * var(--cta-h, 152) / 986); aspect-ratio: auto; }
+/* data card buttons: exact Figma hit areas (set inline) */
+.ncard__btn { top: auto; height: auto; }
+.ncard__img { object-fit: fill; }
+/* Miss P.: when the nav is closed, the sides are the same black as the project */
+@media (min-width: 900px) { .theme-missp .layout.nav-closed .content { background: #000; } }
