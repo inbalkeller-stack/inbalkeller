@@ -681,16 +681,18 @@ html.intro .mobile-bar                  { --from: translateY(-100%); }
 @media (min-width: 900px) {
   .sidebar { transition: flex-basis 0.6s cubic-bezier(0.65, 0, 0.35, 1), border-color 0.6s; }
   .layout.nav-closed .sidebar { flex-basis: 0 !important; border-right-color: transparent; }
-  /* a full-height strip joined to the nav column, with the same stroke */
+  /* Figma: a square box hanging off the top of the nav, same stroke, thin arrow */
   .nav-close {
-    display: grid; place-items: center; flex: none;
-    position: sticky; top: 0; height: 100vh; width: 44px;
+    display: grid; place-items: center;
+    position: fixed; z-index: 50; top: 0; left: calc(100vw / 2.618);
+    width: clamp(56px, calc(100vw * 80 / 1512), 92px); aspect-ratio: 1;
     background: var(--bg); color: var(--c);
-    border: 0; border-right: 1px solid var(--c);
-    cursor: pointer; transition: background-color 0.2s;
+    border: 0; border-right: 1px solid var(--c); border-bottom: 1px solid var(--c);
+    cursor: pointer; transition: left 0.6s cubic-bezier(0.65, 0, 0.35, 1), background-color 0.2s;
   }
   .nav-close:hover { background: var(--c-active); }
-  .nav-close svg { width: 26px; height: 26px; transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1); }
+  .nav-close svg { width: 46%; height: 46%; transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1); }
+  .layout.nav-closed .nav-close { left: 0; border-left: 0; }
   .layout.nav-closed .nav-close svg { transform: rotate(180deg); }
   .layout.no-anim .sidebar, .layout.no-anim .nav-close, .layout.no-anim .nav-close svg { transition: none; }
 }
@@ -699,4 +701,3 @@ html.intro .mobile-bar                  { --from: translateY(-100%); }
   .layout:has(.nav-close) .sidebar > * { width: calc(100vw / 2.618); flex-shrink: 0; }
   .layout.nav-closed .sidebar { border-right-width: 0; }
 }
-@media (min-width: 900px) { .layout:has(.nav-close) .sidebar { border-right: 0; } }
