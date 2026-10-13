@@ -21,7 +21,7 @@
   <meta name="twitter:image" content="https://inbalkeller.com/images/share.jpg">
   <meta name="twitter:image:alt" content="Inbal Keller portfolio home page">
   <link rel="preload" href="fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=59">
+  <link rel="stylesheet" href="style.css?v=60">
   <script>
     /* a page that animated its own nav before leaving asks the next page to appear without a second transition */
     window.addEventListener('pagereveal', function (e) {
@@ -76,23 +76,43 @@
     <div class="ncard-wrap">
     <img class="block-img" src="images/neighborhology-2.jpg" alt="Neve Dan map spread with its data card" width="1972" height="2220" loading="lazy">
       <div class="ncard" data-i="0" style="left:70.385%; top:8.108%; width:25.355%; height:60.360%">
-        <img class="ncard__img is-on" src="images/ncard-0.jpg" alt="Data card: Neve Dan" width="500" height="1340">
-        <img class="ncard__img" src="images/ncard-1.jpg" alt="Data card: Neve Sha’anan" width="500" height="1340" loading="lazy">
-        <img class="ncard__img" src="images/ncard-2.jpg" alt="Data card: Kochav HaTzafon" width="500" height="1340" loading="lazy">
-        <img class="ncard__img" src="images/ncard-3.jpg" alt="Data card: Ramat Aviv" width="500" height="1340" loading="lazy">
-        <img class="ncard__img" src="images/ncard-4.jpg" alt="Data card: HaTzafon HaYashan" width="500" height="1340" loading="lazy">
-        <img class="ncard__img" src="images/ncard-5.jpg" alt="Data card: Lev Tel Aviv" width="500" height="1340" loading="lazy">
+        <img class="ncard__img is-on" src="images/ncard-0.jpg" alt="Data card: Neve Dan" width="1000" height="2680">
+        <img class="ncard__img" src="images/ncard-1.jpg" alt="Data card: Neve Sha’anan" width="1000" height="2680" loading="lazy">
+        <img class="ncard__img" src="images/ncard-2.jpg" alt="Data card: Kochav HaTzafon" width="1000" height="2680" loading="lazy">
+        <img class="ncard__img" src="images/ncard-3.jpg" alt="Data card: Ramat Aviv" width="1000" height="2680" loading="lazy">
+        <img class="ncard__img" src="images/ncard-4.jpg" alt="Data card: HaTzafon HaYashan" width="1000" height="2680" loading="lazy">
+        <img class="ncard__img" src="images/ncard-5.jpg" alt="Data card: Lev Tel Aviv" width="1000" height="2680" loading="lazy">
         <button class="ncard__btn ncard__next" type="button" aria-label="Next neighborhood"></button>
         <button class="ncard__btn ncard__prev" type="button" aria-label="Previous neighborhood"></button>
         <button class="ncard__btn ncard__fwd" type="button" aria-label="Next neighborhood"></button>
       </div>
     </div>
+    <div class="nzoom-wrap">
     <img class="block-img" src="images/neighborhology-3.jpg" alt="Patterned end papers and the back cover with a data card" width="1972" height="2220" loading="lazy">
+      <button class="nzoom" type="button" data-src="images/nmap-1.jpg" aria-label="View neighborhood map 1 full screen" style="left:0%; top:88.24%; width:25.15%; height:11.76%"></button>
+      <button class="nzoom" type="button" data-src="images/nmap-2.jpg" aria-label="View neighborhood map 2 full screen" style="left:25.15%; top:88.24%; width:25.15%; height:11.76%"></button>
+      <button class="nzoom" type="button" data-src="images/nmap-3.jpg" aria-label="View neighborhood map 3 full screen" style="left:50.3%; top:88.24%; width:25.16%; height:11.76%"></button>
+      <button class="nzoom" type="button" data-src="images/nmap-4.jpg" aria-label="View neighborhood map 4 full screen" style="left:75.46%; top:88.24%; width:24.54%; height:11.76%"></button>
+    </div>
+    <div class="nzoom-wrap">
     <img class="block-img" src="images/neighborhology-4.jpg" alt="Neighbourhood map illustrations and inspirations: Tel Aviv parking fines" width="1972" height="2220" loading="lazy">
+      <button class="nzoom" type="button" data-src="images/nmap-1.jpg" aria-label="View neighborhood map 1 full screen" style="left:0%; top:0%; width:25.15%; height:18.02%"></button>
+      <button class="nzoom" type="button" data-src="images/nmap-2.jpg" aria-label="View neighborhood map 2 full screen" style="left:25.15%; top:0%; width:25.15%; height:18.02%"></button>
+      <button class="nzoom" type="button" data-src="images/nmap-3.jpg" aria-label="View neighborhood map 3 full screen" style="left:50.3%; top:0%; width:25.16%; height:18.02%"></button>
+      <button class="nzoom" type="button" data-src="images/nmap-4.jpg" aria-label="View neighborhood map 4 full screen" style="left:75.46%; top:0%; width:24.54%; height:18.02%"></button>
+      <button class="nzoom" type="button" data-src="images/nmap-5.jpg" aria-label="View neighborhood map 5 full screen" style="left:0%; top:18.02%; width:25.15%; height:31.62%"></button>
+      <button class="nzoom" type="button" data-src="images/nmap-6.jpg" aria-label="View neighborhood map 6 full screen" style="left:25.15%; top:18.02%; width:25.15%; height:31.62%"></button>
+      <button class="nzoom" type="button" data-src="images/nmap-7.jpg" aria-label="View neighborhood map 7 full screen" style="left:50.3%; top:18.02%; width:25.16%; height:31.62%"></button>
+      <button class="nzoom" type="button" data-src="images/nmap-8.jpg" aria-label="View neighborhood map 8 full screen" style="left:75.46%; top:18.02%; width:24.54%; height:31.62%"></button>
+    </div>
     <a class="cta" href="#" style="aspect-ratio: 986 / 161">Explore Prototype</a>
+    <div class="lightbox" role="dialog" aria-modal="true" aria-label="Neighborhood map" hidden>
+      <img class="lightbox__img" alt="Neighborhood map, full screen">
+      <button class="lightbox__x" type="button" aria-label="Close and go back to Neighborhology"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 8l24 24M32 8L8 32"/></svg></button>
+    </div>
   </main>
 </div>
 
-<script src="script.js?v=25"></script>
+<script src="script.js?v=26"></script>
 </body>
 </html>

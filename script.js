@@ -250,6 +250,31 @@
     card.addEventListener('click', function () { show((cur() + 1) % n); });
   });
 
+  /* ---------- Neighborhology: open a map full screen ---------- */
+  var lb = document.querySelector('.lightbox');
+  if (lb) {
+    document.body.appendChild(lb); /* escape the column so it covers the whole screen */
+    var lbImg = lb.querySelector('.lightbox__img'), lastBtn = null;
+    function lbClose() {
+      lb.classList.remove('is-open');
+      document.documentElement.classList.remove('lb-open');
+      setTimeout(function () { lb.hidden = true; lbImg.removeAttribute('src'); }, 250);
+      if (lastBtn) lastBtn.focus({ preventScroll: true });
+    }
+    document.querySelectorAll('.nzoom').forEach(function (b) {
+      b.addEventListener('click', function () {
+        lastBtn = b;
+        lbImg.src = b.getAttribute('data-src');
+        lb.hidden = false;
+        document.documentElement.classList.add('lb-open');
+        requestAnimationFrame(function () { lb.classList.add('is-open'); });
+        lb.querySelector('.lightbox__x').focus({ preventScroll: true });
+      });
+    });
+    lb.querySelector('.lightbox__x').addEventListener('click', lbClose);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lb.hidden) lbClose(); });
+  }
+
   /* ---------- Make sure inline muted videos actually play when on screen ---------- */
   var autoVids = document.querySelectorAll('video[autoplay]');
   if ('IntersectionObserver' in window) {
