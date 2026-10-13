@@ -65,12 +65,12 @@
    instead of flashing white. Browsers without support simply navigate. */
 @view-transition { navigation: auto; }
 
-/* Page change ("smart animate"): the old page closes — its tabs lift up and fade,
-   bottom tab first — and then the new page opens — everything drops straight down
-   from the top, tabs one after another, top tab first. Straight moves only. */
-:root { --vt-ease: cubic-bezier(0.25, 1, 0.5, 1); }
-::view-transition-old(root) { animation: vt-close 0.38s cubic-bezier(0.5, 0, 0.75, 0) both; }
-::view-transition-new(root) { animation: vt-open 0.7s var(--vt-ease) 0.22s both; }
+/* Page change: short and smooth. The old page fades out quickly while the new one
+   drops straight down; the tabs drop one right after another. Everything finishes
+   in about half a second, so nothing waits or gets stuck. */
+:root { --vt-ease: cubic-bezier(0.22, 1, 0.36, 1); }
+::view-transition-old(root) { animation: vt-fade-out 0.18s linear both; }
+::view-transition-new(root) { animation: vt-open 0.45s var(--vt-ease) both; }
 @media (min-width: 900px) {
   .side__nav > :nth-child(1), .snav > :nth-child(1) { view-transition-name: tab-1; }
   .side__nav > :nth-child(2), .snav > :nth-child(2) { view-transition-name: tab-2; }
@@ -79,25 +79,25 @@
   .snav > :nth-child(5) { view-transition-name: tab-5; }
   .snav > :nth-child(6) { view-transition-name: tab-6; }
   .snav > :nth-child(7) { view-transition-name: tab-7; }
+  .nav-close { view-transition-name: nav-close; }
 }
-/* tabs never stretch or slide sideways between pages */
-::view-transition-group(tab-1), ::view-transition-group(tab-2), ::view-transition-group(tab-3), ::view-transition-group(tab-4), ::view-transition-group(tab-5), ::view-transition-group(tab-6), ::view-transition-group(tab-7) { animation: none; }
-/* closing: the old tabs stay in place, strokes and all, until the new tab
-   has landed on top of them, so the lines between tabs never disappear */
-::view-transition-old(tab-1), ::view-transition-old(tab-2), ::view-transition-old(tab-3), ::view-transition-old(tab-4), ::view-transition-old(tab-5), ::view-transition-old(tab-6), ::view-transition-old(tab-7) { animation: vt-hold 1.3s linear both; }
-/* opening: tabs drop in from the top, top tab first */
-::view-transition-new(tab-1), ::view-transition-new(tab-2), ::view-transition-new(tab-3), ::view-transition-new(tab-4), ::view-transition-new(tab-5), ::view-transition-new(tab-6), ::view-transition-new(tab-7) { animation: vt-open 0.7s var(--vt-ease) both; }
-::view-transition-new(tab-1) { animation-delay: 0.26s; }
-::view-transition-new(tab-2) { animation-delay: 0.32s; }
-::view-transition-new(tab-3) { animation-delay: 0.38s; }
-::view-transition-new(tab-4) { animation-delay: 0.43s; }
-::view-transition-new(tab-5) { animation-delay: 0.47s; }
-::view-transition-new(tab-6) { animation-delay: 0.51s; }
-::view-transition-new(tab-7) { animation-delay: 0.55s; }
-@keyframes vt-close { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-36px); } }
-@keyframes vt-open  { from { opacity: 0; transform: translateY(-48px); } to { opacity: 1; transform: translateY(0); } }
+::view-transition-group(tab-1), ::view-transition-group(tab-2), ::view-transition-group(tab-3), ::view-transition-group(tab-4), ::view-transition-group(tab-5), ::view-transition-group(tab-6), ::view-transition-group(tab-7), ::view-transition-group(nav-close) { animation: none; }
+/* old tab stays under the new one (lines never vanish), then is gone */
+::view-transition-old(tab-1), ::view-transition-old(tab-2), ::view-transition-old(tab-3), ::view-transition-old(tab-4), ::view-transition-old(tab-5), ::view-transition-old(tab-6), ::view-transition-old(tab-7) { animation: vt-hold 0.6s linear both; }
+::view-transition-new(tab-1), ::view-transition-new(tab-2), ::view-transition-new(tab-3), ::view-transition-new(tab-4), ::view-transition-new(tab-5), ::view-transition-new(tab-6), ::view-transition-new(tab-7) { animation: vt-open 0.4s var(--vt-ease) both; }
+::view-transition-new(tab-2) { animation-delay: 0.03s; }
+::view-transition-new(tab-3) { animation-delay: 0.06s; }
+::view-transition-new(tab-4) { animation-delay: 0.09s; }
+::view-transition-new(tab-5) { animation-delay: 0.11s; }
+::view-transition-new(tab-6) { animation-delay: 0.13s; }
+::view-transition-new(tab-7) { animation-delay: 0.15s; }
+/* the arrow box never moves during a page change */
+::view-transition-old(nav-close) { animation: none; opacity: 0; }
+::view-transition-new(nav-close) { animation: none; }
+@keyframes vt-open  { from { opacity: 0; transform: translateY(-28px); } to { opacity: 1; transform: none; } }
 @keyframes vt-fade-out { to { opacity: 0; } }
 @keyframes vt-hold { 0%, 99% { opacity: 1; } 100% { opacity: 0; } }
+::view-transition-group(root) { animation-duration: 0.45s; }
 
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }
@@ -658,18 +658,18 @@ img.pgl__in { object-fit: cover; }
 html.intro body { overflow: hidden; }
 html.intro .side__video, html.intro .side__nav > *, html.intro .welcome, html.intro .tile,
 html.intro .mobile-bar {
-  animation: mag-in 0.9s cubic-bezier(0.34, 1.45, 0.64, 1) both;
+  animation: mag-in 0.75s cubic-bezier(0.34, 1.3, 0.64, 1) both; will-change: transform;
 }
 @keyframes mag-in { from { transform: var(--from); opacity: 0; } 25% { opacity: 1; } to { transform: none; opacity: 1; } }
-html.intro .side__video                 { --from: translateY(-100vh); animation-delay: 0.05s; }
-html.intro .side__nav > :nth-child(1)   { --from: translateX(-100vw); animation-delay: 0.25s; }
-html.intro .side__nav > :nth-child(2)   { --from: translateX(100vw);  animation-delay: 0.35s; }
-html.intro .side__nav > :nth-child(3)   { --from: translateX(-100vw); animation-delay: 0.45s; }
-html.intro .welcome                     { --from: translateY(100vh);  animation-delay: 0.6s; }
-html.intro .tile--neighborhology        { --from: translateY(-100vh); animation-delay: 0.15s; }
-html.intro .tile--missp                 { --from: translateX(100vw);  animation-delay: 0.3s; }
-html.intro .tile--kabai                 { --from: translateY(100vh);  animation-delay: 0.4s; }
-html.intro .tile--dia                   { --from: translateX(100vw);  animation-delay: 0.5s; }
+html.intro .side__video                 { --from: translateY(-100vh); animation-delay: 0.03s; }
+html.intro .side__nav > :nth-child(1)   { --from: translateX(-100vw); animation-delay: 0.12s; }
+html.intro .side__nav > :nth-child(2)   { --from: translateX(100vw);  animation-delay: 0.17s; }
+html.intro .side__nav > :nth-child(3)   { --from: translateX(-100vw); animation-delay: 0.23s; }
+html.intro .welcome                     { --from: translateY(100vh);  animation-delay: 0.30s; }
+html.intro .tile--neighborhology        { --from: translateY(-100vh); animation-delay: 0.07s; }
+html.intro .tile--missp                 { --from: translateX(100vw);  animation-delay: 0.15s; }
+html.intro .tile--kabai                 { --from: translateY(100vh);  animation-delay: 0.20s; }
+html.intro .tile--dia                   { --from: translateX(100vw);  animation-delay: 0.25s; }
 html.intro .mobile-bar                  { --from: translateY(-100%); }
 /* the old video loader is gone */
 .loader { display: none !important; }
@@ -687,13 +687,12 @@ html.intro .mobile-bar                  { --from: translateY(-100%); }
     position: fixed; z-index: 50; top: 0; left: var(--nav-edge, calc(100vw / 2.618));
     width: clamp(56px, calc(100vw * 80 / 1512), 92px); aspect-ratio: 1;
     background: var(--bg); color: var(--c);
-    border: 0; border-right: 1px solid var(--c); border-bottom: 1px solid var(--c);
+    border: 0; border-right: 1px solid var(--c); border-bottom: 1px solid var(--c); border-top: 0; border-left: 0; outline: none; box-shadow: none; -webkit-appearance: none; appearance: none;
     cursor: pointer; transition: left 0.6s cubic-bezier(0.65, 0, 0.35, 1), background-color 0.2s;
   }
   .nav-close:hover { background: var(--c-active); }
   .nav-close svg { width: 46%; height: 46%; transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1); }
   .layout.nav-closed .nav-close { left: 0; border-left: 0; }
-  .layout.nav-closed .nav-close svg { transform: rotate(180deg); }
   .layout.no-anim .sidebar, .layout.no-anim .nav-close, .layout.no-anim .nav-close svg { transition: none; }
 }
 @media (min-width: 900px) {
@@ -701,3 +700,5 @@ html.intro .mobile-bar                  { --from: translateY(-100%); }
   .layout:has(.nav-close) .sidebar > * { width: var(--side-px, calc(100vw / 2.618)); flex-shrink: 0; }
   .layout.nav-closed .sidebar { border-right-width: 0; }
 }
+
+.nav-close:focus-visible { outline: 2px solid var(--c); outline-offset: -4px; }

@@ -159,14 +159,14 @@
     col.getBoundingClientRect();                       /* lock the start sizes */
     tabs.forEach(function (t, i) {
       var isPlay = /playground\.html$/.test(t.getAttribute('href') || '');
-      t.style.transition = 'height 0.6s ' + ease + ', background-color 0.6s ' + ease + ', color 0.6s ' + ease;
+      t.style.transition = 'height 0.42s ' + ease + ', background-color 0.42s ' + ease + ', color 0.42s ' + ease;
       t.style.setProperty('height', target + 'px', 'important');
       t.style.setProperty('background-color', isPlay ? blue : 'var(--bg)', 'important');
       t.style.setProperty('color', isPlay ? '#FCF8FF' : blue, 'important');
       t.style.borderColor = blue;
     });
     try { sessionStorage.setItem('vtSkip', '1'); } catch (x) {}
-    setTimeout(function () { window.location.href = a.href; }, 620);
+    setTimeout(function () { window.location.href = a.href; }, 430);
   });
 
 
@@ -195,13 +195,13 @@
       var href = t.getAttribute('href') || '';
       /* the tab of the page we are going to becomes the coloured one (Projects stays blue on Home) */
       var active = (dest === 'about.html' && href === 'about.html') || (dest === 'index.html' && href === 'index.html');
-      t.style.transition = 'height 0.6s ' + ease + ', background-color 0.6s ' + ease + ', color 0.6s ' + ease;
+      t.style.transition = 'height 0.42s ' + ease + ', background-color 0.42s ' + ease + ', color 0.42s ' + ease;
       t.style.setProperty('height', navH + 'px', 'important');
       t.style.setProperty('background-color', active ? blue : 'var(--bg)', 'important');
       t.style.setProperty('color', active ? '#FCF8FF' : blue, 'important');
     });
     try { sessionStorage.setItem('vtSkip', '1'); } catch (x) {}
-    setTimeout(function () { window.location.href = a.href; }, 620);
+    setTimeout(function () { window.location.href = a.href; }, 430);
   });
 
 
