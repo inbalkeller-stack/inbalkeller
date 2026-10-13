@@ -242,9 +242,12 @@
       imgs.forEach(function (im, k) { im.classList.toggle('is-on', k === i); });
     }
     function cur() { return parseInt(card.dataset.i, 10) || 0; }
-    card.querySelector('.ncard__next').addEventListener('click', function () { show(1); });
-    card.querySelector('.ncard__prev').addEventListener('click', function () { show(cur() - 1); });
-    card.querySelector('.ncard__fwd').addEventListener('click', function () { show(cur() + 1); });
+    function btn(sel, fn) { card.querySelector(sel).addEventListener('click', function (e) { e.stopPropagation(); fn(); }); }
+    btn('.ncard__next', function () { show(1); });
+    btn('.ncard__prev', function () { show(cur() - 1); });
+    btn('.ncard__fwd', function () { show(cur() + 1); });
+    /* clicking anywhere on the card moves to the next neighborhood (loops) */
+    card.addEventListener('click', function () { show((cur() + 1) % n); });
   });
 
   /* ---------- Make sure inline muted videos actually play when on screen ---------- */

@@ -715,3 +715,17 @@ html.intro .mobile-bar                  { --from: translateY(-100%); }
 .ncard__fwd{left:50.4%;width:16%;display:none}
 .ncard:not([data-i="0"]) .ncard__next{display:none}
 .ncard:not([data-i="0"]) .ncard__prev,.ncard:not([data-i="0"]) .ncard__fwd{display:block}
+
+/* ---------- Nav closed: the project grows, but keeps the same view ----------
+   The column gets bigger than in the grid, but never so big that a full
+   picture (or the data card) no longer fits the screen. Centered. */
+@media (min-width: 900px) {
+  .layout:has(.nav-close) .content { transition: padding 0.6s cubic-bezier(0.65, 0, 0.35, 1); }
+  .layout.nav-closed .content { padding-inline: max(0px, calc((100vw - 130vh) / 2)); }
+  .layout.no-anim .content { transition: none; }
+  /* Kabai 3D section scales with the column like the pictures do */
+  .fbx-section { padding: 3.43cqw 4.05cqw 4.28cqw; }
+  .fbx-section .label { font-size: max(var(--fs-m), 1.82cqw); line-height: 1.4; margin-bottom: 1.71cqw; }
+  .fbx figcaption { font-size: max(var(--fs-s), 1.5cqw); margin-top: 0.86cqw; }
+}
+.ncard { cursor: pointer; }
