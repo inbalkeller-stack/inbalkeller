@@ -233,6 +233,20 @@
     });
   }
 
+  /* ---------- Neighborhology changing data card ---------- */
+  document.querySelectorAll('.ncard').forEach(function (card) {
+    var imgs = card.querySelectorAll('.ncard__img'), n = imgs.length;
+    function show(i) {
+      i = Math.max(0, Math.min(n - 1, i));
+      card.dataset.i = i;
+      imgs.forEach(function (im, k) { im.classList.toggle('is-on', k === i); });
+    }
+    function cur() { return parseInt(card.dataset.i, 10) || 0; }
+    card.querySelector('.ncard__next').addEventListener('click', function () { show(1); });
+    card.querySelector('.ncard__prev').addEventListener('click', function () { show(cur() - 1); });
+    card.querySelector('.ncard__fwd').addEventListener('click', function () { show(cur() + 1); });
+  });
+
   /* ---------- Only one video plays sound at a time ---------- */
   var vids = Array.prototype.slice.call(document.querySelectorAll('video'));
   vids.forEach(function (v) {
