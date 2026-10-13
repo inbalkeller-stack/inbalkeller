@@ -267,7 +267,7 @@ body.menu-open { overflow: hidden; }
 .crop--bottom > video {
   top: auto !important;
   bottom: 0;
-  transform: translateX(-50%) !important;
+  transform: translate(-50%, 6%) !important;   /* a bit more of the top, a bit less desk: the whole mug shows */
   aspect-ratio: 720 / 1280;   /* the pottery video is portrait */
 }
 .side__nav { display: none; }
