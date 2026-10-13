@@ -39,6 +39,9 @@
     setTimeout(hideLoader, SAFETY);
   }
 
+  /* end the magnetic intro once everything has landed */
+  if (document.documentElement.classList.contains('intro')) setTimeout(function () { document.documentElement.classList.remove('intro'); }, 1700);
+
   /* ---------- Mobile hamburger ---------- */
   var menuToggle = document.getElementById('menuToggle');
   var mobileMenu = document.getElementById('mobileMenu');
@@ -200,6 +203,25 @@
     try { sessionStorage.setItem('vtSkip', '1'); } catch (x) {}
     setTimeout(function () { window.location.href = a.href; }, 620);
   });
+
+
+  /* ---------- Project pages: close / open the project list (remembered) ---------- */
+  var snav = document.querySelector('.sidebar .snav');
+  var tgl = snav && snav.querySelector('.snav__toggle');
+  if (tgl) {
+    var setList = function (closed) {
+      snav.classList.toggle('is-collapsed', closed);
+      tgl.setAttribute('aria-expanded', String(!closed));
+      tgl.setAttribute('aria-label', closed ? 'Open the project list' : 'Close the project list');
+    };
+    var saved = false; try { saved = sessionStorage.getItem('projListClosed') === '1'; } catch (x) {}
+    if (saved) { snav.classList.add('no-anim'); setList(true); requestAnimationFrame(function () { snav.classList.remove('no-anim'); }); }
+    tgl.addEventListener('click', function () {
+      var closed = !snav.classList.contains('is-collapsed');
+      setList(closed);
+      try { sessionStorage.setItem('projListClosed', closed ? '1' : '0'); } catch (x) {}
+    });
+  }
 
   /* ---------- Only one video plays sound at a time ---------- */
   var vids = Array.prototype.slice.call(document.querySelectorAll('video'));

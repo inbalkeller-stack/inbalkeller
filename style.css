@@ -651,3 +651,37 @@ img.pgl__in { object-fit: cover; }
 }
 .tiles__row--top .tile::before { border-top: 1px solid var(--blue); }
 @media (max-width: 899px) { .tile::before { border-left: 1px solid var(--blue); } .tiles__row--top .tile:first-child::before { border-top: 0; } }
+
+/* ---------- Magnetic intro (first visit only, Home) ----------
+   Every tab and tile flies in from a different side of the screen in a straight
+   line and snaps into place with a small magnetic overshoot. */
+html.intro body { overflow: hidden; }
+html.intro .side__video, html.intro .side__nav > *, html.intro .welcome, html.intro .tile,
+html.intro .mobile-bar {
+  animation: mag-in 0.9s cubic-bezier(0.34, 1.45, 0.64, 1) both;
+}
+@keyframes mag-in { from { transform: var(--from); opacity: 0; } 25% { opacity: 1; } to { transform: none; opacity: 1; } }
+html.intro .side__video                 { --from: translateY(-100vh); animation-delay: 0.05s; }
+html.intro .side__nav > :nth-child(1)   { --from: translateX(-100vw); animation-delay: 0.25s; }
+html.intro .side__nav > :nth-child(2)   { --from: translateX(100vw);  animation-delay: 0.35s; }
+html.intro .side__nav > :nth-child(3)   { --from: translateX(-100vw); animation-delay: 0.45s; }
+html.intro .welcome                     { --from: translateY(100vh);  animation-delay: 0.6s; }
+html.intro .tile--neighborhology        { --from: translateY(-100vh); animation-delay: 0.15s; }
+html.intro .tile--missp                 { --from: translateX(100vw);  animation-delay: 0.3s; }
+html.intro .tile--kabai                 { --from: translateY(100vh);  animation-delay: 0.4s; }
+html.intro .tile--dia                   { --from: translateX(100vw);  animation-delay: 0.5s; }
+html.intro .mobile-bar                  { --from: translateY(-100%); }
+/* the old video loader is gone */
+.loader { display: none !important; }
+
+/* ---------- Project pages: open / close the project list ---------- */
+.snav__group { display: flex; align-items: stretch; padding: 0 !important; height: var(--nav-h); flex: none; border-bottom: 1px solid var(--c); }
+.snav__group > a { flex: 1 1 auto; height: auto !important; border: 0 !important; background: transparent !important; color: inherit !important; }
+.snav__toggle { flex: none; width: var(--nav-h); display: grid; place-items: center; color: inherit; cursor: pointer; }
+.snav__toggle svg { transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1); }
+.snav__toggle:hover { background: rgba(255,255,255,0.12); }
+.snav .snav__item { overflow: hidden; transition: height 0.45s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.3s ease, border-bottom-width 0.45s; }
+.snav.is-collapsed .snav__item { height: 0 !important; min-height: 0 !important; opacity: 0; border-bottom-width: 0; pointer-events: none; }
+.snav.is-collapsed .snav__toggle svg { transform: rotate(180deg); }
+@media (max-width: 899px) { .snav__toggle { display: none; } }
+.snav.no-anim .snav__item { transition: none; }

@@ -21,27 +21,19 @@
   <meta name="twitter:image" content="https://inbalkeller.com/images/share.jpg">
   <meta name="twitter:image:alt" content="Inbal Keller portfolio home page">
   <link rel="preload" href="fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=48">
+  <link rel="stylesheet" href="style.css?v=49">
   <script>
     /* a page that animated its own nav before leaving asks the next page to appear without a second transition */
     window.addEventListener('pagereveal', function (e) {
       try { if (sessionStorage.getItem('vtSkip')) { sessionStorage.removeItem('vtSkip'); if (e.viewTransition) e.viewTransition.skipTransition(); } } catch (x) {}
     });
   </script>
-  <!-- Loader shows only on the first visit in this browser session -->
+  <!-- Magnetic intro: only on the first visit in this browser session -->
   <script>
-    try { if (sessionStorage.getItem('loaderSeen')) document.documentElement.classList.add('loader-seen'); } catch (e) {}
+    try { if (!sessionStorage.getItem('introSeen') && !matchMedia('(prefers-reduced-motion: reduce)').matches) { document.documentElement.classList.add('intro'); sessionStorage.setItem('introSeen','1'); } } catch (e) {}
   </script>
 </head>
-<body class="is-loading">
-
-  <!-- ============ LOADER (Figma: "main loader") ============
-       The pottery video, zoomed like the Figma frame, plays once from
-       start to end, then the site appears. -->
-  <div class="loader crop" id="loader" aria-hidden="true"
-       style="--w:141.9%; --fx:-44.2%; --fy:-85.3%; background-image:url(images/loader-poster.jpg)">
-    <video id="loaderVideo" src="web-videos/pottery.mp4" muted playsinline preload="auto"></video>
-  </div>
+<body>
 
   <!-- ============ MOBILE BAR + HAMBURGER (mobile only) ============ -->
   <header class="mobile-bar">
@@ -125,6 +117,6 @@
 
   </main>
 
-  <script src="script.js?v=18"></script>
+  <script src="script.js?v=19"></script>
 </body>
 </html>

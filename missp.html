@@ -21,7 +21,7 @@
   <meta name="twitter:image" content="https://inbalkeller.com/images/share.jpg">
   <meta name="twitter:image:alt" content="Inbal Keller portfolio home page">
   <link rel="preload" href="fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=48">
+  <link rel="stylesheet" href="style.css?v=49">
   <script>
     /* a page that animated its own nav before leaving asks the next page to appear without a second transition */
     window.addEventListener('pagereveal', function (e) {
@@ -52,7 +52,7 @@
     <nav class="snav" aria-label="Main menu">
       <a class="snav__name" href="about.html">Inbal Keller</a>
       <a class="snav__play" href="playground.html">Playground</a>
-      <a class="snav__group" href="index.html">Projects</a>
+      <div class="snav__group"><a href="index.html">Projects</a><button class="snav__toggle" type="button" aria-expanded="true" aria-label="Close the project list"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3 10l5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></div>
       <a class="snav__item" href="neighborhology.html">Neighborhology</a>
       <a class="snav__item" href="kabai.html">Kabai Hamangalim</a>
       <a class="snav__item" href="missp.html" aria-current="page">Miss P. Home for Peculiar</a>
@@ -90,6 +90,6 @@
   </main>
 </div>
 
-<script src="script.js?v=18"></script>
+<script src="script.js?v=19"></script>
 </body>
 </html>
