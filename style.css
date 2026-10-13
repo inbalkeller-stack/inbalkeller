@@ -684,7 +684,7 @@ html.intro .mobile-bar                  { --from: translateY(-100%); }
   /* Figma: a square box hanging off the top of the nav, same stroke, thin arrow */
   .nav-close {
     display: grid; place-items: center;
-    position: fixed; z-index: 50; top: 0; left: calc(100vw / 2.618);
+    position: fixed; z-index: 50; top: 0; left: var(--nav-edge, calc(100vw / 2.618));
     width: clamp(56px, calc(100vw * 80 / 1512), 92px); aspect-ratio: 1;
     background: var(--bg); color: var(--c);
     border: 0; border-right: 1px solid var(--c); border-bottom: 1px solid var(--c);
@@ -698,6 +698,6 @@ html.intro .mobile-bar                  { --from: translateY(-100%); }
 }
 @media (min-width: 900px) {
   /* while the nav slides away its contents keep their size (no squeezing) */
-  .layout:has(.nav-close) .sidebar > * { width: calc(100vw / 2.618); flex-shrink: 0; }
+  .layout:has(.nav-close) .sidebar > * { width: var(--side-px, calc(100vw / 2.618)); flex-shrink: 0; }
   .layout.nav-closed .sidebar { border-right-width: 0; }
 }

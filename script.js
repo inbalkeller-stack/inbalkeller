@@ -209,6 +209,16 @@
   var navBtn = document.querySelector('.nav-close');
   var layout = document.querySelector('.layout');
   if (navBtn && layout) {
+    /* the box sits exactly on the nav's edge (no gap, whatever the scrollbar) */
+    var sideEl = layout.querySelector('.sidebar');
+    var measure = function () {
+      if (layout.classList.contains('nav-closed')) return;
+      var r = sideEl.getBoundingClientRect();
+      document.documentElement.style.setProperty('--nav-edge', r.right + 'px');
+      document.documentElement.style.setProperty('--side-px', r.width + 'px');
+    };
+    measure(); window.addEventListener('resize', measure); window.addEventListener('load', measure);
+    sideEl.addEventListener('transitionend', measure);
     var setNav = function (closed) {
       layout.classList.toggle('nav-closed', closed);
       navBtn.setAttribute('aria-expanded', String(!closed));
