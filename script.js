@@ -205,21 +205,21 @@
   });
 
 
-  /* ---------- Project pages: close / open the project list (remembered) ---------- */
-  var snav = document.querySelector('.sidebar .snav');
-  var tgl = snav && snav.querySelector('.snav__toggle');
-  if (tgl) {
-    var setList = function (closed) {
-      snav.classList.toggle('is-collapsed', closed);
-      tgl.setAttribute('aria-expanded', String(!closed));
-      tgl.setAttribute('aria-label', closed ? 'Open the project list' : 'Close the project list');
+  /* ---------- Project pages: close / open the whole nav (remembered) ---------- */
+  var navBtn = document.querySelector('.nav-close');
+  var layout = document.querySelector('.layout');
+  if (navBtn && layout) {
+    var setNav = function (closed) {
+      layout.classList.toggle('nav-closed', closed);
+      navBtn.setAttribute('aria-expanded', String(!closed));
+      navBtn.setAttribute('aria-label', closed ? 'Open the menu' : 'Close the menu');
     };
-    var saved = false; try { saved = sessionStorage.getItem('projListClosed') === '1'; } catch (x) {}
-    if (saved) { snav.classList.add('no-anim'); setList(true); requestAnimationFrame(function () { snav.classList.remove('no-anim'); }); }
-    tgl.addEventListener('click', function () {
-      var closed = !snav.classList.contains('is-collapsed');
-      setList(closed);
-      try { sessionStorage.setItem('projListClosed', closed ? '1' : '0'); } catch (x) {}
+    var was = false; try { was = sessionStorage.getItem('navClosed') === '1'; } catch (x) {}
+    if (was) { layout.classList.add('no-anim'); setNav(true); requestAnimationFrame(function () { requestAnimationFrame(function () { layout.classList.remove('no-anim'); }); }); }
+    navBtn.addEventListener('click', function () {
+      var closed = !layout.classList.contains('nav-closed');
+      setNav(closed);
+      try { sessionStorage.setItem('navClosed', closed ? '1' : '0'); } catch (x) {}
     });
   }
 

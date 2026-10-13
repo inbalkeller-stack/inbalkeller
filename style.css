@@ -674,14 +674,28 @@ html.intro .mobile-bar                  { --from: translateY(-100%); }
 /* the old video loader is gone */
 .loader { display: none !important; }
 
-/* ---------- Project pages: open / close the project list ---------- */
-.snav__group { display: flex; align-items: stretch; padding: 0 !important; height: var(--nav-h); flex: none; border-bottom: 1px solid var(--c); }
-.snav__group > a { flex: 1 1 auto; height: auto !important; border: 0 !important; background: transparent !important; color: inherit !important; }
-.snav__toggle { flex: none; width: var(--nav-h); display: grid; place-items: center; color: inherit; cursor: pointer; }
-.snav__toggle svg { transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1); }
-.snav__toggle:hover { background: rgba(255,255,255,0.12); }
-.snav .snav__item { overflow: hidden; transition: height 0.45s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.3s ease, border-bottom-width 0.45s; }
-.snav.is-collapsed .snav__item { height: 0 !important; min-height: 0 !important; opacity: 0; border-bottom-width: 0; pointer-events: none; }
-.snav.is-collapsed .snav__toggle svg { transform: rotate(180deg); }
-@media (max-width: 899px) { .snav__toggle { display: none; } }
-.snav.no-anim .snav__item { transition: none; }
+/* ---------- Project pages: the whole nav column can be closed ----------
+   Closing slides the nav away to the left and the project fills the screen;
+   a slim tab on the left edge brings it back. */
+.nav-close { display: none; }
+@media (min-width: 900px) {
+  .sidebar { transition: flex-basis 0.6s cubic-bezier(0.65, 0, 0.35, 1), border-color 0.6s; }
+  .layout.nav-closed .sidebar { flex-basis: 0 !important; border-right-color: transparent; }
+  .nav-close {
+    display: grid; place-items: center;
+    position: fixed; z-index: 50; top: 50%; translate: 0 -50%;
+    left: calc(100vw / 2.618 - 1px); width: 28px; height: 64px;
+    background: var(--bg); color: var(--c); border: 1px solid var(--c); border-left: 0;
+    cursor: pointer; transition: left 0.6s cubic-bezier(0.65, 0, 0.35, 1), background-color 0.2s;
+  }
+  .nav-close:hover { background: var(--c-active); }
+  .nav-close svg { transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1); }
+  .layout.nav-closed .nav-close { left: 0; }
+  .layout.nav-closed .nav-close svg { transform: rotate(180deg); }
+  .layout.no-anim .sidebar, .layout.no-anim .nav-close, .layout.no-anim .nav-close svg { transition: none; }
+}
+@media (min-width: 900px) {
+  /* while the nav slides away its contents keep their size (no squeezing) */
+  .layout:has(.nav-close) .sidebar > * { width: calc(100vw / 2.618); flex-shrink: 0; }
+  .layout.nav-closed .sidebar { border-right-width: 0; }
+}
