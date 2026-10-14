@@ -213,9 +213,9 @@
     var sideEl = layout.querySelector('.sidebar');
     var measure = function () {
       if (layout.classList.contains('nav-closed')) return;
-      var r = sideEl.getBoundingClientRect();
-      document.documentElement.style.setProperty('--nav-edge', r.right + 'px');
-      document.documentElement.style.setProperty('--side-px', r.width + 'px');
+      var w = sideEl.getBoundingClientRect().width;   /* width is not affected by translateX */
+      document.documentElement.style.setProperty('--nav-edge', w + 'px');
+      document.documentElement.style.setProperty('--side-px', w + 'px');
     };
     measure(); window.addEventListener('resize', measure); window.addEventListener('load', measure);
     sideEl.addEventListener('transitionend', measure);
@@ -226,10 +226,44 @@
     };
     var was = false; try { was = sessionStorage.getItem('navClosed') === '1'; } catch (x) {}
     if (was) { layout.classList.add('no-anim'); setNav(true); requestAnimationFrame(function () { requestAnimationFrame(function () { layout.classList.remove('no-anim'); }); }); }
-    navBtn.addEventListener('click', function () {
-      var closed = !layout.classList.contains('nav-closed');
+    /* Smooth toggle: only transforms + opacity animate (no layout reflow while moving).
+       The nav slides with the arrow box; the project fades out, the layout switches
+       in one go, and the project fades back in at the same reading position. */
+    var busy = false, SLIDE = 460, FADE = 200;
+    var ratio = function () { var m = document.documentElement.scrollHeight - innerHeight; return m > 0 ? scrollY / m : 0; };
+    var restore = function (r) { var m = document.documentElement.scrollHeight - innerHeight; window.scrollTo(0, Math.round(r * m)); };
+    var switchLayout = function (closed) {
+      var r = ratio();
+      layout.classList.add('no-anim');
       setNav(closed);
+      layout.classList.remove('nav-anim-out');
+      if (!closed) layout.classList.add('nav-pre-in');
+      restore(r);
+      void layout.offsetWidth;
+      layout.classList.remove('no-anim');
+    };
+    navBtn.addEventListener('click', function () {
+      if (busy) return; busy = true;
+      var closed = !layout.classList.contains('nav-closed');
       try { sessionStorage.setItem('navClosed', closed ? '1' : '0'); } catch (x) {}
+      if (closed) {
+        measure();
+        layout.classList.add('nav-fade', 'nav-anim-out');
+        setTimeout(function () {
+          switchLayout(true);
+          requestAnimationFrame(function () { layout.classList.remove('nav-fade'); busy = false; });
+        }, SLIDE);
+      } else {
+        layout.classList.add('nav-fade');
+        setTimeout(function () {
+          switchLayout(false);
+          measure();
+          requestAnimationFrame(function () {
+            layout.classList.remove('nav-pre-in', 'nav-fade');
+            setTimeout(function () { busy = false; }, SLIDE);
+          });
+        }, FADE);
+      }
     });
   }
 

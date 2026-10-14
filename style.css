@@ -791,3 +791,21 @@ html.lb-open, html.lb-open body { overflow: hidden; }
 .ncard__prev svg, .ncard__fwd svg { width: 46%; height: auto; display: block; }
 .ncard__fwd svg { transform: scaleX(-1); }
 .ncard__prev:hover, .ncard__fwd:hover { background: var(--c-active); }
+
+/* ---------- Nav close/open: smooth (transform + opacity only) ---------- */
+@media (min-width: 900px) {
+  .layout:has(.nav-close) .sidebar,
+  .layout:has(.nav-close) .nav-close,
+  .layout:has(.nav-close) .cta { transition: none !important; }
+  .layout:has(.nav-close) .content { transition: opacity 0.22s ease !important; }
+  .layout:has(.nav-close) .sidebar { will-change: transform; }
+  .layout:has(.nav-close) .nav-close { will-change: transform; }
+  .layout.nav-fade .content { opacity: 0; }
+  .layout.nav-anim-out .sidebar, .layout.nav-pre-in .sidebar { transform: translateX(-100%); }
+  .layout.nav-anim-out .nav-close, .layout.nav-pre-in .nav-close { transform: translateX(calc(-1 * var(--nav-edge, 38.2vw))); }
+  .layout.nav-anim-out .sidebar, .layout.nav-anim-out .nav-close,
+  .layout.nav-anim-in .sidebar,
+  .layout:not(.no-anim):not(.nav-pre-in) .sidebar,
+  .layout:not(.no-anim):not(.nav-pre-in) .nav-close { transition: transform 0.46s cubic-bezier(0.65, 0, 0.35, 1) !important; }
+  .layout.no-anim .sidebar, .layout.no-anim .nav-close, .layout.no-anim .content { transition: none !important; }
+}
