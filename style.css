@@ -782,3 +782,12 @@ html.lb-open, html.lb-open body { overflow: hidden; }
 /* Playground: page background from Figma (the nav keeps its own colors) */
 .theme-playground { --pg-bg: #FEFDEF; }
 .theme-playground .content, .theme-playground .pg-group { background: var(--pg-bg); }
+/* data card arrows: nav-bar red boxes, arrow centred (← mirrors →) */
+.ncard__prev, .ncard__fwd {
+  background: #fff; color: var(--c); border: max(1.5px, 0.16cqw) solid var(--c);
+  display: none; place-items: center; container-type: normal;
+}
+.ncard:not([data-i="0"]) .ncard__prev, .ncard:not([data-i="0"]) .ncard__fwd { display: grid; }
+.ncard__prev svg, .ncard__fwd svg { width: 46%; height: auto; display: block; }
+.ncard__fwd svg { transform: scaleX(-1); }
+.ncard__prev:hover, .ncard__fwd:hover { background: var(--c-active); }
