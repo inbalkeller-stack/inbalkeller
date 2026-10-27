@@ -332,22 +332,18 @@
   });
 })();
 
-/* Home on phones: first tap on a project tile shows its hover look, second tap opens it */
+/* Home on phones: while the finger is down the tile shows its hover look,
+   when the finger lifts the project opens (normal link click) */
 (function () {
   var tiles = document.querySelectorAll('.tile');
   if (!tiles.length) return;
-  var phone = window.matchMedia('(max-width: 899px), (hover: none)');
+  function clear() { tiles.forEach(function (t) { t.classList.remove('is-tapped'); }); }
   tiles.forEach(function (tile) {
-    tile.addEventListener('click', function (e) {
-      if (!phone.matches || tile.classList.contains('is-tapped')) return;
-      e.preventDefault();
-      tiles.forEach(function (t) { t.classList.remove('is-tapped'); });
-      tile.classList.add('is-tapped');
-    });
+    tile.addEventListener('touchstart', function () { clear(); tile.classList.add('is-tapped'); }, { passive: true });
+    tile.addEventListener('touchmove', function () { tile.classList.remove('is-tapped'); }, { passive: true });   // scrolling, not pressing
+    tile.addEventListener('touchcancel', function () { tile.classList.remove('is-tapped'); }, { passive: true });
   });
-  document.addEventListener('click', function (e) {
-    if (!e.target.closest('.tile')) tiles.forEach(function (t) { t.classList.remove('is-tapped'); });
-  });
+  window.addEventListener('pageshow', clear);   // coming back with the Back button
 })();
 
 /* Dia: the page has a desktop and a phone version of the images.

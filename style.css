@@ -875,3 +875,5 @@ html.lb-open, html.lb-open body { overflow: hidden; }
 .dia-mob .dm-persona { padding: 16px 24px 24px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
 .dia-mob .dm-persona__img { width: 62%; max-width: 260px; height: auto; }
 .dia-mob .dm-persona__txt { padding: 0; text-align: left; align-self: stretch; }
+/* the pressed look appears at once under the finger */
+.tile.is-tapped::after, .tile.is-tapped .tile__label { transition-duration: 0.08s; }
