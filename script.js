@@ -351,16 +351,26 @@
 (function () {
   var all = document.querySelectorAll('.dia-desk video[data-src], .dia-mob video[data-src]');
   if (!all.length) return;
+  function tryPlay(v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+  // phones (iPhone) sometimes refuse the first play: try again when ready and on the first touch / scroll
+  function retry() { all.forEach(function (v) { if (v._onScreen && v.paused && v.getAttribute('src')) tryPlay(v); }); }
+  all.forEach(function (v) { v.addEventListener('canplay', function () { if (v._onScreen && v.paused) tryPlay(v); }); });
+  ['touchstart', 'scroll', 'click'].forEach(function (ev) { window.addEventListener(ev, retry, { passive: true }); });
   var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
     es.forEach(function (e) {
       var v = e.target;
-      if (e.isIntersecting && v.getAttribute('src')) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      v._onScreen = e.isIntersecting;
+      if (e.isIntersecting && v.getAttribute('src')) tryPlay(v);
     });
   }, { threshold: 0.1 }) : null;
   function sync() {
     all.forEach(function (v) {
       var shown = getComputedStyle(v.closest('.dia-desk, .dia-mob')).display !== 'none';
-      if (shown && !v.getAttribute('src')) { v.src = v.dataset.src; v.muted = true; if (io) io.observe(v); else v.play(); }
+      if (shown && !v.getAttribute('src')) {
+        v.muted = true; v.defaultMuted = true; v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('autoplay', '');
+        v.src = v.dataset.src; v.load();
+        if (io) io.observe(v); else tryPlay(v);
+      }
       else if (!shown && v.getAttribute('src')) { v.pause(); if (io) io.unobserve(v); v.removeAttribute('src'); v.load(); }
     });
   }
