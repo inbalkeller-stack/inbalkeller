@@ -835,3 +835,12 @@ html.lb-open, html.lb-open body { overflow: hidden; }
   .dia-desk { display: none; }
   .dia-mob { display: block; }
 }
+
+/* Home on phones: the page runs under the iPhone's bottom bar so the projects reach the very bottom
+   (no empty strip); the top bar keeps clear of the status bar. */
+.mobile-bar { height: calc(var(--mobile-bar-h) + env(safe-area-inset-top, 0px)); padding-top: env(safe-area-inset-top, 0px); }
+.mobile-menu { top: calc(var(--mobile-bar-h) + env(safe-area-inset-top, 0px)); }
+@media (max-width: 899px) {
+  /* Miss P. tile: the boy with the bees sits in the middle */
+  .tile--missp video { object-position: 49% center; }
+}
