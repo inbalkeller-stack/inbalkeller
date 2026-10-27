@@ -21,7 +21,7 @@
   <meta name="twitter:image" content="https://inbalkeller.com/images/share.jpg">
   <meta name="twitter:image:alt" content="Inbal Keller portfolio home page">
   <link rel="preload" href="fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=67">
+  <link rel="stylesheet" href="style.css?v=68">
   <script>
     /* a page that animated its own nav before leaving asks the next page to appear without a second transition */
     window.addEventListener('pagereveal', function (e) {
@@ -70,11 +70,12 @@
   <button class="nav-close" type="button" aria-expanded="true" aria-label="Close the menu"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M15 6l14 14-14 14" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
 
   <main class="content">
+    <div class="dia-desk">
     <div class="dia-anim">
     <img class="block-img" src="images/dia-1.jpg" alt="Hi! Meet Dia, a personal diabetes control dashboard. Dia is an app, created for keeping track of diabetes. PLZ explain: what is diabetes?" width="1972" height="3909" loading="lazy">
-      <video class="dia-anim__v" style="left:23.090%; top:47.529%; width:17.033%; height:15.276%" src="web-videos/dia-app-workout.mp4" autoplay muted loop playsinline aria-label="Dia app screen recording"></video>
-      <video class="dia-anim__v" style="left:41.588%; top:42.578%; width:17.129%; height:15.362%" src="web-videos/dia-app-signup.mp4" autoplay muted loop playsinline aria-label="Dia app screen recording"></video>
-      <video class="dia-anim__v" style="left:60.529%; top:46.912%; width:17.684%; height:15.860%" src="web-videos/dia-app-nudge.mp4" autoplay muted loop playsinline aria-label="Dia app screen recording"></video>
+      <video class="dia-anim__v" style="left:23.090%; top:47.529%; width:17.033%; height:15.276%" data-src="web-videos/dia-app-workout.mp4" muted loop playsinline aria-label="Dia app screen recording"></video>
+      <video class="dia-anim__v" style="left:41.588%; top:42.578%; width:17.129%; height:15.362%" data-src="web-videos/dia-app-signup.mp4" muted loop playsinline aria-label="Dia app screen recording"></video>
+      <video class="dia-anim__v" style="left:60.529%; top:46.912%; width:17.684%; height:15.860%" data-src="web-videos/dia-app-nudge.mp4" muted loop playsinline aria-label="Dia app screen recording"></video>
     </div>
     <img class="block-img" src="images/dia-2.jpg" alt="PLZ explain: what is diabetes? What are the main problems diabeaters face?" width="1972" height="2400" loading="lazy">
     <img class="block-img" src="images/dia-3.jpg" alt="So, what did we do? An app that makes controlling diabetes easier. Why choose Dia?" width="1972" height="2400" loading="lazy">
@@ -83,14 +84,43 @@
     <img class="block-img" src="images/dia-6.jpg" alt="Our main design goal: make it simple and calm the user. Design System: palette and typography" width="1972" height="2400" loading="lazy">
     <div class="dia-anim">
     <img class="block-img" src="images/dia-7.jpg" alt="UI and buttons, sugar level indication avatars, micro animations" width="1972" height="2400" loading="lazy">
-      <video class="dia-anim__v" style="left:33.012%; top:40.667%; width:9.990%; height:14.667%" src="web-videos/dia-insulin-1.mp4" autoplay muted loop playsinline aria-label="Insulin loading animation"></video>
-      <video class="dia-anim__v" style="left:44.270%; top:40.667%; width:9.990%; height:14.667%" src="web-videos/dia-insulin-2.mp4" autoplay muted loop playsinline aria-label="Insulin loading animation"></video>
+      <video class="dia-anim__v" style="left:33.012%; top:40.667%; width:9.990%; height:14.667%" data-src="web-videos/dia-insulin-1.mp4" muted loop playsinline aria-label="Insulin loading animation"></video>
+      <video class="dia-anim__v" style="left:44.270%; top:40.667%; width:9.990%; height:14.667%" data-src="web-videos/dia-insulin-2.mp4" muted loop playsinline aria-label="Insulin loading animation"></video>
     </div>
     <img class="block-img" src="images/dia-8.jpg" alt="Learning from users: we let Rami try Dia, and these were his struggles. We fixed it for Rami." width="1972" height="1590" loading="lazy">
+    </div>
+    <div class="dia-mob">
+      <img class="block-img" src="images/dm/dia-1-1.jpg" alt="Hi! Meet Dia, a personal diabetes control dashboard. Dia is an app, created for keeping track of diabetes. PLZ explain: what is diabetes?" width="1972" height="1634" loading="lazy">
+      <div class="dia-anim">
+        <img class="block-img" src="images/dm/dia-1-2.jpg" alt="" width="1380" height="2275" loading="lazy">
+        <video class="dia-anim__v" style="left:11.543%; top:9.846%; width:24.341%; height:26.246%" data-src="web-videos/dia-app-workout.mp4" muted loop playsinline aria-label="Dia app screen recording"></video>
+        <video class="dia-anim__v" style="left:37.978%; top:1.336%; width:24.478%; height:26.396%" data-src="web-videos/dia-app-signup.mp4" muted loop playsinline aria-label="Dia app screen recording"></video>
+        <video class="dia-anim__v" style="left:65.043%; top:8.782%; width:25.268%; height:27.253%" data-src="web-videos/dia-app-nudge.mp4" muted loop playsinline aria-label="Dia app screen recording"></video>
+      </div>
+      <img class="block-img" src="images/dm/dia-2-1.jpg" alt="PLZ explain: what is diabetes? What are the main problems diabeaters face?" width="1380" height="2400" loading="lazy">
+      <img class="block-img" src="images/dm/dia-3-1.jpg" alt="So, what did we do? An app that makes controlling diabetes easier. Why choose Dia?" width="1380" height="1627" loading="lazy">
+      <img class="block-img" src="images/dm/dia-3-2.jpg" alt="" width="1774" height="578" loading="lazy">
+      <img class="block-img" src="images/dm/dia-3-3.jpg" alt="" width="1380" height="195" loading="lazy">
+      <img class="block-img" src="images/dm/dia-4-1.jpg" alt="Personas: Rami and Adam" width="1578" height="669" loading="lazy">
+      <img class="block-img" src="images/dm/dia-4-2.jpg" alt="" width="1380" height="209" loading="lazy">
+      <img class="block-img" src="images/dm/dia-4-3.jpg" alt="" width="1972" height="1522" loading="lazy">
+      <img class="block-img" src="images/dm/dia-5-1.jpg" alt="UX: wireframes and user flow" width="1774" height="1256" loading="lazy">
+      <img class="block-img" src="images/dm/dia-5-2.jpg" alt="" width="1380" height="1144" loading="lazy">
+      <img class="block-img" src="images/dm/dia-6-1.jpg" alt="Our main design goal: make it simple and calm the user. Design System: palette and typography" width="1380" height="1783" loading="lazy">
+      <img class="block-img" src="images/dm/dia-6-2.jpg" alt="" width="1774" height="617" loading="lazy">
+      <div class="dia-anim">
+        <img class="block-img" src="images/dm/dia-7-1.jpg" alt="UI and buttons, sugar level indication avatars, micro animations" width="1774" height="1596" loading="lazy">
+        <video class="dia-anim__v" style="left:31.116%; top:61.153%; width:11.105%; height:22.055%" data-src="web-videos/dia-insulin-1.mp4" muted loop playsinline aria-label="Insulin loading animation"></video>
+        <video class="dia-anim__v" style="left:43.630%; top:61.153%; width:11.105%; height:22.055%" data-src="web-videos/dia-insulin-2.mp4" muted loop playsinline aria-label="Insulin loading animation"></video>
+      </div>
+      <img class="block-img" src="images/dm/dia-7-2.jpg" alt="" width="1380" height="804" loading="lazy">
+      <img class="block-img" src="images/dm/dia-8-1.jpg" alt="Learning from users: we let Rami try Dia, and these were his struggles. We fixed it for Rami." width="1578" height="765" loading="lazy">
+      <img class="block-img" src="images/dm/dia-8-2.jpg" alt="" width="1380" height="825" loading="lazy">
+    </div>
     <a class="cta cta--sticky" href="https://www.figma.com/proto/93YAOm9JhSEP0Y9UNeOsVW/spare?node-id=1-1537&p=f&m=draw&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A1544&page-id=0%3A1&t=neK9enmEMz6qvxAW-1" target="_blank" rel="noopener" style="--cta-fg: #F0DDFF; --cta-h: 134">Skip To Prototype</a>
   </main>
 </div>
 
-<script src="script.js?v=27"></script>
+<script src="script.js?v=28"></script>
 </body>
 </html>

@@ -331,3 +331,43 @@
     });
   });
 })();
+
+/* Home on phones: first tap on a project tile shows its hover look, second tap opens it */
+(function () {
+  var tiles = document.querySelectorAll('.tile');
+  if (!tiles.length) return;
+  var phone = window.matchMedia('(max-width: 899px), (hover: none)');
+  tiles.forEach(function (tile) {
+    tile.addEventListener('click', function (e) {
+      if (!phone.matches || tile.classList.contains('is-tapped')) return;
+      e.preventDefault();
+      tiles.forEach(function (t) { t.classList.remove('is-tapped'); });
+      tile.classList.add('is-tapped');
+    });
+  });
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.tile')) tiles.forEach(function (t) { t.classList.remove('is-tapped'); });
+  });
+})();
+
+/* Dia: the page has a desktop and a phone version of the images.
+   Only the videos of the version on screen are loaded and played. */
+(function () {
+  var all = document.querySelectorAll('.dia-desk video[data-src], .dia-mob video[data-src]');
+  if (!all.length) return;
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      var v = e.target;
+      if (e.isIntersecting && v.getAttribute('src')) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    });
+  }, { threshold: 0.1 }) : null;
+  function sync() {
+    all.forEach(function (v) {
+      var shown = getComputedStyle(v.closest('.dia-desk, .dia-mob')).display !== 'none';
+      if (shown && !v.getAttribute('src')) { v.src = v.dataset.src; v.muted = true; if (io) io.observe(v); else v.play(); }
+      else if (!shown && v.getAttribute('src')) { v.pause(); if (io) io.unobserve(v); v.removeAttribute('src'); v.load(); }
+    });
+  }
+  sync();
+  window.matchMedia('(max-width: 899px)').addEventListener('change', sync);
+})();

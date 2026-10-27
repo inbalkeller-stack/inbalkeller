@@ -311,11 +311,8 @@ body.menu-open { overflow: hidden; }
 }
 .tile:hover::after, .tile:focus-visible::after,
 .tile:hover .tile__label, .tile:focus-visible .tile__label { opacity: 1; }
-@media (max-width: 899px) {
-  /* phones have no hover: keep the label visible on a light band */
-  .tile__label { opacity: 1; }
-  .tile::after { opacity: 1; }
-}
+/* phones: the first tap shows the hover look (class added in script.js), the second tap opens the project */
+.tile.is-tapped::after, .tile.is-tapped .tile__label { opacity: 1; }
 .tile--neighborhology { aspect-ratio: 437 / 519; }
 .tile--missp          { aspect-ratio: 671 / 519; }
 .tile--kabai          { aspect-ratio: 641 / 461; }
@@ -808,4 +805,33 @@ html.lb-open, html.lb-open body { overflow: hidden; }
   .layout:not(.no-anim):not(.nav-pre-in) .sidebar,
   .layout:not(.no-anim):not(.nav-pre-in) .nav-close { transition: transform 0.46s cubic-bezier(0.65, 0, 0.35, 1) !important; }
   .layout.no-anim .sidebar, .layout.no-anim .nav-close, .layout.no-anim .content { transition: none !important; }
+}
+
+/* ---------- Home on phones: the four projects as a 2 x 2 grid (Figma "home mobile") ----------
+   Neighborhology | Kabai
+   Miss P.        | Dia            */
+@media (max-width: 899px) {
+  .tiles { display: grid; grid-template-columns: 1fr 1fr; }
+  .tiles__row { display: contents; }
+  .tile, .tile--neighborhology, .tile--missp, .tile--kabai, .tile--dia { aspect-ratio: 3 / 4; }
+  .tile--neighborhology { order: 1; }
+  .tile--kabai          { order: 2; }
+  .tile--missp          { order: 3; }
+  .tile--dia            { order: 4; }
+  .tile__label { padding: 0 10px; font-size: 14px; line-height: 1.35; }
+  /* one thin line between tiles, never doubled */
+  .tile::before, .tiles__row--top .tile::before, .tiles__row--top .tile:first-child::before {
+    border: 0; border-bottom: 1px solid var(--blue);
+  }
+  .tile--neighborhology::before, .tile--missp::before { border-right: 1px solid var(--blue) !important; }
+}
+@media (max-width: 899px) {
+  .tile--kabai > video { width: auto !important; height: 100% !important; left: 50%; top: 0; transform: translateX(-50%); }
+}
+
+/* Dia: desktop images on wide screens, the cropped (bigger text) versions on phones */
+.dia-mob { display: none; }
+@media (max-width: 899px) {
+  .dia-desk { display: none; }
+  .dia-mob { display: block; }
 }
