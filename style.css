@@ -860,3 +860,18 @@ html.lb-open, html.lb-open body { overflow: hidden; }
 
 /* Home on phones: thin blue line under the ceramic video too */
 @media (max-width: 899px) { .side__video { border-bottom: 1px solid var(--blue); } }
+
+/* ---------- Dia on phones: real text in the Dia font ----------
+   Headlines 34px (42dot Sans ExtraBold), running text 18px (Light / Bold), colour from Figma. */
+@font-face { font-family: "42dot Sans"; font-weight: 300 800; font-style: normal; font-display: swap; src: url("fonts/42dot-sans-latin-wght-normal.woff2") format("woff2"); }
+.dia-mob { background: #F9F6FE; color: #8365AE; font-family: "42dot Sans", var(--font); }
+.dia-mob .dm-h { margin: 0; padding: 8px 24px 12px; font-size: 34px; line-height: 1.12; font-weight: 800; text-align: center; letter-spacing: 0; text-transform: none; font-style: normal; }
+.dia-mob .dm-p { margin: 0; padding: 0 24px 16px; font-size: 18px; line-height: 1.3; font-weight: 300; text-align: center; }
+.dia-mob .dm-p b, .dia-mob li b { font-weight: 700; }
+.dia-mob .dm-p--list { padding-bottom: 10px; }
+.dia-mob .dm-bullets { list-style: none; margin: 0; padding: 16px 24px 8px; display: grid; gap: 22px; }
+.dia-mob .dm-bullets li { display: grid; grid-template-columns: 24px 1fr; gap: 16px; align-items: start; font-size: 18px; line-height: 1.3; font-weight: 300; }
+.dia-mob .dm-bullets__icon { width: 24px; height: auto; margin-top: 1px; }
+.dia-mob .dm-persona { padding: 16px 24px 24px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.dia-mob .dm-persona__img { width: 62%; max-width: 260px; height: auto; }
+.dia-mob .dm-persona__txt { padding: 0; text-align: left; align-self: stretch; }
