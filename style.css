@@ -844,3 +844,13 @@ html.lb-open, html.lb-open body { overflow: hidden; }
   /* Miss P. tile: the boy with the bees sits in the middle */
   .tile--missp video { object-position: 49% center; }
 }
+
+/* Phones: when the menu is open, the X sits at the bottom centre so the thumb reaches it easily */
+.menu-toggle::before { content: ""; position: absolute; inset: -14px; }
+@media (max-width: 899px) {
+  .menu-toggle[aria-expanded="true"] {
+    position: fixed; z-index: 101;
+    left: 50%; bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+    margin-left: -16px;
+  }
+}
