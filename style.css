@@ -877,3 +877,15 @@ html.lb-open, html.lb-open body { overflow: hidden; }
 .dia-mob .dm-persona__txt { padding: 0; text-align: left; align-self: stretch; }
 /* the pressed look appears at once under the finger */
 .tile.is-tapped::after, .tile.is-tapped .tile__label { transition-duration: 0.08s; }
+
+/* ---------- About on phones: the same photo scroll as on the computer ----------
+   Each photo scrolls up, sticks under the top bar, and the next one slides over it.
+   Positions are px of a 390px-wide phone, scaled with the screen (--mu). */
+@media (max-width: 899px) {
+  .about { --mu: calc(100vw / 390); display: block; position: relative; padding: 0;
+    height: max(calc(var(--mu) * 1700), calc(var(--mu) * 1248 + 100vh)); }
+  .about-girl { position: absolute; left: calc(var(--mu) * 16); top: calc(var(--mu) * 24); width: calc(var(--mu) * 88); }
+  .about .ph { position: absolute; top: calc(var(--mu) * var(--mtop)); bottom: 0;
+    left: calc(var(--mu) * var(--mleft)); width: calc(var(--mu) * 256); }
+  .about .ph img { position: sticky; top: calc(var(--mobile-bar-h) + env(safe-area-inset-top, 0px) + 12px); width: 100%; height: auto; }
+}
