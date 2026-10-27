@@ -857,3 +857,6 @@ html.lb-open, html.lb-open body { overflow: hidden; }
 
 /* Phone menu: project names with their subtitle may wrap to two lines; give them room */
 .mobile-menu .nav-item { height: auto; min-height: var(--nav-sub-h); padding-top: 8px; padding-bottom: 8px; }
+
+/* Home on phones: thin blue line under the ceramic video too */
+@media (max-width: 899px) { .side__video { border-bottom: 1px solid var(--blue); } }
